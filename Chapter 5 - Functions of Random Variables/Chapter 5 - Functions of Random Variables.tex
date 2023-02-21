@@ -1,0 +1,726 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{setspace}
+\setstretch{0.5}
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\newcommand*{\simsym}{\mathord\sim}\usepackage{amsthm}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{wrapfig, lipsum, amsthm, thmtools}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=15mm,
+ right = 15mm,
+ top=15mm,
+ bottom = 20mm
+ }
+
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+\usepackage[framemethod=tikz]{mdframed}
+
+\theoremstyle{definition}
+\newtheorem*{exmp*}{Example}
+
+\newtheorem*{defn}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn}
+
+\newtheorem{cor}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor}
+
+\newtheorem{prop}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop}
+
+\newtheorem*{thm}{Theorem}
+\surroundwithmdframed[backgroundcolor=white]{thm}
+
+
+% tikz for probability tree
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{trees,calc,angles,positioning,intersections}
+
+% pgfplot
+
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% quotations dirty talk
+\usepackage{dirtytalk}
+
+% floor ceiling
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\title{Introductory Probability and Statistical Applications, Second Edition \\
+\large{Paul L. Meyer}}
+\author{Notes and Solutions by David A. Lee \\ }
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section*{Solutions to Chapter 5: Functions of Random Variables}
+
+\begin{enumerate}[label=5.\arabic*]
+\itemsep0em 
+%Question 5.1
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X}$ is uniformly distributed over $\bm{(-1,1)}$. Let $\bm{Y = 4 - X^2}$. Find the pdf of $\bm{Y}$, say $\bm{g(y)}$, and sketch it. Also verify that $\bm{g(y)}$ is a pdf.}
+\end{tcolorbox}
+
+By uniform distribution, the pdf of $X$ is $f(x) = 1/2, -1 < x < 1$. The task is to now find a corresponding pdf for $Y$. Given $Y = H(X) = 4 - x^2$, we can derive the cdf of $Y$, namely
+
+\begin{align*}
+G(y) = P(Y \leq y) &= P(4 - X^2 \leq y) \\
+&= P(X \leq -\sqrt{4-y}, \sqrt{4-y} \leq x) \\
+&= 1 - P(-\sqrt{4-y} \leq x \leq \sqrt{4-y}) \\
+&= 1 - \int^{\sqrt{4-y}}_{-\sqrt{4-y}} \frac{1}{2} dx = \Big( 1 - \frac{x}{2} \Big)^{\sqrt{4-y}}_{-\sqrt{4-y}} \\
+&= -\frac{\sqrt{4-y}}{2} - \frac{\sqrt{4-y}}{2} = -\sqrt{4-y}
+\end{align*}
+
+We derive the pdf of $Y$ by differentiating the cdf $G(y)$:
+
+\[ G'(y) = g(y) = \frac{1}{2} (4-y)^{-1/2} = \boxed{ \frac{1}{2 \sqrt{4-y}} } \]
+
+Which is distributed over $3 < y < 4$, since $X$ is distributed over $-1 < x < 1$, which maps to $3 < y < 4$ under $H(x)$. To verify $g(y)$ is indeed a pdf, it is clear that $g(y) \geq 0$ for the given domain. All that remains to ascertain is whether $\int^4_3 \frac{1}{2 \sqrt{4-y}} dy = 1$. Integrate by $u$-substitution: let $u = 4 - y$, $du = -1 \cdot dy$. Then
+
+\begin{align*}
+-\frac{1}{2} \int^{u = 0 (y = 4)}_{u = 1 (y = 3)} \frac{1}{\sqrt{u}} du = -\sqrt{u} \Big|^0_1 = \boxed{1}
+\end{align*}
+
+	\begin{center}
+	\begin{tikzpicture}[scale=0.75]
+	\begin{axis}[
+    		axis lines = left,
+		xmax=4,
+		xmin=3,
+		ymax=4,
+		ymin=0,
+   		 xlabel = \( y \),
+   		 ylabel = {\( g(y) \)},
+		 xtick={3,4},
+    		 xticklabels={$3$,$4$},
+		 ytick={0,4},
+		 yticklabels={0,4},
+		]
+	\addplot[samples=500,domain=3:4, color=red]{1/(2*sqrt(4-x))};
+	\end{axis}
+	\end{tikzpicture}
+	\end{center}
+
+%Question 5.2
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X}$ is uniformly distributed over $\bm{(1,3)}$. Obtain the pdf of the following random variables:}
+\end{tcolorbox}
+
+By uniform distribution, the pdf $f(x) = 1/2, 1 < x < 3$.
+
+	\begin{enumerate}
+	%Question 5.2(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Y = 3X + 4}$}
+	\end{tcolorbox}
+	
+	Finding the cdf of $Y$, we get
+	
+	\begin{align*}
+	G(y) = P(Y \leq y) &= P(3X + 4 \leq y) \\
+	&= P\Big(X \leq \frac{y-4}{3} \Big) \\
+	&= \int^{\frac{y-4}{3}}_1 \frac{1}{2} dx = \frac{x}{2} \Big|^\frac{y-4}{3}_1 \\
+	&= \frac{y-4}{6} - \frac{1}{2} = \frac{y-7}{6} \\
+	\end{align*}
+	
+	Differentiating with respect to $y$, we get $G'(y) = g(y) = \boxed{ 1/6 }$. Clearly $g(y)$ is positive. For $Y = 3X + 4$ such that $1 < x < 3$, we can deduce $7 < y < 13$. Then $\int^{13}_7 1/6 \ dy = \boxed{1}$.
+	
+	\begin{center}
+	\begin{tikzpicture}[scale=0.75]
+	\begin{axis}[
+    		axis lines = left,
+		xmax=13,
+		xmin=7,
+		ymax=1,
+		ymin=0,
+   		 xlabel = \( y \),
+   		 ylabel = {\( g(y) \)},
+		 xtick={7,13},
+    		 xticklabels={$7$,$13$},
+		 ytick={0,1},
+		 yticklabels={0,1},
+		]
+	\addplot[samples=500,domain=7:13, color=red]{1/6};
+	\end{axis}
+	\end{tikzpicture}
+	\end{center}
+	
+	%Question 5.2(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Z = e^X}$}
+	\end{tcolorbox}
+	
+	Finding the cdf of $Z$, we get
+	
+	\begin{align*}
+	G(z) = P(Z \leq z) &= P(e^X \leq z) \\
+	&= P(X \leq \ln z) \\
+	&= \int^{\ln z}_1 \frac{1}{2} \ dx = \frac{x}{2} \Big|^{\ln z}_1 \\
+	&= \frac{\ln z}{2} - \frac{1}{2}
+	\end{align*}
+	
+	Observe that since the natural logarithm is a strictly increasing function, the inequality direction is preserved. Therefore, $G'(z) = g(z) = \boxed{1/2z}$. For $Z = e^X, 1 < x < 3$, we get the domain $e < z < e^3$ for $Z = H(X)$. Therefore, $g(z) \geq 0$ across this domain. Moreover, $\frac{1}{2} \int^{e^3}_e \frac{1}{z} \ dz = \frac{1}{2} \ln z |^{e^3}_e = \boxed{1}$. 
+	
+	\begin{center}
+	\begin{tikzpicture}[scale=0.65]
+	\begin{axis}[
+    		axis lines = left,
+		xmax=e^3,
+		xmin=e,
+		ymax=1,
+		ymin=0,
+   		 xlabel = \( z \),
+   		 ylabel = {\( g(z) \)},
+		 xtick={e,e^3},
+    		 xticklabels={$e$,$e^3$},
+		 ytick={0,1},
+		 yticklabels={0,1},
+		]
+	\addplot[samples=500,domain=e:e^3, color=red]{1/(2*x)};
+	\end{axis}
+	\end{tikzpicture}
+	\end{center}
+	
+	\end{enumerate}
+
+%Question 5.3
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the continuous random variable $\bm{X}$ has pdf $\bm{f(x) = e^{-x}, x > 0}$. Find the pdf of the following random variables:}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 5.3(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Y = X^3}$}
+	\end{tcolorbox}
+	
+	The cdf of $Y$ is derived as
+	
+	\begin{align*}
+	G(y) = P(Y \leq y) &= P(X^3 \leq y) \\
+	&= P(X \leq y^{1/3}) \\
+	&= \int^{y^{1/3}}_0 e^{-x} dx = -e^{-x} \Big|^{y^{1/3}}_0 = 1 - e^{-y^{1/3}}
+	\end{align*}
+	
+	The pdf of $Y$ then follows:
+	
+	\[ G'(y) = g(y) = \boxed{ \frac{1}{3} y^{-2/3} e^{-y^{1/3}} } \]
+	
+	For $Y = X^3, x > 0$, it follows that $y > 0$. Therefore, $g(y) \geq 0$ for $y > 0$. Numerically evaluating $\frac{1}{3} \int^{+\infty}_0 y^{-2/3} e^{-y^{1/3}} dy$ gives us $\boxed{1}$.
+	
+	%Question 5.3(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Z = 3 / (X + 1)^2}$}
+	\end{tcolorbox}
+	
+	Here, since $Z = \frac{3}{(X + 1)^2}$ is monotonic over the interval $0 < X < +\infty$, we may apply Theorem 5.1 and find $g(z) = f(x) \big| \frac{dx}{dz} \big|$. The inverse function $X(z)$ has two branches, $X(z) = \sqrt{3/z} - 1$ and $X(z) = - \sqrt{3/z} - 1$. However, because $X$ is distributed over the positive reals, we choose the branch $X(z) = \sqrt{3/z} - 1$, defined on $0 < z < 3$. Then $\frac{dx}{dz} = \frac{1}{2} \big( \frac{3}{z} \big)^{-1/2} \big( -\frac{3}{z^2} \big)$, therefore $\big| \frac{dx}{dz} \big| = \frac{1}{2} \frac{3^{1/2}}{z^{3/2}}$. By Theorem 5.1, $g(z) = \boxed{ \frac{3^{1/2}}{2} e^{-(\sqrt{3/z} - 1)} \frac{1}{z^{3/2}} }$. For $0 < z < 3, g(z) \geq 0$. Moreover, numerical evaluation of $\int^3_0 \frac{3^{1/2}}{2} e^{-(\sqrt{3/z} - 1)} \frac{1}{z^{3/2}} dz$ gives us $\boxed{1}$.
+	\end{enumerate}
+
+%Question 5.4
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the discrete random variable $\bm{X}$ assumes the values 1, 2, and 3 with equal probability. Find the probability distribution of $Y = 2X + 3$.}
+\end{tcolorbox}
+
+Each of the outcomes $X = 1, 2, 3$ has probability $P(X = 1) = P(X = 2) = P(X = 3) = 1/3$.  Therefore, $H(X = 1) = 5, H(X = 2) = 7, H(X = 3) = 9$, and $P(Y = 5) = P(Y = 7) = P(Y = 9) = 1/3$.
+
+%Question 5.5
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X}$ is uniformly distributed over the interval $\bm{(0,1)}$. Find the pdf of the following random variables:}
+\end{tcolorbox}
+
+By uniform distribution, $f(x) = 1$ for $0 < X < 1$.
+
+	\begin{enumerate}
+	%Question 5.5(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Y = X^2 + 1}$}
+	\end{tcolorbox}
+	
+	First we find the cdf of $Y$:
+	
+	\begin{align*}
+	G(y) = P(Y \leq y) &= P(X^2 + 1 \leq y) \\
+	&= P(X^2 \leq y - 1) \\
+	&= P(0 \leq X \leq \sqrt{y-1}) \\
+	&= \int^{\sqrt{y-1}}_0 dx = \sqrt{y-1}
+	\end{align*}
+	
+	Differentiating with respect to $y$ gives us the pdf:
+	
+	\[ G'(y) = g(y) = \boxed{ \frac{1}{2} (y - 1)^{-1/2} } \]
+	
+	First, note that $Y = X^2 + 1, 0 < X < 1$ implies $1 < Y < 2$. Then $g(y) \leq 0$ for $1 < Y < 2$. Secondly, $\int^2_1 \frac{1}{2} (y-1)^{-1/2} dy = (y-1)^{1/2} \big|^2_1 = \boxed{1}$.
+	
+	We may alternatively apply Theorem 5.1 as $Y = X^2 + 1$ is monotonic on the interval $0 < X < 1$. Then $X(y) = \sqrt{y - 1}$ and $\frac{dx}{dy} = \big| \frac{dx}{dy} \big| = \frac{1}{2} (y-1)^{-1/2}$. Therefore $g(y) = \frac{1}{2} (y-1)^{-1/2}$, as expected.
+	
+	%Question 5.5(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Z = 1 / (X + 1)}$}
+	\end{tcolorbox}
+	
+	First we find the cdf of $Z$:
+	
+	\begin{align*}
+	G(z) = P(Z \leq z) &= P \Big( \frac{1}{X + 1} \leq z \Big) \\
+	&= P \Big( \frac{1}{z} - 1 \leq X \leq 1 \Big) \\
+	&= \int^1_{1/z - 1} dx = 1 - (1/z - 1) = 2 - 1/z
+	\end{align*}
+	
+	Then we derive $g(z)$ as follows:
+	
+	\[ G'(z) = g(z) = \boxed{1 / z^2} \]
+	
+	Note that $Z = 1 / (X + 1)$ over $0 < X < 1$ implies $1/2 < Z < 1$. Then $g(z) \geq 0$ over $1/2 < Z < 1$. Moreover, $G(1) - G(1/2) = \boxed{1}$.
+	
+	Alternatively, we can apply Theorem 5.1 because $Z = 1 / (X + 1)$ is monotonic over $1/2 < Z < 1$. Then $X(z) = 1/z - 1$ and $\frac{dx}{dz} = -1/z^2$, then $\big| \frac{dx}{dz} \big| = 1/z^2$. Therefore $g(z) = 1/z^2$, as expected.
+	
+	\end{enumerate}
+
+%Question 5.6
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X}$ is uniformly distributed over the interval $\bm{(-1,1)}$. Find the pdf of the following random variables:}
+\end{tcolorbox}
+
+By uniform distribution, $f(x) = \frac{1}{1 - (-1)} = 1/2$ for $-1 < X < 1$.
+
+	\begin{enumerate}
+	%Question 5.6(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Y = \sin (\pi X / 2)}$}
+	\end{tcolorbox}
+	
+	We first derive the cdf of $Y$. Here, note that the inverse sine function is increasing over the given interval:
+	
+	\begin{align*}
+	G(y) = P(Y \leq y) &= P(\sin (\pi X / 2) \leq y) \\
+	&= P(X \leq (2 / \pi) \sin^{-1} (y)) \\
+	&= \int^{(2 / \pi) \sin^{-1} (y)}_{-1} \frac{1}{2} \ dx = \frac{1}{\pi} \sin^{-1} (y) + \frac{1}{2}
+	\end{align*}
+	
+	And now we derive the pdf of $Y$ by differentiating $G(y)$ with respect to $y$. But first we must determine the derivative of the inverse sine function.
+	
+	\begin{thm}
+	\[ \frac{d}{dx} \sin^{-1} (x) = \frac{1}{\sqrt{1 - x^2}} \]
+	\end{thm}
+	
+	\begin{proof}
+	First observe that $\sin( \sin^{-1} (x)) = x$. Then $\frac{d}{dx} \sin( \sin^{-1} (x)) = \frac{d}{dx} x$, and it immediately follows that $\cos (\sin^{-1} (x)) \frac{d}{dx} \sin^{-1} (x) = 1 \implies \frac{d}{dx} \sin^{-1} (x) = \frac{1}{\cos( \sin^{-1} (x))}$. Now, using the fact that $\sin^2 y + \cos^2 y = 1$, and from that deriving $\cos y = \sqrt{1 - \sin^2 y}$, we can write $\cos (\sin^{-1} (x)) = \sqrt{1 - \sin^2 (\sin^{-1} (x))} = \sqrt{1 - x^2}$ by virtue of inverses. Therefore, $\frac{d}{dx} \sin^{-1} (x) = \frac{1}{\sqrt{1 - x^2}}$.  
+	\end{proof}
+	
+	Proceeding, we derive:
+	
+	\[ G'(y) = g(y) = \frac{d}{dy} \Big( \frac{1}{\pi} \sin^{-1} (y) + \frac{1}{2} \Big) = \boxed{\frac{1}{\pi} \frac{1}{\sqrt{1 - y^2}} } \]
+	
+	For $Y = \sin(\pi X / 2)$ on $-1 < X < 1$, it follows that $-1 < Y < 1$. Then $g(y) \geq 0$ for $-1 < Y < 1$. Additionally, $\int^1_{-1} \frac{1}{\pi} \frac{1}{\sqrt{1 - y^2}} dy = \boxed{1}$, confirming $g(y)$ is a pdf.
+	
+	Alternatively, because $Y = \sin(\pi X / 2), -1 < X < 1$ is monotonic, we may apply Theorem 5.1. Finding $X = (2 / \pi) \sin^{-1} (y)$ as before, it follows that $\frac{dx}{dy} = |\frac{dx}{dy}| = \frac{2}{\pi \sqrt{1 - y^2}}$, and $g(y) = \frac{1}{2} \cdot \frac{2}{\pi \sqrt{1 - y^2}} = \frac{1}{\pi \sqrt{1-y^2}}$, as expected.
+	
+	%Question 5.6(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{Y = \cos (\pi X / 2)}$}
+	\end{tcolorbox}
+	
+	First we derive the cdf of $Z$. Here, note that the inverse cosine function is strictly decreasing on the given interval:
+	
+	\begin{align*}
+	G(z) = P(Z \leq z) &= P(\cos (\pi X / 2) \leq z) \\
+	&= P \Big(X \geq \frac{2}{\pi} \cos^{-1} (z), X \leq -\frac{2}{\pi} \cos^{-1} (z) \Big) \\
+	&= \int^{-\frac{2}{\pi} \cos^{-1} (z)}_{-1} \frac{1}{2} \ dx + \int^1_{\frac{2}{\pi} \cos^{-1} (z)} \frac{1}{2} \ dx \\
+	&= -\frac{1}{\pi} \cos^{-1} (z) + \frac{1}{2} - \frac{1}{\pi} \cos^{-1} (z) + \frac{1}{2} \\
+	&= -\frac{2}{\pi} \cos^{-1} (z) + 1
+	\end{align*}
+	
+	Analogously, we must determine the derivative of the inverse cosine function before proceeding.
+	
+	\begin{thm}
+	\[ \frac{d}{dx} \cos^{-1}(x) = - \frac{1}{\sqrt{1 - x^2}} \]
+	\end{thm}
+	
+	\begin{proof}
+	Since $\cos (\cos^{-1} (x)) = x$, it follows that $\frac{d}{dx} \cos (\cos^{-1} (x)) = \frac{d}{dx} x$, implying $-\sin( \cos^{-1} (x)) \frac{d}{dx} \cos^{-1} (x) = 1$. Then $\frac{d}{dx} \cos^{-1}(x) = -\frac{1}{\sin(\cos^{-1} (x))}$. Since $\sin^2 y + \cos^2 y = 1$ implies $\sin y = \sqrt{1 - \cos^2 y}$, we have $\frac{d}{dx} \cos^{-1}(x) = -\frac{1}{\sqrt{1 - \cos^2 (\cos^{-1} (x))}} = -\frac{1}{\sqrt{1-x^2}}$.
+	\end{proof}
+	
+	Differentiating $G(z)$ with respect to $z$ yields the pdf of $Z$:
+	
+	\[ G'(z) = g(z) = \frac{d}{dz} \Big( -\frac{2}{\pi} \cos^{-1} (z) + 1 \Big) = \boxed{\frac{2}{\pi} \frac{1}{\sqrt{1 - z^2}}} \]
+	
+	For $Z = \cos(\pi X / 2)$ on $-1 < X < 1$, the distribution of $Z$ is over $0 < Z < 1$. Then $g(z) \geq 0$ on that interval. Moreover, $\int^1_0 \frac{2}{\pi} \frac{1}{\sqrt{1 - z^2}} \ dz = \boxed{1}$, ascertaining $g(z)$ is a pdf.
+	
+	Because $Z = \cos(\pi X / 2)$ is not monotonic over $-1 < X < 1$, we cannot apply Theorem 5.1 to derive the pdf of $Z$.
+	
+	%Question 5.6(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{W = |X|} $}
+	\end{tcolorbox}
+	
+	In particular, $W$ is defined as:
+	
+	\[ W = \begin{cases} 
+	X, & 0 \leq X < 1 \\
+	-X, & -1 < X < 0
+	\end{cases}\]
+	
+	Beginning with the derivation of the cdf of $W$:
+	
+	\begin{align*}
+	G(w) = P(W \leq w) &= P(|X| \leq w) \\
+	&= P(X \leq w, -w \leq X) \\
+	&= \int^w_0 \frac{1}{2} \ dx + \int^0_{-w} \frac{1}{2} \ dx \\
+	&= \frac{w}{2} + \frac{w}{2} = w
+	\end{align*}
+	
+	Differentiating with respect to $w$ yields $G'(w) = g(w) = \boxed{1}$. Since $W = |X|, -1 < X < 1$ implies $0 < W < 1$, clearly $g(w) \geq 0$ on that interval. Moreover, $\int^1_0 w \ dw = \boxed{1}$, confirming $g(w)$ is a pdf.
+	
+	\end{enumerate}
+
+%Question 5.7
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the radius of a sphere is a continuous random variable. (Due to inaccuracies of the manufacturing process, the radii of different spheres may be different.) Suppose that the radius $\bm{R}$ has pdf $\bm{f(r) = 6r(1-r), 0 < r < 1}$. Find the pdf of the volume $\bm{V}$ and the surface area $\bm{S}$ of the sphere.}
+\end{tcolorbox}
+
+\textbf{Volume.} The volume of a sphere is $V(r) = \frac{4}{3} \pi r^3$. First finding the cdf of the volume $v$:
+
+\begin{align*}
+G(v) = P(V \leq v) &= P \Big( \frac{4}{3} \pi r^3 \leq v \Big) \\
+&= P \Big( r \leq \Big( \frac{3}{4 \pi} v \Big)^{1/3} \Big) \\
+&= \int^{(\frac{3}{4 \pi} v)^{1/3}}_0 6r(1 - r) \ dr = 3r^2 - 2r^3 \Big|^{(\frac{3}{4 \pi} v)^{1/3}}_0 \\
+&= 3 \Big( \frac{3}{4 \pi} v \Big)^{2/3} - \frac{3}{2 \pi} v 
+\end{align*}
+
+Differentiating with respect to $v$ gives us the pdf of $V$:
+
+\begin{align*}
+G'(v) = g(v) &= 2 \Big( \frac{3}{4 \pi} v \Big)^{-1/3} \Big( \frac{3}{4 \pi} \Big) - \frac{3}{2 \pi} \\
+&= \boxed{\frac{3}{2 \pi} \Big( \Big( \frac{3}{4 \pi} v \Big)^{-1/3} - 1 \Big)}
+\end{align*}
+
+For $V(r) = \frac{4}{3} \pi r^3$ on $0 < r < 1$, we have $0 < V < \frac{4}{3} \pi$. It follows that $g(v) \geq 0$ on this interval, and $\int^{\frac{4}{3} \pi}_0 \frac{3}{2 \pi} \Big( \Big( \frac{3}{4 \pi} v \Big)^{-1/3} - 1 \Big) \ dv = \boxed{1}$, ascertaining that $g(v)$ is a pdf.
+
+\textbf{Surface Area.} The surface area of a sphere is given by $A(r) = 4 \pi r^2$. First deriving the cdf of $A$:
+
+\begin{align*}
+G(a) = P(A \leq a) &= P(4 \pi r^2 \leq a) \\
+&= P\Big( r \leq \Big( \frac{1}{4 \pi} a \Big)^{1/2} \Big) \\
+&= \int^{(\frac{1}{4 \pi} a)^{1/2}}_0 6r(1 - r) \ dr = 3r^2 - 2r^3 \Big|^{(\frac{1}{4\pi} a)^{1/2}}_0 \\
+&= 3 \Big( \frac{1}{4 \pi} a \Big) - 2 \Big( \frac{1}{4 \pi} a \Big)^{3/2}
+\end{align*}
+
+And now differentiating with respect to $a$ to find the pdf of $A$:
+
+\begin{align*}
+G'(a) = g(a) &= \frac{3}{4 \pi} - 3 \Big( \frac{1}{4 \pi} a \Big)^{1/2} \Big( \frac{1}{4 \pi} \Big) \\
+&= \boxed{ \frac{3}{4 \pi} \Big( 1 - \Big( \frac{1}{4 \pi} a \Big)^{1/2} \Big) }
+\end{align*}
+
+For $A(r) = 4 \pi r^2$ over $0 < r < 1$, we have $0 < A(r) < 4 \pi$. Then $g(a) \geq 0$ over this interval, and $\int^{4\pi}_0 \frac{3}{4 \pi} \Big( 1 - \Big( \frac{1}{4 \pi} a \Big)^{1/2} \Big) \ da = \boxed{1}$, ascertaining that $g(a)$ is a pdf.
+
+%Question 5.8
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A fluctuating electric current $\bm{I}$ may be considered as a uniformly distributed random variable over the interval $\bm{(9, 11)}$. If this current flows through a 2-ohm resistor, find the pdf of the power $\bm{P = 2 I^2}$.}
+\end{tcolorbox}
+
+By uniform distribution, $f(i) = \frac{1}{11 - 9} = \frac{1}{2}, 9 < I < 11$, where $I$ is the random variable for current and $i$ a specific outcome of current. Let $P^*$ be the random variable for power and $p^*$ be a specific outcome of power. Deriving the cdf of $P^*$ gives us:
+
+\begin{align*}
+G(p^*) = P(P^* \leq p^*) &= P(2 I^2 \leq p^*) \\
+&= P \Big(I \leq \Big( \frac{p^*}{2} \Big)^{1/2} \Big) \\
+&= \int^{( \frac{p^*}{2} )^{1/2}}_9 \frac{1}{2} \ di = \frac{i}{2} \Big|^{(\frac{p^*}{2} )^{1/2}}_9 \\
+&= \frac{1}{2} \Big( \Big( \frac{p^*}{2} \Big)^{1/2} - 9 \Big)
+\end{align*}
+
+Deriving the pdf of $P^*$:
+
+\begin{align*}
+G'(p^*) = g(p^*) &= \frac{1}{2} \Big( \frac{1}{2} \Big( \frac{p^*}{2}^{-1/2} \Big( \frac{1}{2} \Big) \Big) \\
+&= \frac{1}{8} \Big( \frac{p^*}{2} \Big)^{-1/2} = \boxed{\frac{1}{8} \Big( \frac{2}{p^*} \Big)^{1/2}}
+\end{align*}
+
+For $P^* = 2I^2, 9 < I < 11$, we have $162 < P^* < 242$. Then $g(p^*) \geq 0$ and $\int^{242}_{162} \frac{1}{8} \Big( \frac{2}{p^*} \Big)^{1/2} \ dx = \boxed{1}$, ascertaining that $g(p^*)$ is a pdf.
+
+%Question 5.9
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{The speed of a molecule in a uniform gas at equilibrium is a random variable $\bm{V}$ whose pdf is given by $\bm{f(v) = av^2 e^{-bv^2}, v > 0}$, where $\bm{b = m / 2kT}$ and $\bm{k, T}$, and $\bm{m}$ denote Boltzmann's constant, the absolute temperature, and the mass of the molecule, respectively.}
+\end{tcolorbox}
+	
+	\begin{enumerate}
+	%Question 5.9(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Evaluate the constant $\bm{a}$ (in terms of $\bm{b}$).}
+	\end{tcolorbox}
+	
+	We proceed by integration by parts. Let $u = v, du = dv, dw = ave^{-bv^2} dv,$ and $w = -\frac{a}{2b} e^{-bv^2}$. Then
+	
+	\begin{align*}
+	\int^{+\infty}_0 av^2 e^{-bv^2} \ dv &= - \frac{a}{2b} ve^{-bv^2} \Big|^{+\infty}_0 + \frac{a}{2b} \int^{+\infty}_0 e^{-bv^2} \ dv \\
+	&= \frac{a}{2b} \frac{1}{2} \sqrt{ \frac{\pi}{b} } = 1 \\
+	&\implies \boxed{a = \frac{4b^{3/2}}{\sqrt{\pi}}}
+	\end{align*}
+	
+	%Question 5.9(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Derive the distribution of the random variable $\bm{W = mv^2 / 2}$, which represents the kinetic energy of the molecule.}
+	\end{tcolorbox}
+	
+	Without needing to deal with error functions, because $W = mv^2 / 2$ is monotonic for $v > 0$, we may make use of Theorem 5.1. Then $V = \Big( \frac{2 w}{m} \Big)^{1/2}$, and $\frac{dv}{dw} = \Big| \frac{dv}{dw} \Big| = \frac{1}{2} \Big( \frac{2}{m} \Big) \Big( \frac{2w}{m} \Big)^{-1/2}$. With $f(v) = \frac{4b^{3/2}}{\sqrt{\pi}} v^2 e^{-bv^2}$, we can derive the pdf of the kinetic energy $W$:
+	
+	\begin{align*}
+	g(w) &= \frac{4b^{3/2}}{\sqrt{\pi}} \Big( \frac{2w}{m} \Big) e^{-b \Big( \frac{2w}{m} \Big)} \Big( \frac{1}{m} \Big) \Big( \frac{2w}{m} \Big)^{-1/2} \\
+	&= \boxed{ \frac{2}{ (kT)^{3/2} \pi^{1/2}} w^{1/2} e^{-(w / kT)} , W > 0}
+	\end{align*}
+	
+	\end{enumerate}
+	
+%Question 5.10
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A random voltage $\bm{X}$ is uniformly distributed over the interval $\bm{(-k, k)}$. If $\bm{X}$ is the input of a nonlinear device with the characteristics shown in Fig. 5.12, find the probability distribution of $\bm{Y}$ in the following three cases:}
+\end{tcolorbox}
+
+	\begin{center}
+	\begin{tikzpicture}[scale=0.75]
+	\begin{axis}[
+    		axis lines = center,
+		xmax=5,
+		xmin=-5,
+		ymax=4,
+		ymin=0,
+   		 xlabel = \( X \),
+   		 ylabel = {\( Y \)},
+		 xtick={-3,-1,1,3},
+    		 xticklabels={$-x_0$,$-a$,$a$,$x_0$},
+		 ytick={},
+		 yticklabels={},
+		]
+	\addplot[samples=500,domain=3:5, color=black]{2};
+	\addplot[samples=500,domain=-5:-3, color=black]{2};
+	\addplot[samples=500,domain=-3:-1, color=black]{-x-1};
+	\addplot[samples=500,domain=1:3, color=black]{x-1};
+	\end{axis}
+	\end{tikzpicture}
+	\end{center}
+	
+	By uniform distribution, $f(x) = \frac{1}{2k}, -k < X < k$.
+
+	\begin{enumerate}
+	%Question 5.10(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{k < a}$}
+	\end{tcolorbox}
+	
+	Since the event that $Y = 0$ is equivalent to the event that $X \in (-k, k)$, we may simply calculate $P(Y = 0) = \int^k_{-k} \frac{1}{2k} \ dx = \boxed{g(0) = 1}$. Therefore, $\boxed{g(y) = 0}, y \neq 0$.
+	
+	%Question 5.10(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{a < k < x_0}$}
+	\end{tcolorbox}
+	
+	Here, we define $Y$ piecemeal as follows:
+	
+	\[ Y = \begin{dcases}
+	-\frac{y_0}{x_0 - a} X - \frac{ay_0}{x_0 - a}, & -k \leq -a \\
+	0, &-a < k < a \\
+	\frac{y_0}{x_0 - a} X - \frac{ay_0}{x_0 - a}, &a \leq k
+	\end{dcases} \]
+	
+	Therefore, we must find the probability distribution function of $Y$ such that
+	
+	\[ P(0 \leq Y \leq y) =  \int^y_0 g(y) \ dy + P(Y = 0) = 1 \]
+	
+	Or equivalently:
+	
+	\[ \int^{y (x = -k)}_{0 (x = -a)} g(y) \ dy + \int^{x = a}_{x = -a} f(x) \ dx + \int^{y (x = k)}_{0 (x = a)} g(y) \ dy = 1 \]
+	
+	First we find $G(y)$ over the $X$ interval $(-k, -a)$:
+	
+	\begin{align*}
+	G(y) = P(Y \leq y) &= P\Big( -\frac{y_0}{x_0 - a} X - \frac{ay_0}{x_0 - a} \leq y \Big) \\
+	&= P \Big( X \geq - \Big( \frac{x_0 - a}{y_0} \Big) \Big( y + \frac{ay_0}{x_0 - a} \Big) \Big) \\
+	&= \int^{-a}_{-(\frac{x_0 - a}{y_0}) y - a} \frac{1}{2k} \ dx = -\frac{a}{2k} + \frac{(x_0 - a)y}{2ky_0} + \frac{a}{2k} = \frac{(x_0 - a)y}{2ky_0}
+	\end{align*}
+	
+	Then $G'(y) = g(y) = \boxed{\frac{x_0 - a}{2ky_0}, 0 < y < \frac{y_0 (k - a)}{x_0 - a}}$.
+	
+	Next we find $G(y)$ over the $X$ interval $(-a, a)$. Because $Y = 0$ over this interval, we may interpret the events $Y = 0$ and $X \in (-a,a)$ to be equivalent. Then we may simply write
+	
+	\[ P(Y = 0) = \int^a_{-a} \frac{1}{2k} \ dx = \frac{a}{2k} + \frac{a}{2k} = \boxed{\frac{a}{k}} \]
+	
+	Lastly, we drive $G(y)$ over the $X$ interval $(a, k)$:
+	
+	\begin{align*}
+	G(y) = P(Y \leq y) &= P \Big(\frac{y_0}{x_0 - a} X - \frac{ay_0}{x_0 - a} \leq y \Big) \\
+	&= P\Big(X \leq \Big( \frac{x_0 - a}{y_0} \Big) y - a \Big) \\
+	&=  \int^{(\frac{x_0 - a}{y_0}) y - a}_a \frac{1}{2k} \ dx = \frac{(x_0 - a) y}{2ky_0} - \frac{a}{k}
+	\end{align*}
+	
+	Then $G'(y) = g(y) = \boxed{ \frac{x_0 - a}{2ky_0} , 0 < y < \frac{y_0 (k - a)}{x_0 - a}}$. Since both events $X \in (-k, -a)$ and $X \in (a, k)$ are equivalent to $Y \in (0, y)$, we need only sum the corresponding probability distribution functions of $Y$ over those respective intervals. In particular, we have:
+	
+	\begin{align*}
+	g(y) = \frac{d}{dy}G(y) &= \frac{d}{dy} \Bigg[ \int^{-a}_{-(\frac{x_0 - a}{y_0}) y - a} \frac{1}{2k} \ dx +  \int^{(\frac{x_0 - a}{y_0}) y - a}_a \frac{1}{2k} \ dx \Bigg] \\
+	&= \frac{x_0 - a}{ky_0}, 0 < y < \frac{y_0 (k - a)}{x_0 - a}
+	\end{align*}
+	
+	Namely, we can conclude that $\boxed{ g(y) = \frac{x_0 - a}{ky_0}, 0 < y < \frac{y_0 (k - a)}{x_0 - a}}$ and $\boxed{g(y) = \frac{a}{k}, y = 0}$.
+	
+	%Question 5.10(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{k > x_0}$}
+	\end{tcolorbox}
+	
+	By part (b), we know the probability distribution functions over the $X$ range spaces $(-a,a), (-x_0, -a)$, and $(a, x_0)$; for the latter two pdfs, the interval over $Y$ for which they are defined is $0 < y < y_0$. All that remains is to determine the probability distribution function of $Y$ for when $y = y_0$. Simply, because $Y$ is a constant value for which the equivalent events are $X \in (-k, -x_0)$ and $X \in (x_0, k)$, we may write
+	
+	\begin{align*}
+	P(Y = y_0) &= \int^k_{x_0} \frac{1}{2k} \ dx + \int^{-x_0}_{-k} \frac{1}{2k} \ dx \\
+	&= \frac{k - x_0}{2k} + \frac{k - x_0}{2k} = \frac{k - x_0}{k} = 1 - x_0 / k
+	\end{align*}
+	
+	Therefore, the probability distribution function here is:
+	
+	\[ g(y) = \begin{dcases} a/k, & y = 0 \\
+	\frac{x_0 - a}{ky_0}, & 0 < y < y_0 \\
+	1 - \frac{x_0}{k}, & y = y_0
+	\end{dcases}
+	\]
+	\end{enumerate}
+
+%Question 5.11
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{The radiant energy (in Btu/hr/ft$\bm{^2}$) is given as the following function of temperature $\bm{T}$ (in degree Fahrenheit): $\bm{E = 0.173 (T / 100)^4}$. Suppose that the temperature $\bm{T}$ is considered to be a continuous random variable with pdf}
+
+\[ f(t) = \begin{cases}  200t^{-2}, & 40 \leq t \leq 50 \\
+0, & \text{elsewhere} 
+\end{cases} \]
+
+\textbf{Find the pdf of the radiant energy $\bm{E}$.}
+\end{tcolorbox}
+
+Let $E$ be the random variable for radiant energy and $e$ a specific outcome of $E$. First we derive the cdf of $E$:
+
+\begin{align*}
+G(e) = P(E \leq e) &= P(0.173 (t / 100)^4 \leq e) \\
+&= P \Big( t \leq 100 \Big( \frac{e}{0.173} \Big)^{1/4} \Big) \\
+&= 200 \int^{100 (\frac{e}{0.173})^{1/4}}_{40} t^{-2} \ dt = - 2 \Big( \frac{e}{0.173} \Big)^{-3/4} + 5
+\end{align*}
+
+Then the pdf of $E$ is:
+
+\begin{align*}
+G'(e) = g(e) &= \frac{1}{2} \Big( \frac{e}{0.173} \Big)^{-3/4} \Big( \frac{1}{0.173} \Big) \\
+&= 2.89 \Big( \frac{e}{0.173} \Big)^{-5/4} = \boxed{0.322 e^{-5/4}, 0.0044 \leq E \leq 0.0108}
+\end{align*}
+
+%Question 5.12
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{To measure air velocities, a tube (known as Pitot static tube) is used which enables one to measure differential pressure. This differential pressure is given by $\bm{P = \frac{1}{2} dV^2}$, where $\bm{d}$ is the density of the air and $\bm{V}$ is the wind speed (mph). If $\bm{V}$ is a random variable uniformly distributed over $\bm{(10,20)}$, find the pdf of $\bm{P}$.}
+\end{tcolorbox}
+
+By uniform distribution, $f(v) = \frac{1}{10}, 10 < X < 20$. We first determine the cdf of $X$:
+
+\begin{align*}
+G(x) = P(X \leq x) &= P \Big( \frac{1}{2} dV^2 \leq x \Big) \\
+&= P \Big( V \leq \Big( \frac{2X}{d} \Big)^{1/2} \Big) \\
+&= \int^{(\frac{2X}{d})^{1/2}}_{10} \frac{1}{10} \ dv = \frac{1}{10} \Big( \frac{2X}{d} \Big)^{1/2} - 1
+\end{align*}
+
+The pdf of $X$ is then:
+
+\begin{align*}
+G'(x) = g(x) = \frac{1}{20} \Big( \frac{2}{d} \Big) \Big( \frac{2X}{d} \Big)^{-1/2} = \boxed{ \frac{1}{10d} \Big( \frac{2X}{d} \Big)^{-1/2}, 50d < X < 200d }
+\end{align*}
+
+Which is clearly positive for $X \in (50d, 200d)$, and it also follows that $\int^{200d}_{50d} \frac{1}{10d} \Big( \frac{2X}{d} \Big)^{-1/2} \ dx = \boxed{1}$.
+
+%Question 5.13
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{P(X \leq 0.29) = 0.75}$, where $\bm{X}$ is a continuous random variable with some distribution defined over $\bm{(0,1)}$. If $\bm{Y = 1 - X}$, determine $\bm{k}$ so that $\bm{P(Y \leq k) = 0.25}$.}
+\end{tcolorbox}
+
+By premise, $P(X \leq 0.29) = \int^{0.29}_0 f(x) \ dx = 0.75$. Since it must be the case that $P(0 \leq X \leq 1) = \int^1_0 f(x) \ dx = 1$, it immediately follows that $\int^1_{0.29} f(x) \ dx = 0.25$. Lastly, in finding the cdf of $Y$, we determine
+
+\begin{align*}
+G(y) = P(Y \leq y) &= P(1 - X \leq y) \\
+&= P(X \geq 1 - y) \\
+&= \int^1_{1-y} f(x) \ dx
+\end{align*}
+
+Now, suppose $y = k$, then $\int^1_{1-y} f(x) \ dx = 0.25$. Therefore, $1 - y = 0.29$ and $\boxed{y = 0.71}$. Observe that determining the pdf of $X$, $f(x)$, was completely unnecessary.
+
+\end{enumerate}
+
+\end{document}
