@@ -1,0 +1,1094 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{setspace}
+\setstretch{0.5}
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\newcommand*{\simsym}{\mathord\sim}\usepackage{amsthm}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{wrapfig, lipsum, amsthm, thmtools}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=15mm,
+ right = 15mm,
+ top=15mm,
+ bottom = 20mm
+ }
+
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+\usepackage[framemethod=tikz]{mdframed}
+
+\theoremstyle{definition}
+\newtheorem*{exmp*}{Example}
+
+\newtheorem*{defn}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn}
+
+\newtheorem{cor}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor}
+
+\newtheorem{prop}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop}
+
+\newtheorem*{thm}{Theorem}
+\surroundwithmdframed[backgroundcolor=white]{thm}
+
+
+% tikz for probability tree
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+% quotations dirty talk
+\usepackage{dirtytalk}
+
+
+\title{Introductory Probability and Statistical Applications, Second Edition \\
+\large{Paul L. Meyer}}
+\author{Notes and Solutions by David A. Lee \\ (Work-in-Progress)}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section*{Solutions to Chapter 3: Conditional Probability and Independence}
+
+3.21(b)-(g), 3.32, 3.37, 3.38, 3.39
+
+\begin{enumerate}[label=3.\arabic*]
+\itemsep0em 
+%Question 3.1
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Urn 1 contains $\bm{x}$ white and $\bm{y}$ red balls. Urn 2 contains $\bm{z}$ white and $\bm{v}$ red balls. A ball is chosen at random from urn 1 and put into urn 2. Then a ball is chosen at random from urn 2. What is the probability that this ball is white?}
+\end{tcolorbox}
+
+Define the following probabilities: $P(U_1, W)$ for selecting white from urn 1, $P(U_1, R)$ for selecting red from urn 1, $P(U_2, W, W)$ for selecting white from urn 2 given that a white ball has been added, $P(U_2, W, R)$ for selecting white from urn 2 given that a red ball has been added, and $P(U_2, W)$ for selecting white from urn 2 (the desired probability). By the Law of Total Probability, 
+
+\[ P(U_2, W) = P(U_1, W) P(U_2, W, W) + P(U_1, R) P(U_2, W, R) \]
+
+The respective probabilities are $P(U_1, W) = \frac{x}{x+y},  P(U_2, W, W) = \frac{z+1}{z+v+1}, P(U_1, R) = \frac{y}{x+y}, P(U_2, W, R) = \frac{z}{z+v+1}$. Therefore,
+
+\begin{align*}
+P(U_2, W) &= \Bigg(  \frac{x}{x+y} \Bigg)  \Bigg( \frac{z+1}{z+v+1} \Bigg) + \Bigg( \frac{y}{x+y} \Bigg) \Bigg( \frac{z}{z+v+1} \Bigg) \\
+&= \boxed{ \frac{x(z+1) + yz}{(x+y) (z+v+1)} }
+\end{align*}
+
+%Question 3.2
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Two defective tubes get mixed up with two good ones. The tubes are tested, one by one, until both defectives are found.}
+\end{tcolorbox}
+
+Here, we need only apply the result of problem 2.21, namely that for $r$ defects in a queue of $n$ items, the probability of finding the last defective item in the $k$-th position is $\binom{k-1}{r-1} / \binom{n}{r}$.
+
+	\begin{enumerate}
+	%Question 3.2(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that the last defective tube is obtained on the second test?}
+	\end{tcolorbox}
+	
+	$\binom{1}{1} / \binom{4}{2} = \boxed{1/6}$
+	
+	%Question 3.2(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that the last defective tube is obtained on the third test?}
+	\end{tcolorbox}
+	
+	$\binom{2}{1} / \binom{4}{2} = \boxed{1/3}$
+	
+	%Question 3.2(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that the last defective tube is obtained on the fourth test?}
+	\end{tcolorbox}
+	
+	$\binom{3}{1} / \binom{4}{2} = \boxed{1/2}$
+	
+	%Question 3.2(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Add the numbers obtained for (a), (b), and (c) above. Is the result surprising?}
+	\end{tcolorbox}
+	
+	$\boxed{1}$. No, by intuitively appealing to each of the outcomes as one partition collectively spanning the whole sample space.
+
+	\end{enumerate}
+
+%Question 3.3
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A box contains 4 bad and 6 good tubes. Two are drawn out together. One of them is tested and found to be good. What is the probability that the other one is also good?}
+\end{tcolorbox}
+
+$P(\text{second tube is good} | \text{first tube is good}) = \boxed{5/9}$
+
+%Question 3.4
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{In the above problem the tubes are checked by drawing a tube at random, testing it and repeating the process until all 4 bad tubes are located. What is the probability that the fourth bad tube will be located}
+\end{tcolorbox}
+
+Here, we need only apply the result of problem 2.21, namely that for $r$ defects in a queue of $n$ items, the probability of finding the last defective item in the $k$-th position is $\binom{k-1}{r-1} / \binom{n}{r}$.
+
+	\begin{enumerate}
+	%Question 3.4(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{on the fifth test?}
+	\end{tcolorbox}
+	
+	$\binom{4}{3} / \binom{10}{4} = \boxed{2/105}$
+	
+	%Question 3.4(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{on the tenth test?}
+	\end{tcolorbox}
+	
+	$\binom{9}{3} / \binom{10}{4} = \boxed{2/5}$
+	
+	\end{enumerate}
+
+%Question 3.5
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{A}$ and $\bm{B}$ are independent events associated with an experiment. If the probability that $\bm{A}$ or $\bm{B}$ occurs equals 0.6, while the probability that $\bm{A}$ occurs equals 0.4, determine the probability that $\bm{B}$ occurs.}
+\end{tcolorbox}
+
+By assumption, independence implies $P(A \cap B) = 0$. Therefore $P(A \cup B) = P(A) + P(B) \implies P(A \cup B) - P(A) = 0.6 - 0.4 = \boxed{P(B) = 0.2}$.
+
+%Question 3.6
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Twenty items, 12 of which are defective and 8 nondefective, are inspected one after the other. If these items are chosen at random, what is the probability that:}
+\end{tcolorbox}
+
+	\begin{enumerate}
+
+	%Question 3.6(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{the first two items inspected are defective?}
+	\end{tcolorbox}
+	
+	The number of arrangements with the first two items fixed as defective over the total number of arrangements of defective and nondefective items, or $\binom{18}{10} / \binom{20}{12} = \boxed{33/95}$. In the alternative, if $A_1 = \text{1st item defective}$ and $A_2 = \text{2nd item defective}$, then $P(A_1 \cap A_2) = P(A_2 | A_1) P(A_1)$, or $(11/19) \cdot (12/20) = \boxed{33/95}$.
+	
+	%Question 3.6(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{the first two items inspected are nondefective?}
+	\end{tcolorbox}
+	
+	$\binom{18}{6} / \binom{20}{12} = \boxed{14/95}$, or $(7/19) \cdot (8/20) = \boxed{14/95}$.
+	
+	%Question 3.6(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{among the first two items inspected there is one defective and one nondefective?}
+	\end{tcolorbox}
+	
+	\textbf{Method 1.} Fixing one of the first two positions as nondefective, he number of combinations to place the remaining 7 nondefective items in the remaining 18 positions is $\binom{18}{7}$. Analogously, the number of combinations to place the remaining 11 defective items in the remaining 18 positions, fixing one in one of the first two positions, is $\binom{18}{11}$. Notice that the 18 in the top of the binomial coefficient is how we properly tabulate that the first two of the twenty positions are fixed, i.e. only 18 positions remain free to be occupied. Summing the combinations and dividing by $\binom{20}{12}$ yields $( \binom{18}{7} + \binom{18}{11} ) / \binom{20}{12} = \boxed{48/95}$. The intuition behind summing the combinations is because the positions of the defective and nondefective items in the first two positions can be flipped -- we do not specify that one or the other necessarily has to be in the first or second position, only that one of each are \textit{among} the first two positions. 
+	
+	\textbf{Method 2.} By the law of total probability, $(8/20) (12/19) + (12/20) (8/19) = \boxed{48/95}$.
+	
+	As expected, because these are partitions of the total sample space, the probabilities sum to $33/95 + 14/95 + 48/95 = 1$.
+	
+	\end{enumerate}
+
+%Question 3.7
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that we have two urns, 1 and 2, each with two drawers. Urn 1 has a gold coin in one drawer and a silver coin in the other drawer, while urn 2 has a gold coin in each drawer. One urn is chosen at random; then a drawer is chosen at random from the chosen urn. The coin found in this drawer turns out to be gold. What is the probability that the coin came from urn 2?}
+\end{tcolorbox}
+
+Apply Bayes' Theorem with probabilities $P(U_2 | G)$ the odds of drawing from urn 2 given finding a gold coin, $P(G | U_1)$ the odds of finding a gold coin given choice of urn 1, $P(G | U_2)$ the odds of finding a gold coin giving choice of urn 2, $P(U_1), P(U_2)$ the odds of selecting urn 1 and urn 2, respectively.
+
+\[ P(U_2 | G) = \frac{P(G | U_2) P(U_2)}{ P(G | U_1) P(U_1) + P(G | U_2) P(U_2)} = \frac{1 \cdot 1/2}{1/2 \cdot 1/2 + 1 \cdot 1/2} = \boxed{2/3} \]
+
+%Question 3.8
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A bag contains three coins, one of which is coined with two heads while the other two coins are normal and not biased. A coin is chosen at random from the bag and tossed four times in succession. If heads turn up each time, what is the probability that this is the two-headed coin?}
+\end{tcolorbox}
+
+The probability in question is $P(HH | \bigcap^4_{i=1} H_i)$, or the odds of the chosen coin being double-heads given flipping heads four times in a row. Define the events $P(\bigcap^4_{i=1} H_i | HH)$ and $P(\bigcap^4_{i=1} H_i | HT)$ as the odds of quadruply flipping heads given the double-heads or fair coin, and $P(HH)$ and $P(HT)$ the odds of choosing the double-heads or fair coin. By Bayes' Theorem:
+
+\begin{align*}
+P\Bigg( HH \Bigg| \bigcap^4_{i=1} H_i \Bigg) &= \frac{ P(\bigcap^4_{i=1} H_i | HH) P(HH) }{ P(\bigcap^4_{i=1} H_i | HH) P(HH) + P(\bigcap^4_{i=1} H_i | HT) P(HT) } \\
+&= \frac{1 \cdot 1/3}{1 \cdot 1/3 + 1/16 \cdot 2/3} = \boxed{8/9}
+\end{align*}
+
+%Question 3.9
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{In a bolt factory, machines $\bm{A, B}$, and $\bm{C}$ manufacture 25, 35, and 40 percent of the total output, respectively. Of their outputs, 5, 4, and 2 percent, respectively, are defective bolts. A bolt is chosen at random and found to be defective. What is the probability that the bolt came from machine $\bm{A}$? $\bm{B}$? $\bm{C}$?}
+\end{tcolorbox}
+
+By Bayes' Theorem:
+
+\textbf{Machine A.}
+
+\begin{align*}
+P(A | \text{def}) &= \frac{ P(\text{def} | A) P(A) }{ P(\text{def} | A) P(A) + P(\text{def} | B) P(B) + P(\text{def} | C) P(C) } \\
+&= \frac{0.05 \cdot 0.25}{ 0.05 \cdot 0.25 + 0.04 \cdot 0.35 + 0.02 \cdot 0.4 } = \boxed{0.362}
+\end{align*}
+
+\textbf{Machine B.}
+
+\begin{align*}
+P(B | \text{def}) &= \frac{ P(\text{def} | B) P(B) }{ P(\text{def} | A) P(A) + P(\text{def} | B) P(B) + P(\text{def} | C) P(C) } \\
+&= \frac{0.04 \cdot 0.35}{ 0.05 \cdot 0.25 + 0.04 \cdot 0.35 + 0.02 \cdot 0.4 } = \boxed{0.406}
+\end{align*}
+
+\textbf{Machine C.}
+
+\begin{align*}
+P(C | \text{def}) &= \frac{ P(\text{def} | C) P(C) }{ P(\text{def} | A) P(A) + P(\text{def} | B) P(B) + P(\text{def} | C) P(C) } \\
+&= \frac{0.02 \cdot 0.4}{ 0.05 \cdot 0.25 + 0.04 \cdot 0.35 + 0.02 \cdot 0.4 } = \boxed{0.232}
+\end{align*}
+
+%Question 3.10
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Let $\bm{A}$ and $\bm{B}$ be two events associated with an experiment. Suppose that $\bm{P(A) = 0.4}$ while $\bm{P(A \cup B) = 0.7}$. Let $\bm{P(B) = p}$.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 3.10(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{For what choice of $\bm{p}$ are $\bm{A}$ and $\bm{B}$ mutually exclusive?}
+	\end{tcolorbox}
+	
+	If $A$ and $B$ are mutually exclusive, then $P(A \cap B) = 0$. Therefore, $P(B) = P(A \cup B) - P(A) = \boxed{0.3}$.
+	
+	%Question 3.10(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{For what choice of $\bm{p}$ are $\bm{A}$ and $\bm{B}$ independent?}
+	\end{tcolorbox}
+	
+	If $A$ and $B$ are independent, then $P(A \cap B) = P(A) P(B) \implies P(A \cup B) = P(A) + P(B) - P(A) P(B)$. Then,
+	
+	\[ 0.7 = 0.4 + p - 0.4p \quad \implies \quad \boxed{p = 0.5} \]
+	
+	
+	\end{enumerate}
+
+%Question 3.11
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Three components of a mechanism, say $\bm{C_1, C_2}$, and $\bm{C_3}$ are placed in series (in a straight line). Suppose that these mechanisms are arranged in a random order. Let $\bm{R}$ be the event $\bm{\{ C_2 \text{ is to the right of } C_1 \}}$, and let $\bm{S}$ be the event $\bm{\{ C_3 \text{ is to the right of } C_1 \}}$. Are the events $\bm{R}$ and $\bm{S}$ independent? Why?}
+\end{tcolorbox}
+
+Not necessarily. Suppose $C_1$ occupies the middle of the three positions. Then $R$ and $S$ must be mutually exclusive, which forecloses on independence of the events.
+
+%Question 3.12
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A die is tossed, and independently, a card is chosen at random from a regular deck. What is the probability that:}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 3.12(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{the die shows an even number and the card is from a red suit?}
+	\end{tcolorbox}
+	
+	The probability of an even die roll is $1/2$ and drawing a red card, $1/2$. Therefore, by independence, $P(\text{even } \cap \text{ red}) = 1/2 \cdot 1/2 = \boxed{1/4}$.
+	
+	%Question 3.12(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{the die shows an even number or the card is from a red suit?}
+	\end{tcolorbox}
+	
+	Using the previous result, $P(\text{even } \cup \text{ red}) = P(\text{even}) + P(\text{red}) - P(\text{even } \cap \text{ red}) = 1/2 + 1/2 - 1/4 = \boxed{3/4}$.
+	\end{enumerate}
+
+%Question 3.13
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A binary number is one composed only of the digits zero and one. (For example, 1011, 1100, etc.) These numbers play an important role in the use of electronic computers. Suppose that a binary number is made up of $\bm{n}$ digits. Suppose that the probability of an incorrect digit appearing is $\bm{p}$ and that errors in different digits are independent of one another. What is the probability of forming an incorrect number?}
+\end{tcolorbox}
+
+Conceptually, observe that only one digit need be incorrect for the entire number to be incorrect. Therefore, the desired probability is $P(\bigcup^n_{i=1} A_i \text{ incorrect})$ where $A_i$ is the $i$-th digit. The inclusion-exclusion approach, however, is cumbersome. One clever insight is to simply exploit the fact that $P(A) = 1 - P(\bar{A})$, where $\bar{A}$ is the complement of event $A$. Then we need only find the probability that each digit is correct, i.e., $(1-p)^n$ by mutual independence of each digit. Then the probability of forming an incorrect number is $\boxed{1 - (1-p)^n}$.
+
+%Question 3.14
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A die is thrown $\bm{n}$ times. What is the probability that ``6'' comes up at least once in the $n$ throws?}
+\end{tcolorbox}
+
+Equivalently, we calculate unity less the probability that 6 is \textit{never} rolled in the $n$ throws. By independence, of each die roll, $\boxed{1 - (5/6)^n}$.
+
+%Question 3.15
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Each of two persons tosses three fair coins. What is the probability that they obtain the same number of heads?}
+\end{tcolorbox}
+
+The desired probability is $P(H_0 \cup H_1 \cup H_2 \cup H_3)$, where $H_i$ is both roll $i$ number of heads, $0 \leq i \leq 3$. Notably, these are mutually exclusive events, so we can calculate this as
+
+\[ P(H_1 \cup H_2 \cup H_3) = \sum P(H_i) \]
+
+In \textit{one} person flipping three coins, there is a 3/8 chance of exactly one of the three flipping heads. Same for flipping exactly two heads. For flipping three and no heads, the chances are 1/8. Since each person flips their coins independent of the other, we have $P(H_0) = 1/8 \cdot 1/8 = 1/64$, $P(H_1) = 3/8 \cdot 3/8 = 9/64$, $P(H_2) = 3/8 \cdot 3/8 = 9/64$, and $P(H_3) = 1/8 \cdot 1/8 = 1/64$. Summing yields:
+
+\[ P(H_1 \cup H_2 \cup H_3) = \sum P(H_i) = \boxed{5/16} \]
+
+%Question 3.16
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Two dice are rolled. Given that the faces show different numbers, what is the probability that one face is 4?}
+\end{tcolorbox}
+
+Assume we want only one face to show four, and not two. Let $D1, D2$ represent the first and second dice. The desired probability is $P(D1, 4 \cup D2, 4)$, or
+
+\[ P(D1, 4 \cup D2, 4) = P(D1, 4) + P(D2, 4) - P(D1,4 \cap D2,4) \]
+
+The odds of rolling 4 on only one of two die are $5/36$. The odds of rolling two 4's is, by construction, $0$. Then $P(D1, 4 \cup D2, 4) = 5/36 + 5/36 - 0 = \boxed{5/18}$.
+
+%Question 3.17
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{It is found that in manufacturing a certain article, defects of one type occur with probability 0.1 and defects of a second type with probability 0.05. (Assume independence between types of defects.) What is the probability that:}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 3.17(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{an article does not have both kinds of defects?}
+	\end{tcolorbox}
+	
+	The probability that an article has both defects, by independence, is $0.1 \cdot 0.05 = 0.005$. The probability of the complementary event is simply $1 - 0.005 = \boxed{0.995}$.
+	
+	%Question 3.17(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{an article is defective?}
+	\end{tcolorbox}
+	
+	Either the article has defect 1 or 2 (or both). Then $P(\text{defect 1} \cup \text{defect 2}) = P(\text{defect 1}) + P(\text{defect 2}) - P(\text{defect 1} \cap \text{defect 2}) = 0.1 + 0.05 - 0.1 \cdot 0.05 = \boxed{0.145}$.
+	
+	%Question 3.17(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{an article has only one type of defect, given that it is defective?}
+	\end{tcolorbox}
+	
+	\textbf{Note: Be especially careful to define ``only one type of defect." Namely, $\bm{P(T1) \neq P(T1 \cap \neg T2)}$.}
+	
+	\textbf{Method 1.} Equivalently, only one type of defect means it is (without loss of generality) type 1 ($T1$) and NOT type 2 ($T2$). Then it is evident that the desired probability is:
+	
+	\[ P(T1 \text{ XOR } T2 | \text{def}) = P(T1 \cap \neg T2 | \text{def}) + P(\neg T1 \cap T2 | \text{def}) \]
+	
+	Equivalently, we must find
+	
+	\[ \frac{P [ (T1 \cap \neg T2) \cap (T1 \cup T2) ]}{P(T1 \cup T2)} \qquad \text{and} \qquad \frac{P [ (\neg T1 \cap T2) \cap (T1 \cup T2) ]}{P(T1 \cup T2)}  \]
+	
+	The denominator was calculated in the previous part. For the numerator, we derive
+	
+	\begin{align*}
+	P [ (T1 \cap \neg T2) \cap (T1 \cup T2) ] &= P([ (T1 \cap \neg T2) \cap T1 ] \cup [(T1 \cap \neg T2) \cap T2]) \\
+	&= P( (T1 \cap \neg T2) \cup \emptyset) \\
+	&= P(T1 \cap \neg T2) \\
+	&= P(T1)P(\neg T2) \\
+	&= P(T1)(1 - P(T2))
+	\end{align*}
+	
+	Analogously, $P [ (\neg T1 \cap T2) \cap (T1 \cup T2) ] = (1 - P(T1))P(T2)$. It follows that
+	
+	\begin{align*}
+	P(T1 \text{ XOR } T2 | \text{def}) &= \frac{P(T1)(1 - P(T2)) + (1 - P(T1))P(T2)}{P(T1 \cup T2)} \\
+	&= \frac{0.1 \cdot 0.95 + 0.9 \cdot 0.05}{0.145} = \boxed{0.966} 
+	\end{align*}
+	
+	\textbf{Method 2.} By Bayes' Theorem,
+	
+	\[ P(T1 \text{ XOR } T2 | \text{def}) = \frac{P(\text{def} | T1 \cap \neg T2) P(T1 \cap \neg T2) + P(\text{def} | \neg T1 \cap T2) P(\neg T1 \cap T2)}{ P(\text{def} | T1 \cap \neg T2) P(T1 \cap \neg T2) + P(\text{def} | \neg T1 \cap T2) P(\neg T1 \cap T2) + P(\text{def} | T1 \cap T2) P(T1 \cap T2) } \]
+	
+	Observe that all of the probabilities of ``defective" conditional on something are all unity, for if it has a type 1 or type 2 defect (or both), it is definitionally defective. Then we can proceed as follows,
+	
+	\begin{align*}
+	P(T1 \text{ XOR } T2 | \text{def}) &= \frac{ P(T1 \cap \neg T2) + P(\neg T1 \cap T2)}{ P(T1 \cap \neg T2) + P(\neg T1 \cap T2) + P(T1 \cap T2) } \\
+	&= \frac{P(T1) (1 - P(T2)) + (1 - P(T1)) P(T2) }{P(T1) (1 - P(T2)) + (1 - P(T1)) P(T2) + P(T1) P(T2)} \\
+	&= \frac{0.1 \cdot 0.95 + 0.05 \cdot 0.9}{0.1 \cdot 0.95 + 0.9 \cdot 0.05 + 0.1 \cdot 0.05} = \boxed{0.966} 
+	\end{align*}
+	
+	\end{enumerate}
+
+%Question 3.18
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Verify that the number of conditions listed in Eq. (3.8) is given by $\bm{2^n - n - 1}$.}
+\end{tcolorbox}
+
+\begin{proof} The case for $n=2$ is simply the definition of independence for two events, the condition that $P(A_1 \cap A_2) = P(A_1) P(A_2)$. Suppose the result holds for all number of events up to $n-1$. Then for mutual independence to hold, the probability of the intersection of events in every $k$-tuple, $2 \leq k \leq n$, must equal the product of probabilities of each of the constituent $k$ events. For any $k$ number of events, there are $\binom{n}{k}$ tuples to form. In total, there are $\sum^n_{k=2} \binom{n}{k}$ conditions that must hold. Appealing to the binomial theorem, this is merely $\sum^n_{k=2} \binom{n}{k} = \sum^n_{k = 0} \binom{n}{k} - \binom{n}{0} - \binom{n}{1} = \boxed{2^n - n - 1}$. 
+\end{proof}
+
+%Question 3.19
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Prove that if $\bm{A}$ and $\bm{B}$ are independent events, so are $\bm{A}$ and $\bm{\bar{B}}$, $\bm{\bar{A}}$ and $\bm{B}$, and $\bm{\bar{A}}$ and $\bm{\bar{B}}$.}
+\end{tcolorbox}
+
+\begin{proof}
+By premise, $P(A \cap B) = P(A)P(B)$. Then,
+
+\begin{align*}
+P(\overline{A \cap B}) &= P(\bar{A} \cup \bar{B}) \\
+1 - P(A) P(B)  &= P(\bar{A}) + P(\bar{B}) - P(\bar{A} \cap \bar{B}) \\
+1 - (1 - P(\bar{A}))(1 - P(\bar{B})) &= P(\bar{A}) + P(\bar{B}) - P(\bar{A} \cap \bar{B}) \\
+1 - (1 - P(\bar{A}) - P(\bar{B}) + P(\bar{A})P(\bar{B})) &= P(\bar{A}) + P(\bar{B}) - P(\bar{A} \cap \bar{B}) \\
+\implies \qquad P(\bar{A} \cap \bar{B}) &= P(\bar{A})P(\bar{B})
+\end{align*}
+
+\begin{align*}
+P(A \cup \bar{B}) &= P(A) + P(\bar{B}) - P(A \cap \bar{B}) \\
+P((A \cap B) \cup \bar{B}) &= P(A) + P(\bar{B}) - P(A \cap \bar{B}) \\
+P(A \cap B) + P(\bar{B}) - P(A \cap B \cap \bar{B}) &= P(A) + P(\bar{B}) - P(A \cap \bar{B}) \\
+P(A)P(B) &= P(A) - P(A \cap \bar{B}) \\
+P(A) (1 - P(\bar{B})) &= P(A) - P(A \cap \bar{B}) \\
+\implies P(A \cap \bar{B}) &= P(A) P(\bar{B})
+\end{align*}
+
+Analogous argument to prove independence of $\bar{A}, B$.
+\end{proof}
+
+%Question 3.20
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{In Fig. 3.11(a) and (b), assume that the probability of each relay being closed is $\bm{p}$ and that each relay is open or closed independently of any other relay. In each case find the probability that current flows from $\bm{L}$ to $\bm{R}$.}
+\end{tcolorbox}
+
+\textbf{Note: Find the paths the current may take in the circuit, treat as finding the probability $P(\bigcup^n_{i=1} A_i)$ for $n$ paths, where $A_i$ is a path, and then apply the inclusion-exclusion principle.}
+
+Let $A_i$ be the event of the current running through the $i$-th relay.
+
+\textbf{(a)} The paths the current may take are $\{ 1, 2 \}, \{ 4, 5 \}, \{ 1, 3, 5 \}, \{ 4, 3, 2 \}$. Then the the objective is to calculate
+
+\[ P(E) = P((A_1 \cap A_2) \cup (A_4 \cap A_5) \cup (A_1 \cap A_3 \cap A_5) \cup (A_4 \cap A_3 \cap A_2)) \]
+
+Let $D1 = A_1 \cap A_2, D2 = A_4 \cap A_5, D3 = A_1 \cap A_3 \cap A_5, D4 = A_4 \cap A_3 \cap A_2$. Apply the inclusion-exclusion principle as follows,
+
+\begin{align*}
+P(E) &= \sum^4_{i = 1} P(D_i) - \sum^4_{i < j = 2} P(D_i \cap D_j) + \sum^4_{i < j < k = 3} P(D_i \cap D_j \cap D_k)  - P\Bigg(\bigcap^4_{i=1} D_i \Bigg) \\
+&= p^2 + p^2 + p^3 + p^3 - p^4 - p^4 - p^4 - p^4 - p^4 - p^5 + p^5+ p^5+ p^5+ p^5- p^5 \\
+&= \boxed{2p^2 + 2p^3 - 5p^4 + 2p^5}
+\end{align*}
+
+\textbf{(b)} The paths the current may take are $\{ 1, 2 \}, \{ 3, 2 \}, \{ 4 \}, \{ 5, 6\}$. Define $D1 = A_1 \cap A_2, D2 = A_3 \cap A_2, D3 = A_4, D4 = A_5 \cap A_6$. Then,
+
+\begin{align*}
+P(E) = P\Bigg( \bigcup^4_{i=1} D_i \Bigg) &= \sum^4_{i = 1} P(D_i) - \sum^4_{i < j = 2} P(D_i \cap D_j) + \sum^4_{i < j < k = 3} P(D_i \cap D_j \cap D_k)  - P\Bigg(\bigcap^4_{i=1} D_i \Bigg) \\
+&= p^2 + p^2 + p + p^2 - p^3 - p^3 - p^3 - p^4 - p^4 - p^3 + p^4 + p^5 + p^5 + p^5 - p^6 \\
+&= \boxed{p + 3p^2 - 4p^3 - p^4 + 3p^5 - p^6}
+\end{align*}
+
+%Question 3.21
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Two machines, $\bm{A}$, $\bm{B}$, being operated independently, may have a number of breakdowns each day. Table 3.2 gives the probability distribution of breakdowns for each machine. Compute the following probabilities.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 3.21(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A}$ and $\bm{B}$ have the same number of breakdowns.}
+	\end{tcolorbox}
+	
+	Define $a_0, a_1, a_2, a_3, a_4, a_5, a_6$ as the events that both machines have $0, 1, 2, 3, 4, 5, 6$ breakdowns, respectively. Note that each of these events are mutually exclusive; namely, the machines cannot have two different numbers of breakdowns on the same day. Thus the probability simply is calculated as
+	
+	\begin{align*}
+	P\Bigg( \bigcup^6_{i = 0} a_i \Bigg) &= \sum^6_{i = 0} P(a_i) \\
+	&= (0.1)(0.3) + (0.2)(0.1) + (0.3)(0.1) + (0.2)(0.1) + (0.09)(0.1) + (0.07)(0.15) + (0.04)(0.15) \\
+	&= \boxed{0.126}
+	\end{align*}
+	
+	%Question 3.21(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{The total number of breakdowns is less than 4; less than 5.}
+	\end{tcolorbox}
+	
+	%Question 3.21(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A}$ has more breakdowns than $\bm{B}$.}
+	\end{tcolorbox}
+	
+	%Question 3.21(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{B}$ has twice as many breakdowns as $\bm{A}$.}
+	\end{tcolorbox}
+	
+	%Question 3.21(e)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{B}$ has 4 breakdowns, when it is known that $\bm{B}$ has at least 2 breakdowns.}
+	\end{tcolorbox}
+	
+	%Question 3.21(f)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{The minimum number of breakdowns of the two machines is 3; is less than 3.}
+	\end{tcolorbox}
+	
+	%Question 3.21(g)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{The maximum number of breakdowns of the machines is 3; is more than 3.}
+	\end{tcolorbox}
+	\end{enumerate}
+
+%Question 3.22
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{By verifying Eq. (3.2), show that for fixed $\bm{A}$, $\bm{P(B | A)}$ satisfies the various postulates for probability.}
+\end{tcolorbox}
+
+\textbf{(1)} Since $P(B | A) = \frac{P(A \cap B)}{P(A)}$ and $A \cap B \subset A \implies P(A \cap B) \leq P(A)$, it follows that $0 \leq P(B | A) \leq 1$.
+
+\textbf{(2)} $P(S | A) = \frac{P(S \cap A)}{P(A)} = \frac{P(A)}{P(A)} = 1$
+
+\textbf{(3)} If $B_1 \cap B_2 = \emptyset$, then $P(B_1 \cup B_2 | A) = \frac{P( (B_1 \cup B_2 ) \cap A)}{P(A)} = \frac{P((B_1 \cap A) \cup (B_2 \cap A))}{P(A)} = \frac{P(B_1 \cap A)}{P(A)} + \frac{P(B_2 \cap A)}{P(A)} = P(B_1 | A) + P(B_2 | A)$
+
+\textbf{(4)} By assumption, $B_i \cap B_j = \emptyset \ \forall i \neq j$. Then $(B_i \cap A) \cap (B_j \cap A) = \emptyset \ \forall i \neq j$. Then applying (4) from the original definition of probability, $P(\bigcup^\infty_{i = 1} B_i | A) = \sum^\infty_{i = 1} P(B_i | A)$.
+
+%Question 3.23
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{If each element of a second order determinant is either zero or one, what is the probability that the value of the determinant is positive? (Assume that the individual entries of the determinant are chosen independently, each value being assumed with probability 1/2.)}
+\end{tcolorbox}
+
+A second-order determinant is of the form $   \begin{vmatrix} % or pmatrix or bmatrix or Bmatrix or ...
+      a_1 & a_2 \\
+      a_3 & a_4 \\
+   \end{vmatrix}$. There are $2^4$ arrangements if each element is either a zero or one. The determinant is calculated as $a_1 a_4 - a_2 a_3$. Defining positive as any number strictly greater than zero, the only permissible value of the determinant is one. Therefore, we need only count the combinations such that $a_1 a_4 = 1$ and $a_2 a_3 = 0$. In the first case, we must have $a_1 = a_4 = 1$. In the second, we may have either $a_2 = 1, a_3 = 0$; $a_2 = 0, a_3 = 1$; or $a_2 = a_3 = 0$. Each possible set of values the determinant takes on has a $1/16$ chance of occurring. Since each of these outcomes is mutually exclusive (we cannot have an element be both one and zero), we need only add the probabilities of the three outcomes and get $\boxed{3/16}$.
+   
+%Question 3.24
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Show that the multiplication theorem $\bm{P(A \cap B) = P(A | B) P(B)}$, established for two events, may be generalized to three events as follows: $\bm{P(A \cap B \cap C) = P(A | B \cap C) P(B | C) P(C)}$.}
+\end{tcolorbox}
+
+\begin{proof} Obseve that $P(A \cap (B \cap C)) = P(A | B \cap C) P(B \cap C) = P(A | B \cap C) P(B | C) P(C)$.
+\end{proof}
+
+%Question 3.25
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{An electronic assembly consists of two subsystems, say $\bm{A}$ and $\bm{B}$. From previous testing procedures, the following probabilities are assumed to be known: $\bm{P(A \text{ fails}) = 0.20, P(B \text{ fails alone}) = 0.15, P(A \text{ and } B \text{ fail}) = 0.15}$. Evaluate the following probabilities.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 3.25(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{P(A \text{ fails } | B \text{ has failed})}$,}
+	\end{tcolorbox}
+	
+	Observe that $P(B \text{ fails}) = P(B \text{ fails alone or } A \text{ and } B \text{ fail})$. Then this gives us $P(B \text{ fails alone}) + P(A \text{ and } B \text{ fail}) - P(B \text{ fails alone and } A \text{ and } B \text{ fail}) = 0.15 + 0.15 = 0.30$. Then $P(A \text{ fails } | B \text{ has failed}) = \frac{P(A \text{ fails } \cap B \text{ has failed})}{P(B \text{ fails})} = \frac{0.15}{0.30} = \boxed{0.5}$.
+	
+	%Question 3.25(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{P(A \text{ fails alone})}$.}
+	\end{tcolorbox}
+	
+	Observe that $P(A \text{ fails}) = P(A \text{ fails alone}) + P(A \text{ and } B \text{ fail}) - P(A \text{ fails alone and } A \text{ and } B \text{ fail})$. Then $P(A \text{ fails alone}) = P(A \text{ fails}) - P(A \text{ and } B \text{ fail}) = 0.20 - 0.15 = \boxed{0.05}$.
+	\end{enumerate}
+
+%Question 3.26
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Finish the analysis of the example given in Section 3.2 by deciding which of the types of candy jar, $\bm{A}$ or $\bm{B}$, is involved, based on the evidence of two pieces of candy which were sampled.}
+\end{tcolorbox}
+
+% Set the overall layout of the tree
+\tikzstyle{level 1}=[level distance=3.5cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=3.5cm, sibling distance=2cm]
+
+% Define styles for bags and leafs
+\tikzstyle{bag} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+
+% The sloped option gives rotated edge labels. Personally
+% I find sloped labels a bit difficult to read. Remove the sloped options
+% to get horizontal labels. 
+\begin{center}
+\begin{tikzpicture}[level 1/.style={sibling distance=25mm},
+   level 2/.style={sibling distance=7mm}, grow = right]
+\node[bag] {}
+    child {
+        node[bag] {}        
+            child {
+                node[end, label=right:
+                    {$S_O, S_O$}] {}
+                edge from parent
+                node[above] {}
+                node[below]  {}
+            }
+            child {
+                node[end, label=right:
+                    {$S_W, S_O \text{ or } S_O, S_W$}] {}
+                edge from parent
+                node[above] {}
+                node[below]  {}
+            }
+            child {
+                node[end, label=right:
+                    {$S_W, S_W$}] {}
+                edge from parent
+                node[above] {}
+                node[below]  {}
+            }
+            edge from parent 
+            node[above] {}
+            node[below]  {$B$}
+    }
+    child {
+        node[bag] {}        
+        child {
+                node[end, label=right:
+                    {$S_O, S_O$}] {}
+                edge from parent
+                node[above] {}
+                node[below]  {}
+            }
+            child {
+                node[end, label=right:
+                    {$S_W, S_O \text{ or } S_O, S_W$}] {}
+                edge from parent
+                node[above] {}
+                node[below]  {}
+            }
+            child {
+                node[end, label=right:
+                    {$S_W, S_W$}] {}
+                edge from parent
+                node[above] {}
+                node[below]  {}
+            }
+        edge from parent         
+            node[above] {$A$}
+            node[below]  {}
+    };
+\end{tikzpicture}
+\end{center}
+
+\textbf{Meyer, 2nd ed. page 40:} \say{Suppose that a large number of containers of candy are made up of two types, say $A$ and $B$. Type $A$ contains 70 percent sweet ($S_W$) and 30 percent sour ($S_O$) ones while for type $B$ these percentages are reversed. Furthermore, suppose that 60 percent of all candy jars are of type $A$ while the remainder are of type $B$.}
+
+Define the events $S^2_W$ for choosing two sweets, $S^2_O$ for choosing two sours, $S_W S_O$ for choosing a sweet and a sour, and $S_O S_W$ for choosing a sour and a sweet. Make the additional assumption that the candy containers have so much candy that we can approximate picking one candy after another as independent events (we do this because the author does not actually give a number for how many candies there are per container). Then using the following definition:
+
+\begin{defn} If $A, B$ given $C$ are conditionally independent events, then 
+
+\[ P(A, B | C) = P(A | C) P(B | C) \]
+\end{defn}
+
+It follows that $P(S^2_W | A) = P(S_W | A) P(S_W | A)$, and analogously for the other pairs of candies. We calculate:
+
+\begin{align*}
+P(A | S^2_W) &= \frac{P(S^2_W | A) P(A) }{P(S^2_W | A) P(A) + P(S^2_W | B) P(B)} \\
+&= \frac{0.7^2 \cdot 0.6 }{ 0.7^2 \cdot 0.6 + 0.3^2 \cdot 0.4} \\
+&= \boxed{0.891} \\
+P(B | S^2_W) &= \frac{P(S^2_W | B) P(B) }{P(S^2_W | A) P(A) + P(S^2_W | B) P(B)} \\
+&= \frac{0.3^2 \cdot 0.4 }{ 0.7^2 \cdot 0.6 + 0.3^2 \cdot 0.4} \\
+&= \boxed{0.109} \\
+P(A | S^2_O) &= \frac{P(S^2_O | A) P(A) }{P(S^2_O | A) P(A) + P(S^2_O | B) P(B)} \\
+&= \frac{0.3^2 \cdot 0.6 }{ 0.3^2 \cdot 0.6 + 0.7^2 \cdot 0.4} \\
+&= \boxed{0.216} \\
+P(B | S^2_O) &= \frac{P(S^2_O | B) P(B) }{P(S^2_O | A) P(A) + P(S^2_O | B) P(B)} \\
+&= \frac{0.7^2 \cdot 0.4 }{ 0.3^2 \cdot 0.6 + 0.7^2 \cdot 0.4} \\
+&= \boxed{0.784} \\
+P(A | S_W S_O \cup S_O S_W) &= \frac{P(S_W S_O \cup S_O S_W | A) P(A)}{P(S_W S_O \cup S_O S_W | A) P(A) + P(S_W S_O \cup S_O S_W | B) P(B)} \\
+&= \frac{ [ P(S_W S_O | A) + P(S_O S_W | A) ] P(A)}{ [ P(S_W S_O | A) + P(S_O S_W | A) ] P(A) + [ P(S_W S_O | B) + P(S_O S_W | B) ] P(B)} \\
+&= \frac{ (0.7 \cdot 0.3 + 0.3 \cdot 0.7) \cdot 0.6}{ (0.7 \cdot 0.3 + 0.3 \cdot 0.7) \cdot 0.6 + (0.3 \cdot 0.7 + 0.7 \cdot 0.3) \cdot 0.4 } \\
+&= \boxed{0.6} \\
+P(B | S_W S_O \cup S_O S_W) &= \frac{P(S_W S_O \cup S_O S_W | B) P(B)}{P(S_W S_O \cup S_O S_W | A) P(A) + P(S_W S_O \cup S_O S_W | B) P(B)} \\
+&= \frac{ [ P(S_W S_O | B) + P(S_O S_W | B) ] P(B)}{ [ P(S_W S_O | A) + P(S_O S_W | A) ] P(A) + [ P(S_W S_O | B) + P(S_O S_W | B) ] P(B)} \\
+&= \frac{ (0.3 \cdot 0.7 + 0.7 \cdot 0.3) \cdot 0.4}{ (0.7 \cdot 0.3 + 0.3 \cdot 0.7) \cdot 0.6 + (0.3 \cdot 0.7 + 0.7 \cdot 0.3) \cdot 0.4 } \\
+&= \boxed{0.4}
+\end{align*}
+
+%Question 3.27
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Whenever an experiment is performed, the occurrence of a particular event $\bm{A}$ equals 0.2. The experiment is repeated, independently, until $\bm{A}$ occurs. Compute the probability that it will be necessary to carry out a fourth experiment.}
+\end{tcolorbox}
+
+Equivalently, we want to find the probability that $A$ has not occurred in the first, second, and third experiments. The probability of $A$ not occurring is 0.8. By premise and by application of problem 3.19, it is 0.8 for each iteration. Appealing once more to event independence, the probability of $A$ failing to occur after three iterations is $0.8^3 = \boxed{0.512}$.
+
+%Question 3.28
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that a mechanism has $\bm{N}$ tubes, all of which are needed for its functioning. To locate a malfunctioning tube one replaces each tube, successively, with a new one. Compute the probability that it will be necessary to check $\bm{N}$ tubes if the (constant) probability is $\bm{p}$ that a tube is out of order.}
+\end{tcolorbox}
+
+Assume that only one of the tubes in the system is malfunctioning, and it happens to be the $N$-th tube. To reach the $N$-th tube, the inspector must begin with the first, and replace tubes $1, 2, ..., N-1$ until reaching the $N$-th. To successively check $N$ tubes one after another, it must be the case that all of the tubes up to the $N$-th are in working order. Then the probability of checking $N$ tubes is $\boxed{(1-p)^{N-1} p}$.
+
+%Question 3.29
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Prove: If $\bm{P(A | B) > P(A)}$ then $\bm{P(B | A) > P(B)}$.}
+\end{tcolorbox}
+
+\begin{proof}
+By premise, $\frac{P(A \cap B)}{P(B)} > P(A)$. Assuming $P(A), P(B) > 0$, then $\frac{P(A \cap B)}{P(A)}  = \frac{P(B \cap A)}{P(A)} = P(B | A) > P(B)$. 
+\end{proof}
+
+%Question 3.30
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A vacuum tube may come from any one of three manufacturers with probabilities $\bm{p_1 = 0.25, p_2 = 0.50}$, and $\bm{p_3 = 0.25}$. The probabilities that the tube will function properly during a specified period of time equal 0.1, 0.2, and 0.4, respectively, for the three manufacturers. Compute the probability that a randomly chosen tube will function for the specified period of time.}
+\end{tcolorbox}
+
+Let $A_i$ denote the $i$-th manufacturer the tube came from, and $W$ be the event that the tube works. Then the desired probability is $P(\bigcup^3_{i=1} (A_i \cap W))$. Note that each of these events is mutually exclusive, as we are only choosing one tube, so $P(\bigcup^3_{i=1} (A_i \cap W)) = \sum^3_{i = 1} P(A_i \cap W)$. For each $i$, $P(A_i \cap W) = P(W | A_i) P(A_i)$, so we equivalently write  $P(\bigcup^3_{i=1} (A_i \cap W)) = \sum^3_{i = 1} P(W | A_i) P(A_i)$. Calculating yields $0.25 \cdot 0.1 + 0.5 \cdot 0.2 + 0.25 \cdot 0.4 = \boxed{0.225}$.
+
+%Question 3.31
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{An electrical system consists of two switches of type $\bm{A}$, one of type $\bm{B}$, and four of type $\bm{C}$, connected as in Fig. 3.12. Compute the probability that a break in the circuit cannot be eliminated with key $\bm{K}$ if the switches $\bm{A, B}$, and $\bm{C}$ are open (i.e., out of order) with probabilities 0.3, 0.4, and 0.2, respectively, and if they operate independently.}
+\end{tcolorbox}
+
+$(0.3)^2 (0.4) (0.2)^2 = \boxed{5.76 \cdot 10^{-5}}$
+
+%Question 3.32
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{The probability that a system becomes overloaded is 0.4 during each run of an experiment. Compute the probability that the system will cease functioning in three independent trials of the experiment if the probabilities of failure in 1, 2, or 3 trials equal 0.2, 0.5, and 0.8, respectively.}
+\end{tcolorbox}
+
+Question wording is not comprehensible.
+
+%Question 3.33
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Four radio signals are emitted successfully. If the reception of any one signal is independent of the reception of another and if these probabilities are 0.1, 0.2, 0.3, and 0.4, respectively, compute the probability that $\bm{k}$ signals will be received for $\bm{k = 0, 1, 2, 3, 4}$.}
+\end{tcolorbox}
+
+Define $A_i$ as the reception of the $i$-th signal.
+
+$\bm{k = 0}:$ Equivalently, calculate $P(\bigcap^4_{i=1} \neg A_i) = \Pi^4_{i = 1} (1 - P(A_i)) = 0.9 \cdot 0.8 \cdot 0.7 \cdot 0.6 = \boxed{0.3024}$.
+
+$\bm{k = 1}:$ The event $A_j \cap ( \bigcap^4_{i \neq j} \neg A_i )$ is only the $j$-th signal and NOT the others is received. Each such event is mutually exclusive.
+
+\begin{align*}
+&P\Bigg( \bigcup^4_{j = 1} [ A_j \cap ( \bigcap^4_{i \neq j} \neg A_i ) ] \Bigg) \\
+&= (0.1)(0.8)(0.7)(0.6) + (0.9)(0.2)(0.7)(0.6) + (0.9)(0.8)(0.3)(0.6) + (0.9)(0.8)(0.7)(0.4) = \boxed{0.4404}
+\end{align*}
+
+$\bm{k = 2}:$ 
+\begin{align*}
+&P\Bigg( \bigcup^4_{i < j = 2} [ (A_i \cap A_j) \cap ( \bigcap^4_{k \neq i, j} \neg A_k) ] \Bigg) \\
+&= (0.1)(0.2)(0.7)(0.6) + (0.1)(0.8)(0.3)(0.6) + (0.9)(0.2)(0.3)(0.6) + (0.1)(0.8)(0.7)(0.4) \\
+&\quad + (0.9)(0.2)(0.7)(0.4) + (0.9)(0.8)(0.3)(0.4) = \boxed{0.2144}
+\end{align*}
+
+$\bm{k = 3}:$ For $l \neq i, j, k$:
+
+\begin{align*}
+&P\Bigg( \bigcup^4_{i < j < k = 3} (A_i \cap A_j \cap A_k \cap \neg A_l) \Bigg) \\
+&= (0.1)(0.2)(0.3)(0.6) + (0.1)(0.2)(0.7)(0.4) + (0.1)(0.8)(0.3)(0.4) + (0.9)(0.2)(0.3)(0.4) = \boxed{0.0404}
+\end{align*}
+
+$\bm{k = 4}:$ $P(\bigcap^4_{i=1} A_i) = \Pi^4_{i = 1} P(A_i) = 0.1 \cdot 0.2 \cdot 0.3 \cdot 0.4 = \boxed{0.0024}$.
+
+Observe that the probabilities of each case all sum to 1, as expected as the constituent $k$'s are mutually exclusive partitions of the sample space.
+
+%Question 3.34
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{The following (somewhat simple-minded) weather forecasting is used by an amateur forecaster. Each day is classified as ``dry'' or ``wet'' and the probability that any given day is the same as the preceding one is assumed to be a constant $\bm{p \ (0 < p < 1)}$. Based on past records, it is supposed that January 1 has a probability of $\bm{\beta}$ of being ``dry.'' Letting $\bm{\beta_n =}$ probability (the $\bm{n}$th day of the year is ``dry''), obtain an expression for $\bm{\beta_n}$ in terms of $\bm{\beta}$ and $\bm{p}$. Also evaluate $\bm{\lim_{n \rightarrow \infty} \beta_n}$ and interpret your result.}
+\end{tcolorbox}
+
+The chief insight here is in the conceptual set up of the problem. By premise, on the first day of the year, there is probability $\beta$ of a dry day. Therefore the probability of a wet day is $1 - \beta$. 
+
+The other pertinent fact is that each day has a $p$ probability of having the same weather as the previous day. Therefore, we can calculate the probability of the following day having dry weather as follows: either the first day can be dry and the second day has the same weather as the first, or the first day is wet, and the second day does not have the same weather as the first. Importantly, these are mutually exclusive events; the first day cannot have dry and wet weather (by our simplistic assumption). Then we can write:
+
+   \begin{align*}
+   P &\begin{pmatrix} % or pmatrix or bmatrix or Bmatrix or ...
+      \text{Second day same as first day AND first day is dry}  \\
+      \text{OR}  \\
+      \text{Second day not same as first day AND first day is wet} \\
+   \end{pmatrix} \\
+   &= P(\text{Second day same as first day AND first day is dry}) \\
+   &\quad + P( \text{Second day not same as first day AND first day is wet})
+   \end{align*}
+   
+   Define the event $D_i$ as the probability that the weather on the $i$-th day is dry. Assuming that the weather of one day is independent of all other days, we can write as the probability of dry weather for the second day:
+   
+   \[ P(D_2) = p \beta_1 + (1-p)(1 - \beta_1) \]
+   
+   And we proceed so on and so forth such that $P(D_{n}) = p \cdot P(D_{n-1}) + (1-p) \cdot (1 - P(D_{n-1}))$. Then calculating $P(D_3)$ yields:
+   
+   \begin{align*}
+   P(D_{3}) &= p \cdot P(D_{2}) + (1-p) \cdot (1 - P(D_{2})) \\
+   &= p(p \beta_1 + (1-p)(1 - \beta_1)) + (1-p) (1 - (p \beta_1 + (1-p)(1 - \beta_1)))
+   \end{align*}
+   
+   With some work of algebra, it can be shown that this reduces to:
+   
+   \[ P(D_3) = (2p-1)(p \beta_1 + (1-p)(1 - \beta_1)) + (1-p) \]
+   
+   And similarly, the probability for dry weather on the fourth and fifth days is:
+   
+   \begin{align*}
+   P(D_4) &= (2p-1)^2 (p \beta_1 + (1-p)(1 - \beta_1)) + 2p(1-p) \\
+   P(D_5) &= (2p-1)^3 (p \beta_1 + (1-p)(1 - \beta_1)) + (4p^2 - 2p + 1)(1-p)
+   \end{align*}
+   
+   Although there is some regularity in the first term, the second one seems to elude a closed-form expression. Nor is it readily apparent what the limiting tendency is for increasing $n$. Returning to the $P(D_2)$ case, however, we can employ an algebraic trick to rewrite the expression as:
+   
+   \begin{align*}
+   P(D_2) &= p \beta_1 + (1-p)(1 - \beta_1) \\
+   &= p \beta_1 + 1 - \beta_1 - p + p \beta_1 \\
+   &= 2p \beta_1 - \beta_1 - p + 1/2 + 1/2 \\
+   &= (2p - 1)(\beta_1 - 1/2) + 1/2
+   \end{align*}
+   
+   As we calculate successive $P(D_i)$ using this new form, we find a wonderful pattern emerging:
+   
+   \begin{align*}
+   P(D_3) &= (2p - 1)^2 (\beta_1 - 1/2) + 1/2 \\
+   P(D_4) &= (2p - 1)^3 (\beta_1 - 1/2) + 1/2 \\
+   P(D_5) &= (2p - 1)^4 (\beta_1 - 1/2) + 1/2 \\
+   &\vdots \\
+   P(D_n) &= (2p - 1)^{n-1} (\beta_1 - 1/2) + 1/2
+   \end{align*}
+   
+   And indeed, $\boxed{ \beta_n = P(D_n) = (2p - 1)^{n-1} (\beta_1 - 1/2) + 1/2}$ is our desired expression. To prove it, induct on $n$. Suppose it is true for $n-1$ days. Then:
+   
+   \begin{align*}
+   P(D_n) &= p( (2p - 1)^{(n-1)-1} (\beta_1 - 1/2) + 1/2 ) + (1-p) \cdot (1 - ( (2p - 1)^{(n-1) -1} (\beta_1 - 1/2) + 1/2 )) \\
+   &= p (2p - 1)^{(n-1)-1} (\beta_1 - 1/2) + p/2 + (1-p) - (1-p) (2p - 1)^{(n-1) -1} (\beta_1 - 1/2) - (1-p)/2 \\
+   &= (2p - 1)^{n-1} (\beta_1 - 1/2) + p/2 + (1-p ) - (1-p)/2 \\
+   &= (2p - 1)^{n-1} (\beta_1 - 1/2) + 1/2
+   \end{align*}
+   
+   To calculate the limit:
+   
+   \[ \lim_{n \rightarrow \infty} [ (2p - 1)^{n-1} (\beta_1 - 1/2) + 1/2 ]  \]
+   
+   It must be deduced how $\lim_{n \rightarrow \infty} (2p - 1)^{n-1}$ is evaluated. By premise, $0 < p < 1$. Then $0 < 2p < 2$, implying $-1 < 2p - 1 < 1$, finally implying $|2p - 1| < 1$. Therefore, $\lim_{n \rightarrow \infty} (2p - 1)^{n-1} = 0$, and $\lim_{n \rightarrow \infty} [ (2p - 1)^{n-1} (\beta_1 - 1/2) + 1/2 ] = \boxed{1/2}$.
+
+%Question 3.35
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Three newspapers, $\bm{A, B,}$ and $\bm{C}$, are published in a city and a recent survey of readers indicates the following: 20 percent read $\bm{A}$, 16 percent read $\bm{B}$, 14 percent read $\bm{C}$, 8 percent read $\bm{A}$ and $\bm{B}$, 5 percent read $\bm{A}$ and $\bm{C}$, 2 percent read $\bm{A, B,}$ and $\bm{C}$, and 4 percent read $\bm{B}$ and $\bm{C}$. For one adult chosen at random, compute the probability that (a) he reads none of the papers (b) he reads exactly one of the papers (c) he reads at least $\bm{A}$ and $\bm{B}$ if it is known that he reads at least one of the papers published.}
+\end{tcolorbox}
+
+Define $A_i$ as the event of reading the $i$-th newspaper, where $i = 1, 2, 3$ corresponds to reading newspapers $A, B$, and $C$, respectively.
+
+\textbf{(a)} 
+\begin{align*}
+P\Bigg( \bigcap^3_{i = 1} \neg A_i \Bigg) &= 1 - P \Bigg( \bigcup^3_{i = 1} A_i \Bigg) \\
+&= 1 - (0.2 + 0.16 + 0.14 - 0.08 - 0.05 - 0.04 + 0.02) = \boxed{0.65}
+\end{align*}
+
+\textbf{(b)} To tackle this, we will posit and prove a new theorem:
+
+\begin{thm}If $A_1, A_2$, and $A_3$ are any events, then
+
+\[ P \Bigg( \bigcup^3_{i=1} \bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \bigg) \Bigg) = \sum^3_{i = 1} P(A_i) - 2 \sum^3_{i < j = 2} P(A_i \cap A_j) + 3 P\Bigg( \bigcap^3_{i=1} A_i \Bigg) \]
+
+Equivalently, the probability that \textit{exactly one} of the events $A_i$ occurs and the rest do not.
+\end{thm}
+
+\begin{proof}Observe that each of the $A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big)$, for all of $i = 1, 2, 3$, is mutually exclusive with one another. Then $P \Bigg( \bigcup^3_{i=1} \bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \bigg) \Bigg) = \sum^3_{i = 3} P \Bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \Bigg)$. Further observe that
+
+\begin{align*}
+P(A_i) &= P\Bigg[ \Bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \Bigg) \cup \Bigg( \bigcup^3_{j \neq i} (A_i \cap A_j) \Bigg) \Bigg] \\
+&= P\Bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \Bigg) + P \Bigg( \bigcup^3_{j \neq i} (A_i \cap A_j) \Bigg) 
+\end{align*}
+
+By virtue of the fact that $A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big)$ and $\bigcup^3_{j \neq i} (A_i \cap A_j)$ are mutually exclusive. However, the union of events in the second term is \textit{not} mutually exclusive. Therefore, the expression further reduces to:
+
+\[ = P\Bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \Bigg) + \sum^3_{j \neq i} (A_i \cap A_j) - P\Bigg( \bigcap^3_{i = 1} A_i \Bigg) \]
+
+Then:
+
+\begin{align*}
+P \Bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \Bigg) &= P(A_i) - \sum^3_{j \neq i} P(A_i \cap A_j) + P \Bigg( \bigcap^3_{i=1} A_i \Bigg)
+\end{align*}
+
+For each of the three values $i$ can take on, observe that $\sum^3_{j \neq i} P(A_i \cap A_j)$ will consist of two terms; for example, if $i = 1$, then $\sum^3_{j \neq 1} P(A_1 \cap A_j) = P(A_1 \cap A_2) + P(A_1 \cap A_3)$. After tabulating the above equation for all $i$, we will then be able to determine the value of $P \Bigg( \bigcup^3_{i=1} \bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \bigg) \Bigg) $, namely:
+
+\begin{align*}
+P \Bigg( \bigcup^3_{i=1} \bigg( A_i  \cap \Big( \bigcap^3_{j \neq i} \neg A_j \Big) \bigg) \Bigg) = &P(A_1) - P(A_1 \cap A_2) - P(A_1 \cap A_3) + P(A_1 \cap A_2 \cap A_3) \\
++&P(A_2) - P(A_1 \cap A_2) - P(A_2 \cap A_3) + P(A_1 \cap A_2 \cap A_3) \\
++&P(A_3) - P(A_1 \cap A_3) - P(A_2 \cap A_3) + P(A_1 \cap A_2 \cap A_3) \\
+= &P(A_1) + P(A_2) + P(A_3) - 2P(A_1 \cap A_2) - 2P(A_1 \cap A_3) \\
+&\quad - 2P(A_2 \cap A_3) + 3P(A_1 \cap A_2 \cap A_3) \\
+= &\boxed{ \sum^3_{i = 1} P(A_i) - 2 \sum^3_{i < j = 2} P(A_i \cap A_j) + 3 P\Bigg( \bigcap^3_{i=1} A_i \Bigg) }
+\end{align*} 
+
+\end{proof}
+
+Applying the theorem to the problem at hand gives us:
+
+\begin{align*}
+P(\text{reads exactly one paper}) = &P(A_1) + P(A_2) + P(A_3) - 2P(A_1 \cap A_2) - 2P(A_1 \cap A_3) \\
+&\quad - 2P(A_2 \cap A_3) + 3P(A_1 \cap A_2 \cap A_3) \\
+= &0.2+0.16+0.14-2\left(0.08+0.05+0.04\right)+3\left(0.02\right) = \boxed{0.22}
+\end{align*}
+
+\textbf{(c)} The desired probability is:
+
+\[ P(\text{reads at least $A_1$ and $A_2$} \ | \ \text{reads at least one paper} ) \]
+
+Observe that $P(\text{reads at least one paper}) = P \big( \bigcup^3_{i = 1} A_i \big)$, and $P(\text{reads at least $A$ and $B$}) = P\Big( (A_1 \cap A_2) \cup \Big( \bigcap^3_{i=1} A_i \Big) \Big)$. Then the conditional probability can be rewritten as:
+
+\[ \frac{P\Big( \Big( (A_1 \cap A_2) \cup \Big( \bigcap^3_{i=1} A_i \Big) \Big) \cap \big( \bigcup^3_{i = 1} A_i \big) \Big)}{P \big( \bigcup^3_{i = 1} A_i \big)} \]
+
+Observe that the numerator reduces simply to $P(A_1 \cap A_2)$. Then finally:
+
+\begin{align*}
+\frac{P(A_1 \cap A_2)}{P \big( \bigcup^3_{i = 1} A_i \big)} = \boxed{ \frac{0.08}{0.35} = 0.229}
+\end{align*}
+
+%Question 3.36
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A fair coin is tossed $\bm{2n}$ times.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 3.36(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Obtain the probability that there will be an equal number of heads and tails.}
+	\end{tcolorbox}
+	
+	There are $2^{2n}$ total outcomes of the coin tosses. To determine the number of combinations of equal heads and tails there are, we can equivalently ask how many ways are there to choose $n$ items from $2n$, or $\binom{2n}{n}$. Then the probability there will be an equal number of heads and tails will be $\boxed{ \binom{2n}{n} / 2^{2n} }$. Equivalently, to permute $2n$ objects where $n$ are of one type and $n$ of another, there are $(2n)! / (n!)^2$ ways to permute, leading us once again to $\boxed{(2n)! / ((n!) 2^{n})^2}$.
+	
+	%Question 3.36(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Show that the probability computed in (a) is a decreasing function of $\bm{n}$.}
+	\end{tcolorbox}
+	
+	\begin{proof}
+	
+	Consider $a_n = \frac{(2n)!}{((n!) 2^{n})^2}$ and $a_{n+1} = \frac{(2(n+1))!}{(((n+1)!) 2^{n+1})^2}$. Then:
+	
+	\begin{align*}
+	\frac{a_{n+1}}{a_n} &= \frac{ (2(n+1))! }{ (((n+1)!) 2^{n+1})^2} \cdot \frac{((n!) 2^{n})^2}{(2n)!} \\
+	&= \Bigg( \frac{1}{2(n+1)} \Bigg)^2 \cdot (2n+2)(2n+1) \\
+	&= \frac{(2n+2)(2n+1)}{(2n+2)(2n+2)} < 1
+	\end{align*}
+	
+	\end{proof}
+	
+	\end{enumerate}
+
+%Question 3.37
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Urn 1, Urn 2, ..., Urn $\bm{n}$ each contain $\bm{\alpha}$ white and $\bm{\beta}$ black balls. One ball is taken from Urn 1 into Urn 2 and then one is taken from Urn 2 into Urn 3, etc. Finally, one ball is chosen from Urn $\bm{n}$. If the first ball transferred was white, what is the probability that the last ball chosen is white? What happens as $\bm{n \rightarrow \infty}$?}
+\end{tcolorbox}
+
+%Question 3.38
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Urn 1 contains $\bm{\alpha}$ white and $\bm{\beta}$ black balls while Urn 2 contains $\bm{\beta}$ white and $\bm{\alpha}$ black balls. One ball is chosen (from one of the urns) and is then returned to that urn. If the chosen ball is white, choose the next ball from Urn 1; if the chosen ball is black, choose the next one from Urn 2. Continue in this manner. Given that the first ball chosen came from Urn 1, obtain Prob ($\bm{n}$th ball chosen is white) and also the limit of this probability as $\bm{n \rightarrow \infty}$.}
+\end{tcolorbox}
+
+%Question 3.39
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A printing machine can print $\bm{n}$ ``letters," say $\bm{\alpha_1, ..., \alpha_n}$. It is operated by electrical impulses, each letter being produced by a different impulse. Assume that there exists a constant probability $\bm{p}$ of printing the correct letter and also assume independence. One of the $\bm{n}$ impulses, chosen at random, was fed into the machine twice and both times the letter $\alpha_1$ was printed. Compute the probability that the impulse chosen was meant to print $\bm{\alpha_1}$.}
+\end{tcolorbox}
+
+\end{enumerate}
+
+\end{document}  
