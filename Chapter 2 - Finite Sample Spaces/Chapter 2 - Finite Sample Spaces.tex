@@ -1,0 +1,568 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{setspace}
+\setstretch{0.5}
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\newcommand*{\simsym}{\mathord\sim}\usepackage{amsthm}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{wrapfig, lipsum, amsthm, thmtools}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=15mm,
+ right = 15mm,
+ top=15mm,
+ bottom = 20mm
+ }
+
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+\usepackage[framemethod=tikz]{mdframed}
+
+\theoremstyle{definition}
+\newtheorem*{exmp*}{Example}
+
+\newtheorem*{defn}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn}
+
+\newtheorem{cor}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor}
+
+\newtheorem{prop}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop}
+
+
+%SetFonts
+
+%SetFonts
+
+
+\title{Introductory Probability and Statistical Applications, Second Edition \\
+\large{Paul L. Meyer}}
+\author{Notes and Solutions by David A. Lee}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section*{Solutions to Chapter 2: Finite Sample Spaces}
+
+\begin{enumerate}[label=2.\arabic*]
+\itemsep0em 
+%Question 2.1
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{The following group of persons is in a room: 5 men over 21, 4 men under 21, 6 women over 21, and 3 women under 21. One person is chosen at random. The following events are defined: $\bm{A = \{\text{the person is over 21} \}}$; $\bm{B = \{ \text{the person is under 21} \}}$; $\bm{C = \{ \text{the person is male} \}}$; $\bm{D = \text{the person is female}}$. Evaluate the following.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  $\bm{P(B \cup D)}$
+  \end{tcolorbox}
+	
+	$P(B \cup D) = \boxed{13/18}$
+	
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+	$\bm{P(\bar{A} \cap \bar{C})}$
+	\end{tcolorbox}
+	
+	$P(\bar{A} \cap \bar{C}) = \boxed{1/6}$
+	
+	\end{enumerate}
+	
+%Question 2.2
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Ten persons in a room are wearing badges marked 1 through 10. Three persons are chosen at random, and asked to leave the room simultaneously. Their badge number is noted.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+	\textbf{What is the probability that the smallest badge number is 5?}
+	\end{tcolorbox}
+	
+	\textbf{Permutation approach.} There are $\Perm{10}{3} = \frac{10!}{7!}$ ways to arrange a trio from a group of ten. Now, there are six badges numbered 5,...,10, inclusive. Thus, there are $\Perm{6}{3} = \frac{6!}{3!}$ ways to arrange a trio involving the six highest numbers. The aim is to now determine how many of those trios actually contain 5. Since 5 is the lowest number in choosing only from this group, if the person with badge 5 is in the trio, then 5 will necessarily be the lowest number. Then the next step is to count the number of trios that do not contain badge 5; namely, the total arrangements of trios from the numbers 6, ..., 10. There are five such numbers, meaning there are $\Perm{5}{3} = \frac{5!}{2!}$ such trios. Less the total arrangements from the trios excluding 5 from the total arrangements of trios from the six highest numbers and divide by the total number of trios from the group of ten to calculate: $(\Perm{6}{3} - \Perm{5}{3}) / \Perm{10}{3} = \boxed{1/12}$.
+	
+	\textbf{Combination approach.} There are $\binom {10}{3} = \frac{10!}{3!7!}$ ways to choose 3 from a group of 10. Since there are five people with badges greater than 5, if 5 is fixed as the lowest badge number, then there are $\binom 52 = \frac{5!}{2! 3!}$ ways of choosing the remaining two people of those five. Ergo, there is a $\binom{5}{2} / \binom {10}{3} = \boxed{1/12}$ probability that the smallest badge number is 5.
+	
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+	\textbf{What is the probability that the largest badge number is 5?}
+	\end{tcolorbox}
+	
+	\textbf{Permutation approach.} As before, there are $\Perm{10}{3} = \frac{10!}{7!}$ ways to arrange a trio from a group of ten. Instead of six badges as previously considered, now there are only five badges in the group numbered 1, ..., 5, inclusive. From this group, there are $\Perm{5}{3} = \frac{5!}{2!}$ arrangements. Now we must less this number of arrangements with the number of arrangements not including badge 5 in the trio, i.e., the trios formed from the group 1,..., 4. This latter arrangement totals simply to $\Perm{4}{3} = \frac{4!}{1!}$. Then the probability is calculated by $(\Perm{5}{3} - \Perm{4}{3}) / \Perm{10}{3} = \boxed{1/20}$. 
+	
+	\textbf{Combination approach.} Now, there are four people with a badge number less than 5. Thus in fixing 5 as the largest badge number of the trio, there are $\binom 42 = \frac{4!}{2!2!}$ ways of choosing the remaining two people. Proceeding as in part (a), there is a $\binom{4}{2} / \binom {10}{3} = \boxed{1/20}$ probability that the largest badge number is 5.
+	
+	In both (a) and (b), the combination approach proved simpler. 
+	\end{enumerate}
+	
+%Question 2.3
+\item \begin{enumerate}
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+	\textbf{Suppose that the three digits 1, 2, and 3 are written down in random order. What is the probability that at least one digit will occupy its proper place?}
+	\end{tcolorbox}
+	
+	\textbf{Note: The following four problems deal with the inclusion-exclusion principle. Refer to Theorem 1.4 in Meyer.}
+	
+	There are $3! = 6$ ways to write down the three digits:
+	
+	\[ \{ (123), (132), (213), (231), (312), (321) \} \]
+	
+	We can apply Theorem 1.4 of Meyer, where $A$ is one of the digits occupies the correct spot, $B$ for two, and $C$ for all three. Then:
+	
+	\begin{align*}
+	P(A \cup B \cup C) &= P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C) \\
+	&= 4/6 + 1/6 + 1/6 - 1/6 - 1/6 - 1/6 + 1/6 = \boxed{2/3}
+	\end{align*}
+	
+	We find that the probability of at least one digit occupying its proper place is $\boxed{2/3}$, namely the outcomes $\{ (123), (132), (213), (321)\}$. This approach of defining the events in the aforementioned manner is fine for small $n$, but will become increasingly cumbersome for higher $n$.
+	
+	A generalized plan of attack on this problem, known as a class of problem called \textbf{derangement}, is to redefine the events as:
+	
+	\[ A_i = \{ \text{$i$-th digit is in its correct position} \} \]
+	
+	which is a clearer way to think than attempting to figure out the outcomes corresponding to $k$ digits being located in their correct position, an increasingly difficult task for increasing $n$. Then for $n$ numbers, the 	probability that \textbf{one} of the numbers will be in the correct position will be:
+	
+	\[ \frac{(n-1)!}{n!} \]
+	
+	Similarly, the probability that \textbf{two} numbers will occupy their correct position is:
+	
+	\[ \frac{(n-2)!}{n!} \]
+	
+	and so on and so forth. For $n = 3$, the application of the inclusion-exclusion principle looks like:
+	
+	\begin{align*}
+	P(A \cup B \cup C) &= P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C) \\
+	&= \frac{2!}{3!} +  \frac{2!}{3!} +  \frac{2!}{3!} - \frac{1!}{3!} -  \frac{1!}{3!} -  \frac{1!}{3!} +  \frac{1!}{3!} = \boxed{2/3}
+	\end{align*}
+%Question 2.3(b)
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black] \textbf{Same as (a) with the digits 1, 2, 3, and 4.}
+	\end{tcolorbox}
+	
+	There are $4! = 24$ total arrangements of the digits 1 through 4. Applying the inclusion-exclusion principle, we want to find:
+	
+	\[ P\Bigg( \bigcup^4_{k=1} A_k \Bigg) = \sum_{i = 1}^4 P(A_i) - \sum_{i < j = 2}^4 P(A_i \cap A_j) + \sum_{i < j < r = 3}^4 P(A_i \cap A_j \cap A_r) - P \Bigg( \bigcap^4_{k=1} A_k \Bigg) \]
+	
+	where each $A_k$ corresponds to the event where the $k$-th digit occupies its correct position. It follows that the probabilities for when 1, 2, 3, or 4 of the digits are in their correct position will be $3! / 4!, 2! / 4!, 1! / 4!$, and $0! / 4!$, respectively. The next step is to determine how many terms are in each of the summations. But this is merely the problem of choosing $1 < k < n$ objects out of $n$. Therefore, the solution is given by:
+	
+	\begin{align*}
+	P\Bigg( \bigcup^4_{k=1} A_k \Bigg) &= \sum_{i = 1}^4 P(A_i) - \sum_{i < j = 2}^4 P(A_i \cap A_j) + \sum_{i < j < r = 3}^4 P(A_i \cap A_j \cap A_r) - P \Bigg( \bigcap^4_{k=1} A_k \Bigg)  \\
+	&= \binom {4}{1} \frac{3!}{4!} - \binom {4}{2} \frac{2!}{4!} + \binom{4}{3} \frac{1!}{4!} - \binom{4}{4} \frac{0!}{4!} = \boxed{5/8}
+	\end{align*}
+
+%Question 2.3(c)
+	\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{Same as (a) with the digits $\bm{1, 2, 3, ..., n}$. }
+	\end{tcolorbox}
+	
+	Proceeding with the analogous logic as in the previous two problems:
+	
+	\begin{align*}
+	P\Bigg( \bigcup^n_{k=1} A_k \Bigg) &= \sum^n_{k=1} (-1)^{k-1} \binom{n}{k} \frac{(n-k)!}{n!} \\
+	&= \boxed{ \sum^n_{k=1} (-1)^{k-1} \frac{1}{k!} }
+	\end{align*}
+
+%Question 2.3(d)
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+   \textbf{Discuss the answer to (c) if $\bm{n}$ is large.}
+	\end{tcolorbox}
+	
+	Now, recall the fact that
+	
+	\[ e^{-1} = \sum^\infty_{k = 0} \frac{(-1)^k}{k!} \]
+	
+	From this we can deduce that the limit of the previous solution as $n \rightarrow \infty$ is $\boxed{1 - e^{-1}}$.
+	\end{enumerate}
+%Question 2.4
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A shipment of 1500 washers contains 400 defective and 1100 nondefective items. Two-hundred washers are chosen at random (without replacement) and classified.}
+  \end{tcolorbox}
+  
+  	\begin{enumerate}
+	%Question 2.4(a)
+	\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  	\textbf{What is the probability that exactly 90 defective items are found?}
+  	 \end{tcolorbox}
+	 
+	 \textbf{Note: These two questions deal with hypergeometric probabilities.}
+	 
+	 $\boxed{\frac{\binom{400}{90} \binom{1100}{110}}{\binom{1500}{200}}}$
+	 %Question 2.4(b)
+	 \item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  	\textbf{What is the probability that at least 2 defective items are found?}
+  	 \end{tcolorbox}
+	 
+	 The probability that less than 2 defective items are found (namely, exactly 1 and 0 defective items are found) is:
+	 
+	 \[ \frac{ \binom{400}{1} \binom{1100}{199} + \binom{400}{0} \binom{1100}{200}}{\binom{1500}{200}} \]
+	 
+	 Therefore, the probability that at least 2 defective items are found is:
+	 
+	  \[ \boxed{ 1 - \Bigg[ \frac{ \binom{400}{1} \binom{1100}{199} + \binom{400}{0} \binom{1100}{200}}{\binom{1500}{200}} \Bigg] } \]
+
+	\end{enumerate}
+%Question 2.5
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{Ten chips numbered 1 through 10 are mixed in a bowl. Two chips numbered $\bm{(X,Y)}$ are drawn from the bowl, successively and without replacement. What is the probability that $\bm{X + Y = 10}$?}
+   \end{tcolorbox}
+   
+   \textbf{Note: The principle to recall here is that of multiplicative probabilities: when two events $\bm{A, B}$ are independent, the probability of both happening ($\bm{P(A \cap B)}$) is the product of the probabilities of the individual events, namely $\bm{P(A)P(B)}$. Should the events be dependent, say $\bm{B}$ depends on $\bm{A}$, then $\bm{P(A \cap B) = P(A) P(B | A)}$ .}
+   
+   In the first drawing, there are 10 chips to choose from. In the second, there are only 9. By the multiplication principle, there are 90 possible outcomes. For the first round, drawing any chip suffices so long as that chip is not 5 or 10. We cannot choose 10, because no other chip summed with 10 will yield 10, and we also cannot choose 5, because we do not replace the chips, and there is no other number to which 5 can be summed to give us 10. Therefore, there is a $8/10$ odds that chips 5 or 10 are not drawn. In the second round, only 9 chips remain, for which only one will correspond to the first chip to give 10, or a 1/9 chance of drawing that chip. By the multiplicative property of conditional probabilities of dependent events, $(8/10)(1/9) = \boxed{4/45}$.
+
+%Question 2.6
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A lot consists of 10 good articles, 4 with minor defects, and 2 with major defects. One article is chosen at random. Find the probability that:}
+  \end{tcolorbox}
+  
+  	\begin{enumerate}
+	%Question 2.6(a)
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{it has no defects,}
+  \end{tcolorbox}
+  
+  Choose one of ten good items out of sixteen total items, $\frac{\binom{10}{1} }{\binom{16}{1}} = \boxed{5/8}$.
+  
+  	%Question 2.6(b)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{it has no major defects,}
+  \end{tcolorbox}
+  
+  Choose one of ten good items or one of 4 minor defect items out of sixteen total items, $\frac{\binom{10}{1} + \binom{4}{1} }{\binom{16}{1}}  = \boxed{7/8}$.
+  
+    	%Question 2.6(c)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{it is either good or has major defects.}
+  \end{tcolorbox}
+  
+  Choose one of ten good items or one of two major defect items,
+  \[ P(\text{good} \cup \text{major defects}) = P(\text{good}) + P(\text{major defects}) - P(\text{good} \cap \text{major defects}) = \frac{\binom{10}{1} + \binom{2}{1} }{\binom{16}{1}} - 0 = \boxed{3/4} \]
+  In the alternative, take unity less the probability of the complement event, which is choose only items with minor defects, or $1 - 4/16 = \boxed{3/4}$. 
+
+	\end{enumerate}
+
+%Question 2.7
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{If from the lot of articles described in Problem 2.6 two articles are chosen (without replacement), find the probability that:}
+  \end{tcolorbox}
+  	
+  	\begin{enumerate}
+	%Question 2.7(a)
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{both are good,}
+  \end{tcolorbox}
+  
+  Choose one of ten good articles out of sixteen total articles in the first round, followed by one of nine good articles out of the remaining fifteen articles in the second, invoke dependence of probabilities, $\frac{10}{16} \cdot \frac{9}{15} = \boxed{3/8}$.
+  
+  All sub-parts below proceed using similar logic of the product of probabilities.
+  	
+	%Question 2.7(b)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{both have major defects,}
+  \end{tcolorbox}
+  
+  	$\frac{2}{16} \cdot \frac{1}{15} = \boxed{1/120}$
+ 	%Question 2.7(c)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{at least one is good,}
+  \end{tcolorbox}
+  
+  	Equivalently, unity less the probability that both are defective.
+	
+	\[ 1 - \frac{6}{16} \cdot \frac{5}{15} = 1 - \frac{30}{240} = \boxed{7/8} \]
+  	%Question 2.7(d)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{at most one is good,}
+  \end{tcolorbox}
+  
+  	Equivalently, unity less the probability that both are good. 
+	
+	\[ 1 - \frac{10}{16} \cdot \frac{9}{15} = 1 - 3/8 = \boxed{ \frac{5}{8} } \]
+  	%Question 2.7(e)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{exactly one is good,}
+  \end{tcolorbox}
+  
+  \[ \frac{\binom{10}{1} \binom{6}{1} }{\binom{16}{2}} = \boxed{1/2} \]
+  	%Question 2.7(f)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{neither has major defects,}
+  \end{tcolorbox}
+  
+  \[ \frac{14}{16} \cdot \frac{13}{15} = \boxed{91/120} \]
+  	%Question 2.7(g)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{neither is good.}
+  \end{tcolorbox}
+  
+  \[ \frac{6}{16} \cdot \frac{5}{15} = \boxed{1/8} \]
+	\end{enumerate}
+%Question 2.8
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A product is assembled in three stages. At the first stage there are 5 assembly lines, at the second stage there are 4 assembly lines, and at the third stage there are 6 assembly lines. In how many different ways may the product be routed through the assembly process?}
+  \end{tcolorbox}
+  
+  By the multiplicative principle, $5 \cdot 4 \cdot 6 = \boxed{120}$ ways.
+%Question 2.9
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{An inspector visits 6 different machines during the day. In order to prevent operators from knowing when he will inspect he varies the order of his visits. In how many ways may this be done?}
+  \end{tcolorbox}
+  
+  $\boxed{6!}$ ways.
+%Question 2.10
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A complex mechanism may fail at 15 stages. If it fails at 3 stages, in how many ways may this happen?}
+  \end{tcolorbox}
+  
+  $\binom{15}{3} = \boxed{455}$ ways.
+
+%Question 2.11  
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{There are 12 ways in which a manufactured item can be a minor defective and 10 ways in which it can be a major defective. In how many ways can 1 minor and 1 major defective occur? 2 minor and 2 major defectives?}
+  \end{tcolorbox}
+  
+  \textbf{1 minor and 1 major defective:} $12 \cdot 10 = \boxed{120}$ ways.
+  
+  \textbf{2 minor and 2 major defectives:} $\binom{12}{2} \cdot \binom{10}{2} = 66 \cdot 45 = \boxed{2970}$ ways.
+
+%Question 2.12
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A mechanism may be set at any one of four positions, say $\bm{a,b,c,}$ and $\bm{d}$. There are 8 such mechanisms which are inserted into a system.}
+  \end{tcolorbox}
+  
+  	\begin{enumerate}
+	%Question 2.12(a)
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{In how many ways may this system be set?}
+  \end{tcolorbox}
+  
+  	Eight mechanisms which each can have one of four positions, so $\boxed{4^8}$ ways.
+  	%Question 2.12(b)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{Assume that these mechanisms are installed in some preassigned (linear) order. How many ways of setting the system are available if no two adjacent mechanisms are in the same position?}
+  \end{tcolorbox}
+  
+  	The first of the mechanisms can take on any of the four positions. The adjacent mechanism, under the constraint, can only be placed into one of three positions. And so on and so forth for the remaining mechanisms. Therefore, $\boxed{4 \cdot 3^7}$ ways.
+  	%Question 2.12(c)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{How many ways are available if only positions $\bm{a}$ and $\bm{b}$ are used, and these are used equally often?}
+  \end{tcolorbox}
+  
+  	A simpler way to think about this problem is to ask: for each of the eight mechanisms, how many ways can we choose four of them to place in position $a$? But this is merely $\binom{8}{4} = \boxed{70}$ ways.
+	%Question 2.12(d)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{How many ways are available if only two different positions are used and one of these positions appears three times as often as the other?}
+  \end{tcolorbox}
+  
+  	For any one pair, there are $\binom{8}{6} = 28$ ways to arrange the mechanisms under the given constraint. There are $\binom{4}{2} = 6$ different pairings. For each of those pairings, one of the positions will appear three times as often as the other, so the number of ways must be doubled to account for the other of the positions appearing three times as often as the initial. Therefore, there are $28 \cdot 6 \cdot 2 = \boxed{336}$ ways.
+	
+	\end{enumerate}
+%Question 2.13
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{Suppose that from $\bm{N}$ objects we choose $\bm{n}$ at random, with replacement. What is the probability that no object is chosen more than once? (Suppose that $\bm{n < N}$.)}
+  \end{tcolorbox}
+  
+  There are $N^n$ total ways to choose $n$ objects from a group of $N$, with replacement. There are $\frac{N!}{(N-n)!}$ ways to choose $n$ objects from a group of $N$ under the aforementioned constraint, ergo probability $\boxed{ \frac{N!}{(N-n)! N^n }} $.
+%Question 2.14 
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{From the letters a, b, c, d, e, and f how many 4-letter code words may be formed if,}
+  \end{tcolorbox}
+  
+  	\begin{enumerate}
+	%Question 2.14(a)
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{no letter may be repeated?}
+  \end{tcolorbox}
+  
+  Order matters, so this is a permutation problem. There are $\Perm{6}{4} = \boxed{360}$ words.
+  	%Question 2.14(b)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{any letter may be repeated any number of times?}
+  \end{tcolorbox}
+  
+  $\boxed{6^4}$ words.
+	\end{enumerate}
+%Question 2.15
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{Suppose that $\binom{99}{5} = a$ and $ \binom{99}{4} = b$. Express $\binom{100}{95} $ in terms of $\bm{a}$ and $\bm{b}$.}
+  \end{tcolorbox}
+  
+  Observe that $\binom{99}{5} = \binom{99}{94} = a$ and $\binom{99}{4} = \binom{99}{95} = b$. Then $\binom{100}{95} = \binom{99}{94} + \binom{99}{95} = \boxed{a + b}$.
+%Question 2.16
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A box contains tags marked $\bm{1, 2, ..., n}$. Two tags are chosen at random. Find the probability that the numbers on the tags will be consecutive integers if}
+  \end{tcolorbox}
+  
+  	\begin{enumerate}
+	%Question 2.16(a)
+	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{the tags are chosen without replacement,}
+  \end{tcolorbox}
+  
+  	Equivalently, we find the probability of choosing two consecutive tags when the choice of the first tag is any one of $2, ..., n-1$ or when it is either $1$ or $n$. Call the first case $C_1$ and the second $C_2$. There is a $\frac{n-2}{n}$ probability of the former case in the first draw, and a $\frac{2}{n-1}$ probability of choosing a consecutive tag in the second draw, from which we can deduce $( \frac{n-2}{n} ) ( \frac{2}{n-1} )$ probability of drawing consecutive tags in the first case. For the latter case, there is a $\frac{2}{n}$ probability of drawing $1$ or $n$, and a $\frac{1}{n-1}$ probability of drawing its adjacent tag in the second round. Therefore the probability of drawing consecutive tags in the second case is $( \frac{2}{n} ) ( \frac{1}{n-1} )$. By mutual exclusivity of the two cases (we cannot draw $2, ..., n-1$ and $1$ or $n$ in the first round),
+	
+	\begin{align*}
+	P(C_1 \cup C_2) &= P(C_1) + P(C_2) \\
+	&= \Bigg( \frac{n-2}{n} \Bigg) \Bigg( \frac{2}{n-1} \Bigg) + \Bigg( \frac{2}{n} \Bigg) \Bigg( \frac{1}{n-1} \Bigg) = \boxed{ \frac{2}{n} }
+	\end{align*}
+  	%Question 2.16(b)
+  	\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{the tags are chosen with replacement.}
+  \end{tcolorbox}
+  
+  	Analogous argument as in the case without replacement, but with $n$ in lieu of $n-1$ in the denominator for the second round.
+	
+	\begin{align*}
+	P(C_1 \cup C_2) &= P(C_1) + P(C_2) \\
+	&= \Bigg( \frac{n-2}{n} \Bigg) \Bigg( \frac{2}{n} \Bigg) + \Bigg( \frac{2}{n} \Bigg) \Bigg( \frac{1}{n} \Bigg) = \boxed{ \frac{2(n-1)}{n^2} }
+	\end{align*}
+	\end{enumerate}
+%Question 2.17
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{How many subsets can be formed, containing at least one member, from a set of 100 elements?}
+  \end{tcolorbox}
+  
+  Equivalently, find the number of ways to choose $k$ from 100 objects, $1 \leq k \leq 100$, and sum each of those ways for all $k$, or \boxed{ \sum_{k = 1}^{100} \binom{100}{k} }.
+%Question 2.18
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{One integer is chosen at random from the numbers 1, 2, ..., 50. What is the probability that the chosen number is divisible by 6 or by 8?}
+  \end{tcolorbox}
+  
+  The numbers divisible by 6 are $\{ 6, 12, 18, 24, 30, 36, 42, 48 \}$, and by 8 are $\{ 8, 16, 24, 32, 40, 48 \}$. The only numbers divisible by both are $24$ and $48$. Therefore, $P(\text{divisible by 6 or divisible by 8}) = P(\text{divisible by 6}) + P(\text{divisible by 8}) - P(\text{divisible by 6 and 8}) = 8/50 + 6/50 - 2/50 = \boxed{6/25}$.
+%Question 2.19
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{From 6 positive and 8 negative numbers, 4 numbers are chosen at random (without replacement) and multiplied. What is the probability that the product is a positive number?}
+  \end{tcolorbox}
+  
+  There are $\binom{14}{4}$ total ways to choose 4 numbers out of 14. There are several ways to get a product that is a positive number: by choosing 4 positives, 4 negatives, or 2 positives and 2 negatives. Applying hypergeometric probability and summing the combinations yields:
+  
+  \begin{align*}
+  \frac{\binom{6}{4} + \binom{8}{4} + \binom{6}{2} \cdot \binom{8}{2} }{\binom{14}{4}} &= \frac{ \frac{6!}{2! 4!} + \frac{8!}{4! 4!} + \frac{6!}{2! 4!} \cdot \frac{8!}{2! 6!} }{\frac{14!}{4! 10!}} \\
+  &= \frac{15 + 70 + 15\cdot 28}{1001} = \boxed{505/1001}
+  \end{align*}
+%Question 2.20
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A certain chemical substance is made by mixing 5 separate liquids. It is proposed to pour one liquid into a tank, and then to add the other liquids in turn. All possible combinations must be tested to see which gives the best yield. How many tests must be performed?}
+  \end{tcolorbox}
+  
+  $5! = \boxed{120}$ ways.
+  
+%Question 2.21
+\item \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+  \textbf{A lot contains $\bm{n}$ articles. If it is known that $\bm{r}$ of the articles are defective and the articles are inspected in a random order, what is the probability that the $\bm{k}$-th article $\bm{(k \geq r)}$ inspected will be the last defective one in the lot?}
+  \end{tcolorbox}
+  
+  To motivate this problem, first imagine every possible combination of the $n$ articles arranged in a line. Recognize that there are $\binom{n}{r}$ total positions that the $r$ articles can take in the line of $n$ articles; this is equivalent to choosing $r$ objects from $n$. The trickier insight is to ascertain how many arrangements of the $r$ defective articles there are if the last of the $r$ articles is in the $k$-th position. To do so, fix the $r$-th article in the $k$-th position. Then there are $r-1$ remaining objects to arrange in the $k-1$ remaining positions. Simply, there are $\binom{k-1}{r-1}$ ways to do this. Therefore, the probability that the $k$-th article $(k \geq r)$ inspected will be the last defective one in the lot is $\boxed{\binom{k-1}{r-1} / \binom{n}{r}}$.
+\end{enumerate}
+
+
+
+\end{document}  
