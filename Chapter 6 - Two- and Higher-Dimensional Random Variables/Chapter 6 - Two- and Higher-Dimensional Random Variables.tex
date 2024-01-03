@@ -139,6 +139,7 @@ P(X = 2 | Y = 3) &= \frac{P(X = 2, Y = 3)}{P(Y = 3)} = \frac{1/4}{79/180} = \box
 P(X = 3 | Y = 3) &= \frac{P(X = 3, Y = 3)}{P(Y = 3)} = \frac{2/15}{79/180} = \boxed{24/79}
 \end{align*}
 
+\newpage
 %Question 6.2
 \item  \begin{tcolorbox}[
   colback=Cerulean!5!white,
@@ -527,7 +528,7 @@ To further investigate this point, consider the following contour plot of the ar
 		  \node (some node) at (150,200) (c) {};
 	\addplot[samples=500,domain=2:2.5, color=red, style=thick]{5/x} node[left = 40 pt of a] (b) {$a = 5$};
 	\addplot[name path=A,samples=500,domain=2:3, color=teal, style=thick]{6/x} node[above = 10 pt of b] {$a = 6$};
-	\addplot[samples=500,domain=2:3, color=teal, style=thick]{7/x} node[above=30pt of b] {$a-7$};
+	\addplot[samples=500,domain=2:3, color=teal, style=thick]{7/x} node[above=30pt of b] {$a=7$};
 	\addplot[name path=B,samples=500,domain=2:3, color=teal, style=thick]{8/x} (-1,0) node[above=50pt of b] {$a=8$};
 	\addplot[samples=500,domain=2.25:3, color=blue, style=thick]{9/x} (-1,0) node[right=0pt of c] (d) {$a=9$};
 	\addplot[samples=500,domain=2.5:3, color=blue, style=thick]{10/x} (-1,0) node[above=1pt of d] {$a=10$};

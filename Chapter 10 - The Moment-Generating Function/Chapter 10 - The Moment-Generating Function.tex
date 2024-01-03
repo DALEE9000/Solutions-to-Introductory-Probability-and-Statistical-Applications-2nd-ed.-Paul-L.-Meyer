@@ -1,0 +1,774 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{setspace}
+\setstretch{0.5}
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\newcommand*{\simsym}{\mathord\sim}\usepackage{amsthm}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{wrapfig, lipsum, amsthm, thmtools}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=15mm,
+ right = 15mm,
+ top=15mm,
+ bottom = 20mm
+ }
+
+\usepackage{url}
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+\usepackage[framemethod=tikz]{mdframed}
+
+\theoremstyle{definition}
+\newtheorem*{exmp*}{Example}
+
+\newtheorem*{defn}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn}
+
+\newtheorem{cor}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor}
+
+\newtheorem{prop}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop}
+
+\newtheorem*{thm}{Theorem}
+\surroundwithmdframed[backgroundcolor=white]{thm}
+
+
+% tikz for probability tree
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{trees,calc,angles,positioning,intersections}
+
+% pgfplot
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% pgfplotslibrary
+\usepgfplotslibrary{fillbetween}
+
+% quotations dirty talk
+\usepackage{dirtytalk}
+
+% floor ceiling
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% diag table
+\usepackage{diagbox}
+
+
+\title{Introductory Probability and Statistical Applications, Second Edition \\
+\large{Paul L. Meyer}}
+\author{Notes and Solutions by David A. Lee}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section*{Solutions to Chapter 10: The Moment-Generating Function}
+
+Unfinished problems: 10.10(b)
+
+\subsection*{Note:}
+
+For this chapter, in the interest of brevity, only the set up for each integral will be provided with my solution.
+
+\begin{enumerate}[label=10.\arabic*]
+\itemsep0em 
+%Question 10.1
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X}$ has pdf given by}
+
+\[ \bm{f(x) = 2x, \quad 0 \leq x \leq 1} \]
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.1(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Determine the mgf of $\bm{X}$.}
+	\end{tcolorbox}
+	
+	We have the moment generating function
+	
+	\[ M_X (t) = \int^1_0 e^{tx} 2x \ dx \]
+	
+	which can be integrated by parts by letting $u = x$ and $dv = e^{tx} \ dx$. Evaluating leaves us with
+	
+	\[ \boxed{M_X(t) = 2 \bigg( \frac{e^t (t-1) + 1}{t^2} \bigg) } \]
+	
+	%Question 10.1(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Using the mgf, evaluate $\bm{E[X]}$ and $\bm{V[X]}$ and check your answer.}
+	
+	\textbf{\textit{Note}: In evaluating $\bm{M'_X(t)}$ at $\bm{t=0}$, an indeterminate form may arise. That is, $\bm{M'_X(0)}$ may be of the form $\bm{0/0}$. In such cases we must try to apply l'H\^{o}pital's rule. For example, if $\bm{X}$ is uniformly distributed over $\bm{[0,1]}$, we easily find that $\bm{M_X(t) = (e^t - 1)/t}$ and $\bm{M'_X(t) = (te^t - e^t + 1)/t^2}$. Hence at $\bm{t=0}$, $\bm{M'_X(t)}$ is indeterminate. Applying l'H\^{o}pital's rule, we find that $\bm{\lim_{t \rightarrow 0} M'_X(t) = \lim_{t \rightarrow 0} te^t / 2t = \frac{1}{2}}$. This checks, since $\bm{M'_X(0) = E[X]}$, which equals $\bm{\frac{1}{2}}$ for the random variable described here.}
+	\end{tcolorbox}
+	
+	Differentiating $M_X (t)$ gives us
+	
+	\[ M'_X(t) = \frac{-4(te^t - e^t + 1) + 2t^2 e^t}{t^3} \]
+	
+	For which  l'H\^{o}pital's rule must be used to evaluate the limit at $t \rightarrow 0$. Eventually, we will find
+	
+	\[ E[X] = \lim_{t \rightarrow 0} M'_X(t) = \boxed{ \frac{2}{3} }\]
+	
+	To calculate $E[X^2]$, we must derive $M''(t)$:
+	
+	\[ M''_X(t) = \frac{12-12e^t}{t^4} + \frac{12e^t}{t^3} - \frac{6e^t}{t^2} + \frac{2e^t}{t} \]
+	
+	Now, a term-by-term application of l'H\^{o}pital will make the evaluation of the limit far less painful (in general this should be your strategy for these types of problems). This only works, however, because combining into one term reveals
+	
+	\[ \lim_{t \rightarrow 0} \frac{12 - 12e^t + 12te^t - 6t^2 e^t + 2t^3 e^t}{t^4} = \frac{0}{0} \]
+	
+	that the pre-requisite of the indeterminate form is satisfied. As long as this is satisfied, we can proceed with the far simpler term-by-term differentiation. Doing so yields
+	
+	\[ E[X^2] = \lim_{t \rightarrow 0} M''_X(t) = \frac{1}{2} \]
+	
+	Finally we can calculate
+	
+	\[ V[X] = E[X^2] - E[X]^2 = \frac{1}{2} - \bigg( \frac{2}{3} \bigg)^2 = \boxed{\frac{1}{18}} \]
+	
+	\end{enumerate}
+
+%Question 10.2
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{(Intentionally blank)}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.2(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Find the mgf of the voltage (\textit{including} noise) as discussed in Problem 7.25.}
+	\end{tcolorbox}
+	
+	From Problem 7.25, the pdf of the voltage and noise is given by
+	
+	\begin{align*}
+	f(s) &= 1, \quad 0 \leq s \leq 1 \\
+	g(n) &= \frac{1}{2}, \quad 0 \leq n \leq 2
+	\end{align*}
+	
+	With the voltage including noise given by $V = S + N$. By the mgf of the sum of random variables having equality to the product of the respective mgfs of each variable in the sum, we have
+	
+	\[ M_V(t) = M_S(t) M_N(t) = \int^1_0 e^{tx} \ dx \int^2_0 \frac{1}{2} e^{tx} \ dx = \boxed{ \frac{1}{2t^2} (e^{3t} - e^{2t} - e^t + 1) } \]
+	
+	%Question 10.2(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Using the mgf, obtain the expected value and variance of this voltage.}
+	\end{tcolorbox}
+	
+	Calculating $M'_V(t)$ gives us
+	
+	\[ M'_V(t) = \frac{-e^{3t} + e^{2t} + e^t - 1}{t^3} + \frac{3e^{3t} -2e^{2t} - e^t}{2t^2} \]
+	
+	Repeated uses of l'H\^{o}pital yields
+	
+	\[ E[V] = \lim_{t \rightarrow 0} M'_V(t) = \boxed{ \frac{3}{2} } \]
+	
+	Repeating the process for $E[V^2]$, we get
+	
+	\begin{align*}
+	M''_V(t) &= 3t^{-4} (e^{3t} - e^{2t} - e^t + 1) - 2t^{-3} (3e^{3t} - 2e^{2t} - e^t) + \frac{1}{2} t^{-2} (9e^{3t} - 4e^{2t} - e^t) \\
+	E[V^2] &= \lim_{t \rightarrow 0} M''_V(t) = \frac{8}{3}
+	\end{align*}
+	
+	Lastly,
+	
+	\[ V[V] = E[V^2] - E[V]^2 = \frac{8}{3} - \bigg( \frac{3}{2} \bigg)^2 = \boxed{\frac{5}{12}} \]
+	
+	\end{enumerate}
+
+%Question 10.3
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X}$ has the following pdf:}
+
+\[ \bm{f(x) = \lambda e^{-\lambda (x-a)}, \quad x \geq a} \]
+
+\textbf{(This is known as a \textit{two-parameter exponential distribution.})}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.3(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Find the mgf of $\bm{X}$.}
+	\end{tcolorbox}
+	
+	We calculate
+	
+	\[ M_X(t) = \int^{+\infty}_a \lambda e^{t-x} e^{-\lambda (x-a)} \ dx = \frac{\lambda e^{\lambda a}}{t - \lambda} e^{x(t-\lambda)} \bigg|^{+\infty}_a \]
+	
+	Now, an interesting observation: what happens if $t \geq \lambda$? The definite integral diverges. Therefore, it is necessary to impose the condition that $t < \lambda$. With this assumption, the integral evaluates to
+	
+	\[ \boxed{ M_X(t) = \frac{\lambda e^{at}}{\lambda - t} } \]
+	
+	%Question 10.3(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Using the mgf, find $\bm{E[X]}$ and $\bm{V[X]}$.}
+	\end{tcolorbox}
+	
+	We calculate
+	
+	\begin{align*}
+	M'_X(t) &= \frac{\lambda^2 a e^{at} - \lambda a t e^{at} + \lambda e^{at}}{(\lambda - t)^2} \\
+	E[X] = M'_X(0) &=  \boxed{ a+ \frac{1}{\lambda} } \\
+	M''_X(t) &= \frac{\lambda^2 a^2 e^{at} - \lambda a^2 t e^{at}}{(\lambda - t)^2} + \frac{2 (\lambda^2 a e^{at} - \lambda a t e^{at} + \lambda e^{at})}{(\lambda - t)^3} \\
+	E[X^2] = M''_X(0) &= a^2 + \frac{2a}{\lambda} + \frac{2}{\lambda^2} \\
+	V[X] = E[X^2] - E[X]^2 &= \boxed{\frac{1}{\lambda^2}}
+	\end{align*}
+	
+	
+	\end{enumerate}
+
+%Question 10.4
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Let $\bm{X}$ be the outcome when a fair die is tossed.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.4(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Find the mgf of $\bm{X}$.}
+	\end{tcolorbox}
+	
+	For $k=$ the number on the die, the mgf is given by
+	
+	\[ M_X(t) = \sum^6_{k=1} e^{tk} p(k) = \boxed{ \frac{1}{6} \sum^6_{k=1} e^{tk} } \]
+	
+	%Question 10.4(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Using the mgf, find $\bm{E[X]}$ and $\bm{V[X]}$.}
+	\end{tcolorbox}
+	
+	We derive
+	
+	\begin{align*}
+	M'_X(t) &= \frac{1}{6}  \sum^6_{k=1} k e^{tk} \\
+	E[X] = M'_X(0) &= \boxed{\frac{7}{2}} \\
+	M''_X(t) &= \frac{1}{6}  \sum^6_{k=1} k^2 e^{tk} \\
+	E[X^2] = M''_X(0) &= \boxed{\frac{91}{6}} \\
+	V[X] = E[X^2] - E[X]^2 &= \boxed{ \frac{35}{12} }
+	\end{align*}
+	
+	\end{enumerate}
+
+%Question 10.5
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Find the mgf of the random variable $\bm{X}$ of Problem 6.7. Using the mgf, find $\bm{E[X]}$ and $\bm{V[X]}$.}
+\end{tcolorbox}
+
+Given the pdf
+
+\[
+g(x) = \begin{dcases}
+x-1, & 1 < x \leq 2 \\
+-x + 3, & 2 < x < 3 \\
+0, & \text{elsewhere}
+\end{dcases}
+\]
+
+We derive the mgf:
+
+\begin{align*}
+M_X(t) &= \int^2_1 e^{tx} (x-1) \ dx + \int^3_2 e^{tx} (-x+3) \ dx \\
+&= \frac{e^t - 2e^{2t} + e^{3t}}{t^2}
+\end{align*}
+
+and calculating the first and second derivatives, using l'H\^{o}pital, and evaluating the respective limits at $t \rightarrow 0$ gives us
+
+\begin{align*}
+E[X] &= \lim_{t \rightarrow 0} M'_X(t) = \boxed{2} \\
+E[X^2] &= \lim_{t \rightarrow 0} M''_X(t) = \frac{25}{6} \\
+V[X] &= E[X^2] - E[X]^2 = \boxed{\frac{1}{6}}
+\end{align*}
+
+%Question 10.6
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the continuous random variable $\bm{X}$ has pdf}
+
+\[ \bm{f(x) = \frac{1}{2} e^{-|x|}, \quad -\infty < x < +\infty} \]
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.6(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Obtain the mgf of $\bm{X}$.}
+	\end{tcolorbox}
+	
+	Equivalently, we have
+	
+	\[ f(x) = \begin{dcases}
+	\frac{1}{2} e^x, & \quad -\infty < x < 0 \\
+	\frac{1}{2} e^{-x}, & \quad 0 \leq x < +\infty
+	\end{dcases}
+	\]
+	
+	Derive the mgf in the following manner
+	
+	\begin{align*}
+	M_X(t) &= \int^0_{-\infty} \frac{1}{2} e^{x(t+1)} \ dx + \int^{+\infty}_0 \frac{1}{2} e^{x(t-1)} \ dx \\
+	&= \frac{1}{2(t+1)} e^{x(t+1)} \bigg|^0_{-\infty} + \frac{1}{2(t-1)} e^{x(t-1)} \bigg|^{+\infty}_0
+	\end{align*}
+	
+	Imposing the condition that $t < 1$, we end up with
+	
+	\[ \boxed{ M_X(t) = \frac{1}{2} \bigg( \frac{1}{t+1} - \frac{1}{t-1} \bigg) } \]
+	
+	%Question 10.6(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Using the mgf, find $\bm{E[X]}$ and $\bm{V[X]}$.}
+	\end{tcolorbox}
+	
+	We calculate
+	
+	\begin{align*}
+	M'_X(t) &= \frac{1}{2} \bigg( \frac{1}{(t-1)^2} - \frac{1}{(t+1)^2} \bigg) \\
+	E[X] = M'_X(0) &= \boxed{0} \\
+	M''_X(t) &= \frac{1}{(t+1)^3} - \frac{1}{(t-1)^3} \\
+	M''_X(0) &= 2 \\
+	V[X] = E[X^2] - E[X]^2 &= \boxed{2}
+	\end{align*}
+	
+	\end{enumerate}
+
+%Question 10.7
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Use the mgf to show that if $\bm{X}$ and $\bm{Y}$ are independent random variables with distribution $\bm{N(\mu_x, \sigma^2_x)}$ and $\bm{N(\mu_y, \sigma^2_y)}$, respectively, then $\bm{Z = aX + bY}$ is again normally distributed, where $\bm{a}$ and $\bm{b}$ are constants.}
+\end{tcolorbox}
+
+\begin{proof}
+If random variable $X$ has mgf $M_X$, then $Y = \alpha X + \beta$ has mgf $M_Y(t) = e^{\beta t} M_X (\alpha t)$. Thus we must have $aX, bY$ have mgf's $M_X(at), M_Y(bt)$. By the reproductive property for the mgf of the normal distribution, we have
+
+\begin{align*} 
+M_Z(t) = M_X(at) M_Y(bt) &= \exp \bigg( a\mu_x t + \frac{a^2 \sigma^2_x t^2}{2} \bigg) \exp \bigg( b\mu_y t + \frac{b^2 \sigma^2_y t^2}{2} \bigg) \\
+&= \exp \bigg( (a\mu_x + b\mu_y) t + (a^2 \sigma^2_x + b^2 \sigma^2_y) \frac{t^2}{2} \bigg)
+\end{align*}
+
+However, $aX \sim N(a\mu_x, a^2 \sigma^2_x)$ and $bY \sim N(b\mu_y, b^2 \sigma^2_y)$. Then by the uniqueness of the mgf in determining its corresponding probability distribution, it must be the case that
+
+\begin{align*}
+M_{aX} (t) &= \exp \bigg( a\mu_x t + \frac{a^2 \sigma^2_x t^2}{2} \bigg) \\
+M_{bY} (t) &= \exp \bigg( b\mu_y t + \frac{b^2 \sigma^2_y t^2}{2} \bigg)
+\end{align*}
+
+which are in turn equal to $M_X(at), M_Y(bt)$, respectively, and so we must have $M_Z(t) = M_{aX} (t) M_{bY}(t)$. By another application of the uniqueness property, it follows that $Z$ is normally distributed with mean $\boxed{a\mu_x + b\mu_y}$ and variance $\boxed{a^2 \sigma^2_x + b^2 \sigma^2_y}$.
+
+\end{proof}
+
+%Question 10.8
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the mgf of a random variable $\bm{X}$ is of the form}
+
+\[ \bm{M_X(t) = (0.4e^t + 0.6)^8} \]
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.8(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the mgf of the random variable $\bm{Y = 3X + 2}$?}
+	\end{tcolorbox}
+	
+	Using the fact that if random variable $X$ has mgf $M_X$, then $Y = \alpha X + \beta$ has mgf $M_Y(t) = e^{\beta t} M_X (\alpha t)$, we have
+	
+	\[ M_Y(t) = e^{2t} M_X(3t) = \boxed{e^{2t} (0.4 e^{3t} + 0.6)^8} \]
+	
+	%Question 10.8(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Evaluate $\bm{E[X]}$.}
+	\end{tcolorbox}
+	
+	We calculate
+	
+	\begin{align*}
+	M'_X(t) &= 3.2 e^t (0.4 e^t + 0.6)^7 \\
+	M'_X(0) &= \boxed{ E[X] = 3.2 }
+	\end{align*}
+	
+	%Question 10.8(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Can you check your answer to (b) by some other method? [Try to ``recognize'' $\bm{M_X(t)}$.]}
+	\end{tcolorbox}
+	
+	The mgf $M_X(t)$ looks like the mgf for a binomial distribution, which has general form
+	
+	\[ (pe^t + (1-p))^n \]
+	
+	Here, the parameters are $p = 0.4, n=8$. By the uniqueness property of the mgf, $X$ must be binomially distributed, and we can verify $E[X] = np = \boxed{3.2}$.
+	\end{enumerate}
+	
+%Question 10.9
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A number of resistances, $\bm{R_i, i = 1, 2, ..., n,}$ are put into a series arrangement in a circuit. Suppose that each resistance is normally distributed with $\bm{E[R_i] = 10}$ ohms and $\bm{V[R_i] = 0.16}$.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.9(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{If $\bm{n=5}$, what is the probability that the resistance of the circuit exceeds 49 ohms?}
+	\end{tcolorbox}
+	
+	Let $R = \sum^5_{i=1} R_i$. We want to find $f(r)$ and then calculate $\int^{+\infty}_{49} f(r) \ dr$. Using the reproductive property of the normal distribution, we can derive
+	
+	\begin{align*}
+	M_R(t) &= \prod^5_{i=1} M_{R_i} (t) \\
+	&= \exp \bigg[ 5 \bigg( 10t + \frac{0.16t^2}{2} \bigg) \bigg] \\
+	&= \exp \bigg( 50t + \frac{0.8 t^2}{2} \bigg)
+	\end{align*}
+	
+	Therefore, $R \sim N(50, 0.8)$. Normalizing, we calculate
+	
+	\[ 1 - \Phi \bigg( \frac{49-50}{\sqrt{0.8}} \bigg) = 1 - \Phi(-1.12) \approx \boxed{0.8686} \]
+	
+	%Question 10.9(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{How large should $\bm{n}$ be so that the probability that the total resistance exceeds 100 ohms is approximately 0.05?}
+	\end{tcolorbox}
+	
+	For general $n$, $R \sim N(10n, 0.16n)$. We wish to calculate $n$ such that 
+	
+	\[ \Phi \bigg( \frac{100-10n}{\sqrt{0.16 n}} \bigg) = 0.95 \]
+	
+	Now, when $n = 9$, we have $\Phi (8.33) = 1$, and when $n=10$, $\Phi(0) = 0.5$. When we have nine resistors in series, there is effectively zero chance that the total resistance will exceed 100, whereas if we have ten, we have a fifty percent chance it exceeds 100.
+	
+	\end{enumerate}
+
+%Question 10.10
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{In a circuit $\bm{n}$ resistances are hooked up into a series arrangement. Suppose that each resistance is uniformly distributed over $\bm{[0,1]}$ and suppose, furthermore, that all resistances are independent. Let $\bm{R}$ be the total resistance.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 10.10(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Find the mgf of $\bm{R}$.}
+	\end{tcolorbox}
+	
+	For any individual $R_i$, we have
+	
+	\[ M_{R_i} (t) = \int^1_0 e^{tx} \ dx = \frac{1}{t} (e^t - 1) \]
+	
+	Therefore,
+	
+	\[ M_R(t) = \prod^n_{i=1} M_{R_i}(t) = \boxed{ \frac{1}{t^n} (e^t - 1)^n } \]
+	
+	%Question 10.10(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Using the mgf, obtain $\bm{E[R]}$ and $\bm{V[R]}$. Check your answers by direct computation.}
+	\end{tcolorbox}
+	\end{enumerate}
+	
+	By assumption of independence, we can directly compute $\boxed{E[X] = n/2}$ and $\boxed{V[X] = n/12}$. Differentiating the mgf gives us
+	
+	\[ M'_R(t) = n (e^t - 1)^{n-1} \bigg( \frac{e^t}{t^n} - \frac{(e^t - 1)}{t^{n+1}} \bigg) \]
+	
+	For which the evaluation of its limit at $t \rightarrow 0$ eludes me. Hopefully you the reader can figure it out and teach me how to do so, but this should be a lesson in how the moment-generating function is not necessarily the best way to derive a distribution's expectation or variance!
+
+%Question 10.11
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{If $\bm{X}$ has distribution $\bm{\chi^2_n}$, using the mgf, show that $\bm{E[X] = n}$ and $\bm{V[X] = 2n}$.}
+\end{tcolorbox}
+
+\begin{proof}
+We derive the mgf as follows:
+
+\[ M_X(t) = \int^{+\infty}_0 \frac{1}{2^{n/2} \Gamma (n/2)} x^{n/2-1} e^{x(t-1/2)} \ dx \]
+
+which, after an application of integration by parts, gives us
+
+\[ M_X(t) = (1-2t)^{-n/2} \]
+
+Deriving the first and second moments yields
+
+\begin{align*}
+M'_X(t) &= n(1-2t)^{-n/2 - 1} \\
+M'_X(0) &= \boxed{E[X] = n} \\
+M''_X(t) &= n(n+2) (1-2t)^{-n/2 - 2} \\
+M''_X(0) &= E[X^2] = n(n+2) \\
+V[X] = E[X^2] - E[X]^2 &= \boxed{2n}
+\end{align*}
+
+\end{proof}
+
+%Question 10.12
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{V}$, the velocity (cm/sec) of an object, has distribution $\bm{N(0,4)}$. If $\bm{K = mV^2/2}$ ergs is the kinetic energy of the object (where $\bm{m=}$ mass), find the pdf of $\bm{K}$. If $\bm{m=10}$ grams, evaluate $\bm{P(K \leq 3)}$.}
+\end{tcolorbox}
+
+Let $Y = V^2$. Since the pdf of a square of a random variable $V$ with pdf $f(v)$ is given by
+
+\[ g(y) = \frac{1}{2\sqrt{y}} (f(\sqrt{y}) + f(-\sqrt{y})) \]
+
+we may derive
+
+\[ g(y) = \frac{1}{2\sqrt{2\pi}} \frac{1}{\sqrt{y}} \exp \bigg( -\frac{y}{8} \bigg) \]
+
+Lastly, $M_K(t)$ is simply
+
+\begin{align*}
+M_K(t) &= M_Y \bigg( \frac{mt}{2} \bigg) \\
+&= \int^{+\infty}_0 e^{\frac{mt}{2}y} g(y) \ dy \\
+&= \frac{1}{2\sqrt{2\pi}} \int^{+\infty}_0 \frac{1}{\sqrt{y}} \exp \bigg( y \bigg( \frac{mt}{2} - \frac{1}{8} \bigg) \bigg) \ dy
+\end{align*}
+
+By substitution, we evaluate the integral as 
+
+\[ M_K(t) = \frac{1}{\sqrt{1-4mt}} \]
+
+Now, by uniqueness of mgf to its corresponding distribution, we can conclude that this is the mgf for a Gamma distribution with parameters $r = 1/2, \alpha = 1/4m$. Thus we have pdf
+
+\begin{align*}
+h(k) &= \frac{1}{4m \Gamma(1/2)} \bigg( \frac{k}{4m} \bigg)^{-1/2} e^{-k/4m} \\
+&= \boxed{ \frac{1}{4m \sqrt{\pi}} \bigg( \frac{k}{4m} \bigg)^{-1/2} e^{-k/4m} }
+\end{align*}
+
+And we calculate, for $m = 10$ grams,
+
+\[ P(K \leq 3) = \int^3_0 \frac{1}{4m \sqrt{\pi}} \bigg( \frac{k}{4m} \bigg)^{-1/2} e^{-k/4m} \ dk = \boxed{0.30} \]
+
+%Question 10.13
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the life length of an item is exponentially distributed with parameter 0.5. Assume that 10 such items are installed successively, so that the $\bm{i}$th item is installed ``immediately" after the $\bm{(i-1)}$-item has failed. Let $\bm{T_i}$ be the time to failure of the $\bm{i}$th item, $\bm{i = 1, 2, ..., 10}$, always measured from the time of installation. Hence $\bm{S = T_1 + \cdots + T_{10}}$ represents the total time of functioning of the 10 items. Assuming that the $\bm{T_i}$'s are independent, evaluate $\bm{P(S \geq 15.5)}$.}
+\end{tcolorbox}
+
+By premise, $f(\tau) = 0.5 \exp (-0.5 \tau)$. Its mgf is
+
+\begin{align*}
+M_{T_i}(t) &= \int^{+\infty}_0 e^{t\tau} (0.5 e^{-0.5 \tau}) \ d\tau \\
+&= \frac{0.5}{t - 0.5} \exp(\tau(t-0.5)) \bigg|^{+\infty}_0
+\end{align*}
+
+If $t < 0.5$, then we can evaluate
+
+\[ M_{T_i} (t) = \frac{0.5}{0.5-t} \]
+
+By the multiplicative property of the mgf's of a sum of random variables,
+
+\[ M_S(t) = (M_{T_i}(t))^{10} = \bigg( \frac{0.5}{0.5-t} \bigg)^{10} \]
+
+It is now apparent that $S$ has a Gamma distribution with parameters $r=10, \alpha = 0.5$. Therefore,
+
+\[ g(s) = \frac{0.5}{\Gamma(10)} (0.5 s)^9 e^{-0.5s}, \quad s > 0 \]
+
+And finally, we can calculate
+
+\[ P(S \geq 15.5) = \int^{+\infty}_{15.5} \frac{0.5}{\Gamma(10)} (0.5 s)^9 e^{-0.5s} \ ds = \boxed{0.747} \]
+
+%Question 10.14
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X_1, ..., X_{80}}$ are independent random variables, each having distribution $\bm{N(0,1)}$. Evaluate $\bm{P[X^2_1 + \cdots + X^2_{80} > 77]}$. [\textit{Hint}: Use Theorem 9.2.]}
+\end{tcolorbox}
+
+Since $X_i$, $i = 1,...,80$ are standard normal and independently and identically distributed, it follows that $S = \sum^{80}_{i=1} X^2_i \sim \chi^2_{80}$. In cases when the degrees of freedom for the chi-squared distribution is high, the following theorem allows us to approximate as a normal distribution:
+
+\begin{thm}
+Suppose that the random variable $Y$ has distribution $\chi^2_n$. Then for sufficiently large $n$ the random variable $\sqrt{2Y}$ has approximately the distribution $N(\sqrt{2n-1}, 1)$.
+\end{thm}
+
+\begin{align*}
+P(S > 77) &= P(\sqrt{2S} > \sqrt{154}) \\
+&= P(\sqrt{2S} - \sqrt{159} > \sqrt{154} - \sqrt{159}) \\
+&= 1 - \Phi(\sqrt{154} - \sqrt{159}) \\
+&= \boxed{0.5793}
+\end{align*}
+
+%Question 10.15
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Show that if $\bm{X_i}$, $\bm{i = 1, 2, ..., k}$, represents the number of successes in $\bm{n_i}$ repetitions of an experiment where $\bm{P}$(success)$\bm{= p}$, for all $\bm{i}$, then $\bm{X_1 + \cdots + X_k}$ has a binomial distribution. (That is, the binomial distribution possesses the reproductive property.)}
+\end{tcolorbox}
+
+\begin{proof}
+Each $X_i$ corresponds to mgf
+
+\[ [pe^t + (1-p)]^{n_i} \]
+
+Then by the multiplicative property for the mgf's of a sum of random variables, for $Z = \sum^k_{i=1} X_i$ we have
+
+\[ M_Z(t) = \prod^k_{i=1} M_{X_i}(t) = [pe^t + (1-p)]^{\sum^k_{i=1} n_i} \]
+
+Since the total number of trials is equal to $\sum^k_{i=1} n_i = n$, it follows that $Z$ is binomially distributed with parameters $n, p$.
+\end{proof}
+
+%Question 10.16
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{(\textit{The Poisson and the multinomial distribution.}) Suppose that $\bm{X_i}$, $\bm{i = 1, 2, ..., n}$ are independently distributed random variables having a Poisson distribution with parameters $\bm{\alpha_i}$, $\bm{i = 1, ..., n}$. Let $\bm{X = \sum^n_{i=1} X_i}$. Then the joint conditional probability distribution of $\bm{X_1, ..., X_n}$ given $\bm{X =x}$ is given by a multinomial distribution. That is, $\bm{P(X_1 = x_1, ..., X_n = x_n | X = x) = x! / (x_1!...x_n!) (\alpha_1 / \sum^n_{i=1} \alpha_i)^{x_1} \cdots (\alpha_n / \sum^n_{i=1} \alpha_i)^{x_n}}$}
+\end{tcolorbox}
+
+\begin{proof}
+The strategic intuition here is to simply consider the joint probability
+
+\[ P(X_1 = x_1, ..., X_n = x_n) \]
+
+without the conditionality. By premise, each of the $X_1,..., X_n$ are independent. Then the joint probability is equal to
+
+\[ \prod^n_{i=1} \frac{e^{-\alpha_i} \alpha^{x_i}_i}{x_i!} \]
+
+Now we impose the condition
+
+\[ X = \sum^n_{i=1} X_i = x \]
+
+where, using the reproductive property of the Poisson distribution, we can conclude $X$ is Poisson distributed with parameter $\sum^n_{i=1} \alpha_i$. Then we calculate
+
+\begin{align*}
+P(X_1 = x_1, ..., X_n = x_n | X = x) &= \frac{P(X_1 = x_1, ..., X_n = x_n)}{P(X = x)} \\
+&= \frac{\prod^n_{i=1} \frac{e^{-\alpha_i} \alpha^{x_i}_i}{x_i!}}{ \bigg( \frac{e^{-\sum^n_{i=1} \alpha_i} (\sum^n_{i=1} \alpha_i)^x}{x!} \bigg)} \\
+&= \frac{x!}{e^{-\sum^n_{i=1} \alpha_i} (\sum^n_{i=1} \alpha_i)^x} \prod^n_{i=1} \frac{e^{-\alpha_i} \alpha^{x_i}_i}{x_i!} \\
+&= \frac{x!}{x_1! \cdots x_n!} \frac{e^{-\sum^n_{i=1} \alpha_i}}{e^{-\sum^n_{i=1} \alpha_i}} \frac{\alpha^{x_1}_1 \cdots \alpha^{x_n}_n}{(\sum^n_{i=1} \alpha_i)^{x_1 + \cdots + x_n}} \\
+&= \boxed{ \frac{x!}{x_1! \cdots x_n!} \bigg( \frac{\alpha_1}{\sum^n_{i=1} \alpha_i} \bigg)^{x_1} \cdots \bigg( \frac{\alpha_n}{\sum^n_{i=1} \alpha_i} \bigg)^{x_n} }
+\end{align*}
+
+which is a multinomial distribution.
+
+\end{proof}
+
+%Question 10.17
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Obtain the mgf of a random variable having a geometric distribution. Does this distribution possess a reproductive property under addition?}
+\end{tcolorbox}
+
+The geometric distribution is given by, for $k \geq 1$ and $q = 1-p$,
+
+\[ P(X = k) = q^{k-1} p \]
+
+which has mgf
+
+\begin{align*}
+M_X(t) &= \sum^{+\infty}_{k=1} e^{tk} q^{k-1} p \\
+&= p(e^t + qe^{2t} + q^2 e^{3t} + \cdots) \\
+&= pe^t (1 + qe^t + q^2 e^{2t} + \cdots)
+\end{align*}
+
+which resolves to a closed-form expression only if $t < -\ln(1-p)$, namely
+
+\[ \boxed{ M_X(t) = \frac{pe^t}{1-qe^t} } \]
+
+Now, let $X_1, ..., X_n$ be independently and identically distributed and geometric, with success for each $i$ having probability $p$. Moreover, let
+
+\[ Y = \sum^n_{i=1} X_i \]
+
+Then by the multiplicative property of the mgf's of the sum of random variables, we have
+
+\[ M_Y(t) = \bigg( \frac{pe^t}{1-qe^t} \bigg)^n \]
+
+which implies the geometric distribution has no reproductive property.
+
+%Question 10.18
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{If the random variable $\bm{X}$ has an mgf given by $\bm{M_X(t) = 3/(3-t)}$, obtain the standard deviation of $\bm{X}$.}
+\end{tcolorbox}
+
+This is the mgf to a Gamma distribution with parameters $\alpha = 3, r = 1$. Thus
+
+\[ \sigma = \frac{\sqrt{r}}{\alpha} = \boxed{\frac{1}{3}} \]
+
+%Question 10.19
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Find the mgf of a random variable which is uniformly distributed over $\bm{(-1,2)}$.}
+\end{tcolorbox}
+
+By premise, $f(x) = 1/3, -1 < x < 2$. Then $M_X(t) = \int^2_{-1} \frac{e^{tx}}{3} \ dx = \boxed{\frac{1}{3t}(e^{2t} - e^{-t})}$.
+
+%Question 10.20
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A certain industrial process yields a large number of steel cylinders whose lengths are distributed normally with mean 3.25 inches and standard deviation 0.05 inch. If two such cylinders are chosen at random and placed end to end, what is the probability that their combined length is less than 6.60 inches?}
+\end{tcolorbox}
+
+Let $L$ be the random variable for the length of a steel cylinder. By premise, $L \sim N(3.25, 0.0025)$. By the reproductive property of the normal distribution, if $X$ is the length of the two cylinders combined, we have
+
+\[ X \sim N(6.50, 0.005) \]
+
+To find $P(X < 6.60)$, we tabulate
+
+\[ P(X < 6.60) = \Phi \bigg( \frac{6.60 - 6.50}{\sqrt{0.005}} \bigg) = \Phi(1.414) \approx \boxed{0.9207} \]
+
+\end{enumerate}
+
+\end{document}

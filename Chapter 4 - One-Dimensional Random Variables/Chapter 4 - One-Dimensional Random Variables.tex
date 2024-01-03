@@ -71,7 +71,7 @@
 
 \title{Introductory Probability and Statistical Applications, Second Edition \\
 \large{Paul L. Meyer}}
-\author{Notes and Solutions by David A. Lee \\ (Work-in-Progress)}
+\author{Notes and Solutions by David A. Lee}
 \date{}							% Activate to display a given date or no date
 
 \begin{document}
@@ -705,6 +705,28 @@ P(X > b | X < b/2) &= \frac{P(b < X < b/2)}{P(X < b/2)} \\
 \textbf{Suppose that the graph in Fig. 4.16 represents the pdf of a random variable $\bm{X}$.}
 \end{tcolorbox}
 
+\begin{center}
+	\begin{tikzpicture}[scale=0.75]
+	\begin{axis}[
+    	axis lines = center,
+		ymax=7,
+		ymin=0,
+		xmin=-10,
+		xmax=10,
+   		 xlabel = \( x \),
+   		 ylabel = {\( f(x) \)},
+		 xtick={-8,0,6},
+    		 xticklabels={$x=-a$,$$,$x=b$},
+		 ytick={},
+		 yticklabels={},
+		]
+	\addplot[domain=-8:4, style=very thick, color=red]{0.5*x+4};
+	\addplot[domain=4:6, style=very thick, color=red]{-3*x+18};
+	\node[draw] at (150,650) {$(a,b)$};
+	\end{axis}
+	\end{tikzpicture}
+	\end{center}
+
 	\begin{enumerate}
 	%Question 4.13(a)
 	\item  \begin{tcolorbox}[
@@ -766,8 +788,8 @@ P(X > b | X < b/2) &= \frac{P(b < X < b/2)}{P(X < b/2)} \\
 		 ytick={0,1,1.5},
 		 yticklabels={$0$,$1$,$$},
 		]
-	\addplot[domain=0:1, color=red]{5*x^4 - 4*x^5};
-	\addplot[domain=1:1.5, color=red]{1};
+	\addplot[domain=0:1, style=very thick, color=red]{5*x^4 - 4*x^5};
+	\addplot[domain=1:1.5, style=very thick, color=red]{1};
 	\end{axis}
 	\end{tikzpicture}
 	\end{center}
@@ -1529,9 +1551,7 @@ Equivalently, we find the probability that 0, 1, or 2 items are defective. In ch
 	  colframe=Cerulean!75!black]
 	\textbf{for arbitrary $\bm{n}$, show that $\bm{P(X = n - 1) = P}$ (exactly one unsuccessful attempt) is equal to $\bm{[1 / (n+1)] \sum^n_{i=1} (1/i)}$.}
 	\end{tcolorbox}
-	
-	This is an utterly brutal proof and i have no idea how to do it
-	
+		
 	\end{enumerate}
 
 %Question 4.28

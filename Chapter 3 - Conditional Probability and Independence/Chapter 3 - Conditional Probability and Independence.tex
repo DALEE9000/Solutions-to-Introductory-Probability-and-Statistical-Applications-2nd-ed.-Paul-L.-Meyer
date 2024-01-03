@@ -62,14 +62,14 @@
 
 \title{Introductory Probability and Statistical Applications, Second Edition \\
 \large{Paul L. Meyer}}
-\author{Notes and Solutions by David A. Lee \\ (Work-in-Progress)}
+\author{Notes and Solutions by David A. Lee}
 \date{}							% Activate to display a given date or no date
 
 \begin{document}
 \maketitle
 \section*{Solutions to Chapter 3: Conditional Probability and Independence}
 
-3.21(b)-(g), 3.32, 3.37, 3.38, 3.39
+Unfinished problems: 3.32
 
 \begin{enumerate}[label=3.\arabic*]
 \itemsep0em 
@@ -185,7 +185,7 @@ Here, we need only apply the result of problem 2.21, namely that for $r$ defects
 \textbf{Suppose that $\bm{A}$ and $\bm{B}$ are independent events associated with an experiment. If the probability that $\bm{A}$ or $\bm{B}$ occurs equals 0.6, while the probability that $\bm{A}$ occurs equals 0.4, determine the probability that $\bm{B}$ occurs.}
 \end{tcolorbox}
 
-By assumption, independence implies $P(A \cap B) = 0$. Therefore $P(A \cup B) = P(A) + P(B) \implies P(A \cup B) - P(A) = 0.6 - 0.4 = \boxed{P(B) = 0.2}$.
+By assumption, independence implies $P(A \cap B) = P(A)P(B)$. Therefore $P(A \cup B) = P(A) + P(B) - P(A \cap B) = P(A) + P(B) - P(A)P(B) \implies \frac{P(A \cup B) - P(A)}{1 - P(A)} = \frac{0.6 - 0.4}{1 - 0.4} \implies \boxed{P(B) = 1/3}$.
 
 %Question 3.6
 \item  \begin{tcolorbox}[
@@ -518,6 +518,81 @@ Analogous argument to prove independence of $\bar{A}, B$.
 \textbf{In Fig. 3.11(a) and (b), assume that the probability of each relay being closed is $\bm{p}$ and that each relay is open or closed independently of any other relay. In each case find the probability that current flows from $\bm{L}$ to $\bm{R}$.}
 \end{tcolorbox}
 
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,0.66666667)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{Fig3.11(a).eps}}%
+  \end{picture}%
+    \\
+  \textbf{(a)}
+  \end{center}
+\endgroup%
+
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{288bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,0.52499998)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{Fig3.11(b).eps}}%
+  \end{picture}%
+  \\
+  \textbf{(b)}
+  \end{center}
+\endgroup%
+
+
 \textbf{Note: Find the paths the current may take in the circuit, treat as finding the probability $P(\bigcup^n_{i=1} A_i)$ for $n$ paths, where $A_i$ is a path, and then apply the inclusion-exclusion principle.}
 
 Let $A_i$ be the event of the current running through the $i$-th relay.
@@ -549,6 +624,21 @@ P(E) = P\Bigg( \bigcup^4_{i=1} D_i \Bigg) &= \sum^4_{i = 1} P(D_i) - \sum^4_{i <
 \textbf{Two machines, $\bm{A}$, $\bm{B}$, being operated independently, may have a number of breakdowns each day. Table 3.2 gives the probability distribution of breakdowns for each machine. Compute the following probabilities.}
 \end{tcolorbox}
 
+\begin{center}
+\textbf{Table 3.2} \\
+\textbf{ }\\
+\renewcommand{\arraystretch}{3.5}
+\begin{tabular}{c || c c c c c c c} 
+ \hline
+ Number of breakdowns & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+ \hline
+$A$ & 0.1 & 0.2 & 0.3 & 0.2 & 0.09 & 0.07 & 0.04 \\
+ \hline
+$B$ & 0.3 & 0.1 & 0.1 & 0.1 & 0.1 & 0.15 & 0.15 \\
+ \hline
+\end{tabular}
+\end{center}
+
 	\begin{enumerate}
 	%Question 3.21(a)
 	\item  \begin{tcolorbox}[
@@ -572,12 +662,46 @@ P(E) = P\Bigg( \bigcup^4_{i=1} D_i \Bigg) &= \sum^4_{i = 1} P(D_i) - \sum^4_{i <
 	\textbf{The total number of breakdowns is less than 4; less than 5.}
 	\end{tcolorbox}
 	
+	Let $P_A(i), P_B(j)$ be the probability that machines $A, B$ have $i, j$ breakdowns, respectively. We calculate
+	
+	\textbf{\bm{$\boxed{i + j < 4}$}}
+	
+	\begin{align*}
+	P_{A,B}(i + j < 4) &= P_A(0) P_B(0) + P_A(0) P_B(1) + P_A(0) P_B(2) + P_A(0) P_B(3) + P_A(1) P_B(0) + P_A(1) P_B(1) \\
+	&\quad + P_A(1) P_B(2) + P_A(2) P_B(0) + P_A(2) P_B(1) + P_A(3) P_B(0) \\
+	&= (0.1)(0.3) + (0.1)(0.1) + (0.1)(0.1) + (0.1)(0.1) + (0.2)(0.3) + (0.2)(0.1) + (0.2)(0.1) \\ 
+	&\quad+ (0.3)(0.3) + (0.3)(0.1) + (0.2)(0.3) \\
+	&= \boxed{0.34}
+	\end{align*}
+	
+	\textbf{\bm{$\boxed{i + j < 5}$}}
+
+	\begin{align*}
+	P_{A,B}(i + j < 5) &= P_A(0) P_B(0) + P_A(0) P_B(1) + P_A(0) P_B(2) + P_A(0) P_B(3) + P_A(0) P_B(4) + P_A(1) P_B(0) \\
+	&\quad + P_A(1) P_B(1) + P_A(1) P_B(2) + P_A(1) P_B(3) + P_A(2) P_B(0) + P_A(2) P_B(1) + P_A(2) P_B(2)  \\
+	&\quad + P_A(3) P_B(0) + P_A(3) P_B(1) + P_A(4) P_B(0) \\
+	&= (0.1)(0.3) + (0.1)(0.1) + (0.1)(0.1) + (0.1)(0.1) + (0.1)(0.1) + (0.2)(0.3) + (0.2)(0.1) + (0.2)(0.1) \\ 
+	&\quad+ (0.2)(0.1) + (0.3)(0.3) + (0.3)(0.1) + (0.3)(0.1) + (0.2)(0.3) + (0.2)(0.1) + (0.09)(0.3) \\
+	&= \boxed{0.447}
+	\end{align*}
+	
 	%Question 3.21(c)
 	\item  \begin{tcolorbox}[
 	  colback=Cerulean!5!white,
 	  colframe=Cerulean!75!black]
 	\textbf{$\bm{A}$ has more breakdowns than $\bm{B}$.}
 	\end{tcolorbox}
+	
+	\begin{align*}
+	P_{A,B} (i > j) &= P_A(1) P_B(0) + P_A(2) P_B(0) + P_A(2) P_B(1) + P_A(3) P_B(0) + P_A(3) P_B(1) + P_A(3) P_B(2) \\
+	&\quad + P_A(4) P_B(0) + P_A(4) P_B(1) + P_A(4) P_B(2) + P_A(4) P_B(3) + P_A(5) P_B(0) + P_A(5) P_B(1) \\
+	&\quad + P_A(5) P_B(2) + P_A(5) P_B(3) + P_A(5) P_B(4) + P_A(6) P_B(0) + P_A(6) P_B(1) + P_A(6) P_B(2) \\
+	&\quad + P_A(6) P_B(3) + P_A(6) P_B(4) + P_A(6) P_B(5) \\
+	&= (0.2)(0.3) + (0.3)(0.3) + (0.3)(0.1) + (0.2)(0.3) + (0.2)(0.1) + (0.2)(0.1) + (0.09)(0.3) + (0.09)(0.1) \\
+	&\quad + (0.09)(0.1) + (0.09)(0.1) + (0.07)(0.3) + (0.07)(0.1) + (0.07)(0.1) + (0.07)(0.1) + (0.07)(0.1) \\
+	&\quad + (0.04)(0.3) + (0.04)(0.1) + (0.04)(0.1) + (0.04)(0.1) + (0.04)(0.1) + (0.04)(0.15) \\
+	&= \boxed{0.417}
+	\end{align*}
 	
 	%Question 3.21(d)
 	\item  \begin{tcolorbox}[
@@ -586,12 +710,31 @@ P(E) = P\Bigg( \bigcup^4_{i=1} D_i \Bigg) &= \sum^4_{i = 1} P(D_i) - \sum^4_{i <
 	\textbf{$\bm{B}$ has twice as many breakdowns as $\bm{A}$.}
 	\end{tcolorbox}
 	
+	\[ P_{A,B}(i = 2j) = P_A(1) P_B(2) + P_A(2) P_B(4) + P_A(3) P_B(6) = (0.2)(0.1) + (0.3)(0.1) + (0.2)(0.15) = \boxed{0.08} \]
+	
 	%Question 3.21(e)
 	\item  \begin{tcolorbox}[
 	  colback=Cerulean!5!white,
 	  colframe=Cerulean!75!black]
 	\textbf{$\bm{B}$ has 4 breakdowns, when it is known that $\bm{B}$ has at least 2 breakdowns.}
 	\end{tcolorbox}
+	
+	We first observe that
+	
+	\[ P_{A,B} (j = 4 \ | \ j \geq 2) = \frac{P_{A,B} (j = 4, j \geq 2)}{P_{A,B} (j \geq 2)} = \frac{P_{A,B} (j = 4, j \geq 2)}{1 - P_{A,B}(j < 2)} \]
+	
+	And now we calculate the constituent terms:
+	
+	\begin{align*}
+	P_{A,B}(j < 2) &= \sum^6_{i = 0} P_{A,B}(i, 0) + \sum^6_{i = 0} P_{A,B}(i, 1) \\
+	&= (0.1)(0.3) + (0.2)(0.3) + (0.3)(0.3) + (0.2)(0.3) + (0.09)(0.3) + (0.07)(0.3) + (0.04)(0.3) \\
+	&\quad + (0.1)(0.1) + (0.2)(0.1) + (0.3)(0.1) + (0.2)(0.1) + (0.09)(0.1) + (0.07)(0.1) + (0.04)(0.1) \\
+	&= 0.4 \\
+	\implies 1 - P_{A,B}(j < 2) &= 0.6 \\
+	P_{A,B} (j = 4, j \geq 2) &= (0.1)(0.1) + (0.2)(0.1) + (0.3)(0.1) + (0.2)(0.1) + (0.09)(0.1) + (0.07)(0.1) + (0.04)(0.1) \\
+	&= 0.1 \\
+	\implies \frac{P_{A,B} (j = 4, j \geq 2)}{1 - P_{A,B}(j < 2)} &= 0.1/0.6 = \boxed{0.167}
+	\end{align*}
 	
 	%Question 3.21(f)
 	\item  \begin{tcolorbox}[
@@ -600,14 +743,90 @@ P(E) = P\Bigg( \bigcup^4_{i=1} D_i \Bigg) &= \sum^4_{i = 1} P(D_i) - \sum^4_{i <
 	\textbf{The minimum number of breakdowns of the two machines is 3; is less than 3.}
 	\end{tcolorbox}
 	
+	\textbf{$\boxed{\bm{\min(i+j) = 3}}$}
+	
+	\begin{align*}
+	P_{A,B} (i + j \geq 3) &= 1 - P_{A,B} (i + j < 3) \\
+	&= 1 - [P_A(0)P_B(2) + P_A(1)P_B(1) + P_A(2)P_B(1) + P_A(0)P_B(1) + P_A(1)P_B(0) + P_A(0)P_B(0)] \\
+	&= 1 - [(0.1)(0.1) + (0.2)(0.1) + (0.3)(0.3) + (0.1)(0.1) + (0.2)(0.3) + (0.1)(0.3)] \\
+	&= \boxed{0.78}
+	\end{align*}
+	
+	\textbf{$\boxed{\bm{\min(i+j) < 3}}$}
+
+	\begin{align*}
+	P_{A,B} (i + j \geq 2) &= 1 - P_{A,B} (i + j < 2) \\
+	&= 1 - [P_A(0)P_B(0) + P_A(0)P_B(1) + P_A(1)P_B(0)] \\
+	&= 1 - [(0.1)(0.3) + (0.1)(0.1) + (0.2)(0.3) ] \\
+	&= \boxed{0.9} \\
+	P_{A,B} (i + j \geq 1) &= 1 - P_{A,B} (i + j < 1) \\
+	&= 1 - P_A(0)P_B(0) \\
+	&= 1 - (0.1)(0.3) \\
+	&= \boxed{0.97} \\
+	P_{A,B} (i + j \geq 0) &= 1 - P_{A,B} (i + j < 0) \\	
+	&= \boxed{1}
+	\end{align*}
+	
 	%Question 3.21(g)
 	\item  \begin{tcolorbox}[
 	  colback=Cerulean!5!white,
 	  colframe=Cerulean!75!black]
 	\textbf{The maximum number of breakdowns of the machines is 3; is more than 3.}
 	\end{tcolorbox}
+	
+	\textbf{$\boxed{\bm{\max(i+j) = 3}}$}
+	
+	\begin{align*}
+	P_{A,B} (i + j \leq 3) &= P_A(0)P_B(2) + P_A(1)P_B(1) + P_A(2)P_B(1) + P_A(0)P_B(1) + P_A(1)P_B(0) + P_A(0)P_B(0) \\
+	&\quad + P_A(0)P_B(3) + P_A(2)P_B(1) + P_A(1)P_B(2) + P_A(3)P_B(0) \\
+	&= (0.1)(0.1) + (0.2)(0.1) + (0.3)(0.3) + (0.1)(0.1) + (0.2)(0.3) + (0.1)(0.3) + (0.1)(0.1) \\ 
+	&\quad + (0.3)(0.1) + (0.2)(0.1) + (0.2)(0.3) \\
+	&= \boxed{0.34}
+	\end{align*}
+	
+	\textbf{$\boxed{\bm{\max(i+j) > 3}}$}
+	
+	\begin{align*}
+	P_{A,B} (i + j \leq 4) &= P_A(0)P_B(3) + P_A(1)P_B(2) + P_A(2)P_B(1) + P_A(3)P_B(0) + P_A(2)P_B(0) \\
+	&\quad + P_A(0)P_B(2) + P_A(1)P_B(1) + P_A(1)P_B(0) + P_A(0)P_B(1) + P_A(0)P_B(0) + P_A(0)P_B(4) \\
+	&\quad + P_A(1)P_B(3) + P_A(2)P_B(2) + P_A(3)P_B(1) + P_A(4)P_B(0) \\
+	&= (0.1)(0.1) + (0.2)(0.1) + (0.3)(0.1) + (0.2)(0.3) + (0.3)(0.3) + (0.1)(0.1) + (0.2)(0.1) \\
+	&\quad + (0.2)(0.3) + (0.1)(0.1) + (0.1)(0.3) + (0.1)(0.1) + (0.2)(0.1) + (0.3)(0.1) \\
+	&\quad + (0.2)(0.1) + (0.09)(0.3) \\
+	&= \boxed{0.447} \\
+	P_{A,B} (i + j \leq 5) &= P_{A,B} (i + j \leq 4) + P_A (0) P_B (5) + P_A (1) P_B (4) + P_A (2) P_B (3) + P_A (3) P_B (2) \\
+	& + P_A (4) P_B (1) + P_A (5) P_B (0) \\
+	&= 0.447 + (0.1)(0.15) + (0.2)(0.1) + (0.3)(0.1) + (0.2)(0.1) + (0.09)(0.1) + (0.07)(0.3) \\
+	&= \boxed{0.562} \\
+	P_{A,B} (i + j \leq 6) &= P_{A,B} (i + j \leq 5) + P_A (0) P_B (6) + P_A (1) P_B (5) + P_A (2) P_B (4) + P_A (3) P_B (3) \\
+	&\quad + P_A (4) P_B (2) + P_A (5) P_B (1) + P_A(6) P_B(0) \\
+	&= 0.562 + (0.1)(0.15) + (0.2)(0.15) + (0.3)(0.1) + (0.2)(0.1) \\
+	&\quad + (0.09)(0.1) + (0.07)(0.1) + (0.04)(0.3) \\
+	&= \boxed{0.685} \\
+	P_{A,B} (i + j \leq 7) &= P_{A,B} (i + j \leq 6) + P_A (1) P_B (6) + P_A (2) P_B (5) + P_A (3) P_B (4) + P_A (4) P_B (3) \\
+	&\quad + P_A (5) P_B (2) + P_A (6) P_B (1) \\
+	&= 0.685 + (0.2)(0.15) + (0.3)(0.15) + (0.2)(0.1) + (0.09)(0.1) + (0.07)(0.1) + (0.04)(0.1) \\
+	&= \boxed{0.8} \\
+	P_{A,B} (i + j \leq 8) &= P_{A,B} (i + j \leq 7) + P_A (2) P_B (6) + P_A (3) P_B (5) + P_A (4) P_B (4) + P_A (5) P_B (3) + P_A (6) P_B (2) \\
+	&= 0.8 + (0.3)(0.15) + (0.2)(0.15) + (0.09)(0.1) + (0.07)(0.1) + (0.04)(0.1) \\
+	&= \boxed{0.895} \\
+	P_{A,B} (i + j \leq 9) &= P_{A,B} (i + j \leq 8) + P_A (3) P_B (6) + P_A (4) P_B (5) + P_A (5) P_B (4) + P_A (6) P_B (3) \\
+	&= 0.895 + (0.2)(0.15) + (0.09)(0.15) + (0.07)(0.1) + (0.04)(0.1) \\
+	&= \boxed{0.9495} \\
+	P_{A,B} (i + j \leq 10) &= P_{A,B} (i + j \leq 9) + P_A (4) P_B (6) + P_A (5) P_B (5) + P_A (6) P_B (4) \\
+	&= 0.9495 + (0.09)(0.15) + (0.07)(0.15) + (0.04)(0.1) \\
+	&= \boxed{0.9775} \\
+	P_{A,B} (i + j \leq 11) &= P_{A,B} (i + j \leq 10) + P_A (5) P_B (6) + P_A (6) P_B (5) \\
+	&= 0.9775 + (0.07)(0.15) + (0.04)(0.15) \\
+	&= \boxed{0.994} \\
+	P_{A,B} (i + j \leq 12) &= P_{A,B} (i + j \leq 11) + P_A (6) P_B (6) \\
+	&= 0.994 + (0.04)(0.15) \\
+	&= \boxed{1}
+	\end{align*}
+	
 	\end{enumerate}
 
+\newpage
 %Question 3.22
 \item  \begin{tcolorbox}[
   colback=Cerulean!5!white,
@@ -672,6 +891,7 @@ A second-order determinant is of the form $   \begin{vmatrix} % or pmatrix or bm
 	Observe that $P(A \text{ fails}) = P(A \text{ fails alone}) + P(A \text{ and } B \text{ fail}) - P(A \text{ fails alone and } A \text{ and } B \text{ fail})$. Then $P(A \text{ fails alone}) = P(A \text{ fails}) - P(A \text{ and } B \text{ fail}) = 0.20 - 0.15 = \boxed{0.05}$.
 	\end{enumerate}
 
+\newpage
 %Question 3.26
 \item  \begin{tcolorbox}[
   colback=Cerulean!5!white,
@@ -829,6 +1049,42 @@ Let $A_i$ denote the $i$-th manufacturer the tube came from, and $W$ be the even
   colframe=Cerulean!75!black]
 \textbf{An electrical system consists of two switches of type $\bm{A}$, one of type $\bm{B}$, and four of type $\bm{C}$, connected as in Fig. 3.12. Compute the probability that a break in the circuit cannot be eliminated with key $\bm{K}$ if the switches $\bm{A, B}$, and $\bm{C}$ are open (i.e., out of order) with probabilities 0.3, 0.4, and 0.2, respectively, and if they operate independently.}
 \end{tcolorbox}
+
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{360bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,0.6)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{Fig3.12.eps}}%
+  \end{picture}%
+  \end{center}
+\endgroup%
+
 
 $(0.3)^2 (0.4) (0.2)^2 = \boxed{5.76 \cdot 10^{-5}}$
 
@@ -1030,6 +1286,7 @@ Observe that the numerator reduces simply to $P(A_1 \cap A_2)$. Then finally:
 \frac{P(A_1 \cap A_2)}{P \big( \bigcup^3_{i = 1} A_i \big)} = \boxed{ \frac{0.08}{0.35} = 0.229}
 \end{align*}
 
+\newpage
 %Question 3.36
 \item  \begin{tcolorbox}[
   colback=Cerulean!5!white,
@@ -1075,6 +1332,57 @@ Observe that the numerator reduces simply to $P(A_1 \cap A_2)$. Then finally:
 \textbf{Urn 1, Urn 2, ..., Urn $\bm{n}$ each contain $\bm{\alpha}$ white and $\bm{\beta}$ black balls. One ball is taken from Urn 1 into Urn 2 and then one is taken from Urn 2 into Urn 3, etc. Finally, one ball is chosen from Urn $\bm{n}$. If the first ball transferred was white, what is the probability that the last ball chosen is white? What happens as $\bm{n \rightarrow \infty}$?}
 \end{tcolorbox}
 
+The trick is to find equations for $p_1, p_2, ..., p_n$ that are functions of $n$, where $p_i$ is the probability we draw white from the $i$-th urn. By premise, $p_1 = 1$. Then we calculate $p_2$ as
+
+\[ p_2 = \frac{\alpha + 1}{\alpha + \beta + 1} \]
+
+And correspondingly, $p_3$:
+
+\begin{align*}
+p_3 &= P(W \ | \ W, U_2) P(W , U_2) + P (W \ | \ B, U_2) P(B, U_2) \\
+&= \frac{\alpha + 1}{\alpha + \beta + 1} \bigg( \frac{\alpha+1}{\alpha + \beta + 1} \bigg) + \frac{\alpha}{\alpha + \beta + 1} \bigg( \frac{\beta}{\alpha + \beta + 1} \bigg) \\
+&= \frac{\alpha^2 + (2 + \beta)\alpha + 1}{(\alpha + \beta + 1)^2}
+\end{align*}
+
+Currently, if I were to ask you what $p_4$ is \textit{without} you doing the derivation, it's not readily clear how you would do so. Just for fun, let's try multiplying $p_2, p_3$ by $(\alpha + \beta) / (\alpha + \beta)$. We get
+
+\begin{align*}
+p_2 &= \frac{\alpha + 1}{\alpha + \beta + 1} \bigg( \frac{\alpha + \beta}{\alpha + \beta} \bigg) \\
+&= \frac{\alpha^2 + \alpha + \alpha \beta + \beta}{(\alpha + \beta)(\alpha + \beta + 1)} \\
+&= \boxed{ \frac{\alpha}{\alpha + \beta} + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)} } \\
+p_3 &= \frac{\alpha^2 + (2 + \beta)\alpha + 1}{(\alpha + \beta + 1)^2} \bigg( \frac{\alpha + \beta}{\alpha + \beta} \bigg) \\
+&= \frac{\alpha^3 + (2+\beta)\alpha^2 + \alpha + \alpha^2 \beta + (2+\beta) \alpha \beta + \beta}{(\alpha + \beta)(\alpha + \beta + 1)^2} \\
+&= \alpha \bigg[ \frac{\alpha^2 + (2+\beta)\alpha + \alpha \beta + (2+\beta) \beta + 1}{(\alpha + \beta)(\alpha + \beta + 1)^2} \bigg] + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^2} \\
+&= \boxed{ \frac{\alpha}{\alpha + \beta} + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^2} }
+\end{align*}
+
+Now we can at last make the following conjecture:
+
+\textbf{Conjecture:}
+
+\[ p_n = \frac{\alpha}{\alpha + \beta} + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^n} \]
+
+\begin{proof}
+Assume the induction hypothesis holds. Then we derive
+
+\begin{align*}
+p_{n+1} &= P(W \ | \ W, U_n) P(W, U_n) + P(W \ | \ B, U_n) P(B, U_n) \\
+&= \frac{\alpha + 1}{\alpha + \beta + 1} \bigg( \frac{\alpha}{\alpha + \beta} + \frac{\beta}{(\alpha + \beta) (\alpha + \beta + 1)^{n-1}} \bigg) + \frac{\alpha}{\alpha + \beta + 1} \bigg( 1 - \frac{\alpha}{\alpha + \beta} - \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^{n-1}} \bigg) \\
+&= \frac{\alpha (\alpha + 1) (\alpha + \beta + 1)^{n-1} + (\alpha + 1)\beta + \alpha (\alpha + \beta)(\alpha + \beta + 1)^{n-1} - \alpha^2 (\alpha + \beta + 1)^{n-1} - \alpha \beta}{(\alpha + \beta)(\alpha + \beta + 1)^n} \\
+&= \frac{(\alpha + \beta + 1)^{n-1} (\alpha (\alpha + 1) + \alpha (\alpha + \beta) - \alpha^2) + (\alpha + 1)\beta - \alpha \beta}{(\alpha + \beta)(\alpha + \beta + 1)^n} \\
+&= \frac{(\alpha^2 + \alpha + \alpha \beta)(\alpha + \beta + 1)^{n-1}}{(\alpha + \beta)(\alpha + \beta + 1)^n} + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^n} \\
+&= \frac{\alpha (\alpha + \beta + 1)(\alpha + \beta + 1)^{n-1}}{(\alpha + \beta)(\alpha + \beta + 1)^n} + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^n} \\
+&= \boxed{ \frac{\alpha}{\alpha + \beta} + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^n} }
+\end{align*}
+
+Establishing the desired result. The limit as $n \rightarrow + \infty$ is
+
+\[ \lim_{n \rightarrow +\infty} p_n = \lim_{n \rightarrow +\infty} \bigg( \frac{\alpha}{\alpha + \beta} + \frac{\beta}{(\alpha + \beta)(\alpha + \beta + 1)^n} \bigg) = \boxed{\frac{\alpha}{\alpha + \beta}} \]
+
+which is ordinarily $p_1$ without the premise that we are guaranteed to draw white on the first round from Urn 1. This means for big $n$ urns, the odds of picking white from the $n$-th urn are just as good as picking from the first urn.
+
+\end{proof}
+
 %Question 3.38
 \item  \begin{tcolorbox}[
   colback=Cerulean!5!white,
@@ -1082,12 +1390,140 @@ Observe that the numerator reduces simply to $P(A_1 \cap A_2)$. Then finally:
 \textbf{Urn 1 contains $\bm{\alpha}$ white and $\bm{\beta}$ black balls while Urn 2 contains $\bm{\beta}$ white and $\bm{\alpha}$ black balls. One ball is chosen (from one of the urns) and is then returned to that urn. If the chosen ball is white, choose the next ball from Urn 1; if the chosen ball is black, choose the next one from Urn 2. Continue in this manner. Given that the first ball chosen came from Urn 1, obtain Prob ($\bm{n}$th ball chosen is white) and also the limit of this probability as $\bm{n \rightarrow \infty}$.}
 \end{tcolorbox}
 
+By the Law of Total Probability, and by the premise that we chose on the first round from urn 1, we can derive the probabilities we draw either a white or black ball on the second round:
+
+\begin{align*}
+p_2 (W) &= P(W, U_1 \ | \ W, U_1) p_1 (W, U_1) + P(W, U_2 \ | \ B, U_1) p_1 (B, U_1) \\
+&= \bigg( \frac{\alpha}{\alpha + \beta} \bigg) \bigg( \frac{\alpha}{\alpha + \beta} \bigg) + \bigg( \frac{\beta}{\alpha + \beta} \bigg) \bigg( \frac{\beta}{\alpha + \beta} \bigg) \\
+&= \boxed{ \frac{\alpha^2 + \beta^2}{(\alpha + \beta)^2} } \\
+p_2 (B) &= \boxed{ \frac{2\alpha \beta}{(\alpha + \beta)^2} }
+\end{align*}
+
+Similarly, we do the same for drawing white or black on the third round. Note that all that matters is whether we drew white or black in round 2; \textit{where} we drew it from is immaterial:
+
+\begin{align*}
+p_3 (W) &= P(W, U_1 \ | \ W) p_2 (W) + P(W, U_2 \ | \ B) p_2 (B) \\
+&= \bigg( \frac{\alpha}{\alpha + \beta} \bigg) \bigg( \frac{\alpha^2 + \beta^2}{(\alpha + \beta)^2} \bigg) + \bigg( \frac{\beta}{\alpha + \beta} \bigg) \bigg( \frac{2\alpha \beta}{(\alpha + \beta)^2} \bigg) \\
+&= \frac{\alpha^3 + \alpha \beta^2 + 2\alpha \beta^2}{(\alpha + \beta)^3} \\
+&= \boxed{ \frac{\alpha^3 + 3 \alpha \beta^2}{(\alpha + \beta)^3} } \\
+p_3 (B) &= \boxed{ \frac{3\alpha^2 \beta + \beta^3}{(\alpha + \beta)^3} }
+\end{align*}
+
+Lastly, we analogously derive $p_4 (W)$ and $p_4 (B)$:
+
+\begin{align*}
+p_4 (W) &= \boxed{ \frac{\alpha^4 + 6 \alpha^2 \beta^2 + \beta^4}{(\alpha + \beta)^4} } \\
+p_4 (B) &= \boxed{ \frac{4\alpha^3 \beta + 4\alpha \beta^3}{(\alpha + \beta)^4} }
+\end{align*}
+
+Notice a pattern? The terms corresponding to $p_n(W)$ are the terms in the binomial expansion $\sum_{0 \leq k \leq n} \binom{n}{k} \alpha^{n-k} \beta^k$, where $k$ is even. Similarly, the terms in $p_n (B)$ are the binomial terms for odd $k$. Thus we formally conjecture:
+
+\textbf{Conjecture:}
+
+\[ p_n(W) = \frac{1}{(\alpha + \beta)^n} \sum_{0 \leq k \leq n, k \text{ even}} \binom{n}{k} \alpha^{n - k} \beta^k \]
+
+\begin{proof}
+Assume the induction hypothesis. We begin by writing
+
+\begin{align*}
+p_{n+1} (W) &= P(W, U_1 \ | \ W) p_n (W) + P(W, U_2 \ | \ B) p_n (B) \\
+&= \bigg( \frac{\alpha}{\alpha + \beta} \bigg) \frac{1}{(\alpha + \beta)^n} \sum_{0 \leq k \leq n, k \text{ even}} \binom{n}{k} \alpha^{n - k} \beta^k + \bigg( \frac{\beta}{\alpha + \beta} \bigg) \frac{1}{(\alpha + \beta)^n} \sum_{1 \leq k \leq n, k \text{ odd}} \binom{n}{k} \alpha^{n - k} \beta^k \\
+&= \frac{1}{(\alpha + \beta)^{n+1}} \bigg[ \sum_{0 \leq k \leq n, k \text{ even}} \binom{n}{k} \alpha^{n - k + 1} \beta^k + \sum_{1 \leq k \leq n, k \text{ odd}} \binom{n}{k} \alpha^{n - k} \beta^{k+1} \bigg]
+\end{align*}
+
+To continue, we proceed by cases with $n$ being either even or odd.
+
+\textbf{If $\bm{n}$ is even, then $\bm{n+1}$ is odd:}
+
+\begin{align*}
+&= \frac{1}{(\alpha + \beta)^{n+1}} \bigg[ \bigg( \alpha^{n+1} + \binom{n}{2} \alpha^{n-1} \beta^2 + \cdots + \alpha \beta^n \bigg) + \bigg( \binom{n}{1} \alpha^{n-1} \beta^2 + \cdots + \binom{n}{n-1} \alpha \beta^n \bigg) \bigg] \\
+&= \frac{1}{(\alpha + \beta)^{n+1}} \bigg[ \alpha^{n+1} + \bigg( \binom{n}{2} + \binom{n}{1} \bigg) \alpha^{n-1} \beta^2 + \cdots + \bigg( \binom{n}{n} + \binom{n}{n-1} \bigg) \alpha \beta^n \bigg]
+\end{align*}
+
+Using the fact that
+
+\[ \binom{n}{k} + \binom{n}{k-1} = \binom{n+1}{k} \]
+
+we can conclude with
+
+\begin{align*}
+&= \frac{1}{(\alpha + \beta)^{n+1}} \bigg[ \alpha^{n+1} + \binom{n+1}{2} \alpha^{n+1} \beta^2 + \cdots + \binom{n+1}{n} 
+\alpha \beta^n \bigg] \\
+&= \boxed{ \frac{1}{(\alpha + \beta)^{n+1}} \sum_{0 \leq k \leq n+1, k \text{ even}} \binom{n+1}{k} \alpha^{n+1-k} \beta^k }
+\end{align*}
+
+\textbf{If $\bm{n}$ is odd, then $\bm{n+1}$ is even:}
+
+\begin{align*}
+&= \frac{1}{(\alpha + \beta)^{n+1}} \bigg[ \bigg( \alpha^{n+1} + \binom{n}{2} \alpha^{n-1} \beta^2 + \cdots + \binom{n}{n-1} \alpha^2 \beta^{n-1} \bigg) + \bigg( \binom{n}{1} \alpha^{n-1} \beta^2 + \cdots + \binom{n}{n-2} \alpha^2 \beta^{n-1} + \beta^{n+1} \bigg) \bigg] \\
+&= \frac{1}{(\alpha + \beta)^{n+1}} \bigg[ \alpha^{n+1} + \bigg( \binom{n}{2} + \binom{n}{1} \bigg) \alpha^{n-1} \beta^2 + \cdots + \bigg( \binom{n}{n-1} + \binom{n}{n-2} \bigg) \alpha^2 \beta^{n-1} + \beta^{n+1} \bigg] \\
+&= \boxed{ \frac{1}{(\alpha + \beta)^{n+1}} \sum_{0 \leq k \leq n + 1, k \text{ even}} \binom{n+1}{k} \alpha^{n+1-k} \beta^k }
+\end{align*}
+
+As $n \rightarrow + \infty$, we have
+
+\[ \lim_{n \rightarrow + \infty} p_n (W) = \lim_{n \rightarrow +\infty} \frac{1}{(\alpha + \beta)^n} \sum_{0 \leq k \leq n, k \text{ even}} \binom{n}{k} \alpha^{n - k} \beta^k = \boxed{\frac{1}{2}} \]
+
+\end{proof}
+
 %Question 3.39
 \item  \begin{tcolorbox}[
   colback=Cerulean!5!white,
   colframe=Cerulean!75!black]
 \textbf{A printing machine can print $\bm{n}$ ``letters," say $\bm{\alpha_1, ..., \alpha_n}$. It is operated by electrical impulses, each letter being produced by a different impulse. Assume that there exists a constant probability $\bm{p}$ of printing the correct letter and also assume independence. One of the $\bm{n}$ impulses, chosen at random, was fed into the machine twice and both times the letter $\alpha_1$ was printed. Compute the probability that the impulse chosen was meant to print $\bm{\alpha_1}$.}
 \end{tcolorbox}
+
+It is apparent that we must find a probability of causes: given that $\alpha_1 \alpha_1$ was printed, we wish to determine the probability that the impulse \textit{meant} to print $\alpha_1 \alpha_1$. In terms of Bayes' theorem,
+
+\[ P(\alpha_1 \alpha_1 \text{ meant} \ | \ \alpha_1 \alpha_1 \text{ printed}) \] 
+\[ = \frac{P(\alpha_1 \alpha_1 \text{ printed} \ | \ \alpha_1 \alpha_1 \text{ meant}) P(\alpha_1 \alpha_1 \text{ meant})}{P(\alpha_1 \alpha_1 \text{ printed} \ | \ \alpha_1 \alpha_1 \text{ meant}) P(\alpha_1 \alpha_1 \text{ meant}) + P(\alpha_1 \alpha_1 \text{ printed} \ | \ \alpha_1 \alpha_1 \text{ not meant}) P(\alpha_1 \alpha_1 \text{ not meant})} \]
+
+Consider first the odds of drawing an impulse that is meant to print $\alpha_1 \alpha_1$. This must be $1/n$, for each letter is produced by a different and thus unique impulse by premise, and the chosen impulse is fed into the machine twice. Then the probability that it is not meant to print $\alpha_1 \alpha_1$ is correspondingly $\frac{n-1}{n}$.
+
+Now, suppose the impulse is meant to print $\alpha_1 \alpha_1$. Given this condition, the probability it actually does so must be $p^2$, by independence of each printing. Additionally, suppose the impulse is meant to print $\alpha_i \neq \alpha_1$. Then the odds of it printing $\alpha_1 \alpha_1$ must be $\big( \frac{1-p}{n-1} \big)^2$. Why? Consider the fact that the probabilities that each of the $n-1$ letters that are not $\alpha_i$ being printed must sum to $1-p$. Assuming each letter may be typed with equal odds, each must have probability $\frac{1}{n-1}$ of being printed. Therefore, the probability of printing any one of the $n-1$ letters, including $\alpha_1$, is $\frac{1-p}{n-1}$, with the square for printing twice independently.
+
+We now have the constituent probabilities to evaluate our Bayes' theorem equation. One may calculate the probabilities for \textit{not} printing $\alpha_1$ if they wish, or refer to the probability tree below that graphically represents the above chain of thought. We may now write
+
+\begin{align*}
+P(\alpha_1 \alpha_1 \text{ meant} \ | \ \alpha_1 \alpha_1 \text{ printed}) &= \frac{p^2 \cdot \frac{1}{n}}{p^2 \cdot \frac{1}{n} + \big( \frac{1-p}{n-1} \big)^2 \big( \frac{n-1}{n} \big)} \\
+&= \boxed{\frac{(n-1)p^2}{1-2p + np^2}}
+\end{align*}
+
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{500bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,0.45999999)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{3.39.eps}}%
+  \end{picture}%
+  \end{center}
+\endgroup%
+
 
 \end{enumerate}
 

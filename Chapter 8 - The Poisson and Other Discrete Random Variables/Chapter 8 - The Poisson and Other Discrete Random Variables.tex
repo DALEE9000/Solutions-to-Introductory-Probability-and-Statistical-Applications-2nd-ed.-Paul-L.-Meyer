@@ -1,0 +1,850 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{setspace}
+\setstretch{0.5}
+
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\newcommand*{\simsym}{\mathord\sim}\usepackage{amsthm}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{wrapfig, lipsum, amsthm, thmtools}
+\usepackage{gensymb}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=15mm,
+ right = 15mm,
+ top=15mm,
+ bottom = 20mm
+ }
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+\usepackage[framemethod=tikz]{mdframed}
+
+\theoremstyle{definition}
+\newtheorem*{exmp*}{Example}
+
+\newtheorem*{defn*}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn*}
+
+\newtheorem{cor*}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor*}
+
+\newtheorem*{prop*}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop*}
+
+\newtheorem*{thm*}{Theorem}
+\surroundwithmdframed[backgroundcolor=white]{thm*}
+
+
+% tikz for probability tree
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{trees,calc,angles,positioning,intersections}
+
+% pgfplot
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% pgfplotslibrary
+\usepgfplotslibrary{fillbetween}
+
+% quotations dirty talk
+\usepackage{dirtytalk}
+
+% floor ceiling
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% diag table
+\usepackage{diagbox}
+
+% math circle
+\makeatletter
+\newcommand\mathcircled[1]{%
+  \mathpalette\@mathcircled{#1}%
+}
+\newcommand\@mathcircled[2]{%
+  \tikz[baseline=(math.base)] \node[draw,circle,inner sep=1pt] (math) {$\m@th#1#2$};%
+}
+\makeatother
+
+
+\title{Introductory Probability and Statistical Applications, Second Edition \\
+\large{Paul L. Meyer}}
+\author{Notes and Solutions by David A. Lee}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section*{Solutions to Chapter 8: The Poisson and Other Discrete Random Variables}
+
+Unfinished Problems: 8.19
+
+\begin{enumerate}[label=8.\arabic*]
+\itemsep0em 
+%Question 8.1
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{If $\bm{X}$ has a Poisson distribution with parameter $\bm{\beta}$, and if $\bm{P(X = 0) = 0.2}$, evaluate $\bm{P(X > 2)}$.}
+\end{tcolorbox}
+
+Since the Poisson distribution is given by $P(X = k) = \frac{e^{-\beta} \beta^k}{k!}$, we can solve for $\beta$ by observing $P(X = 0) = 0.2 = e^{-\beta} \implies -\ln(0.2) = \beta$. By the Kolmogorov axioms, we can derive $P(X > 2) = 1 - (P(X = 2) + P(X = 1) + P(X = 0)) = 1 - \Big( \frac{e^{-\beta} \beta^2}{2!} + \frac{e^{-\beta} \beta}{1!} + 0.2 \Big) \approx \boxed{0.2191}$.
+
+%Question 8.2
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Let $\bm{X}$ have a Poisson distribution with parameter $\bm{\lambda}$. Find that value of $\bm{k}$ for which $\bm{P(X = k)}$ is largest. [\textit{Hint:} Compare $\bm{P(X = k)}$ with $\bm{P(X = k - 1)}$.]}
+\end{tcolorbox}
+
+To maximize $P(X = k)$, we can consider the following comparison
+
+\[ \frac{P(X = k)}{P(X = k - 1)} = \frac{e^{-\lambda} \lambda^k / k!}{ e^{-\lambda} \lambda^{k-1} / (k-1)!} = \frac{\lambda}{k}\]
+
+Now, observe the following facts:
+
+\begin{itemize}
+\item If $\lambda < k, P(X = k) < P(X = k - 1)$
+\item If $\lambda = k, P(X = k) = P(X = k - 1)$
+\item If $\lambda > k, P(X = k) > P(X = k - 1)$
+\end{itemize}
+
+In words, what the aforementioned ratio tells us is that as long as $k$ is less than $\lambda$, the successive probability will continue to be greater than the last, i.e. $P(X = k -1) < P(X = k)$. Now, if $\lambda$ is an integer, there will come a point where $\lambda = k$. At this point, $P(X = k -1) = P(X = k)$. Afterwards, when $k$ now ascends to be greater than $\lambda$, each successive probability is now \textit{less} than the preceding one, or $P(X = k) < P(X = k - 1)$. It is apparent that our point of interest at the point where $\boxed{X = \lambda = k}$, where we hit our peak -- or peaks, rather -- at $P(X = k)$ and $P(X = k - 1)$. In the case where $\lambda$ is not an integer, then the Poisson distribution is maximized at $X = \floor{\lambda}$.
+
+This is consistent with the result of the maxima of the binomial distribution, which is expected since the Poisson distribution is the limiting case of the binomial for high $n$ and low $p$.
+
+%Question 8.3
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{(This problem is taken from \textit{Probability and Statistical Inference for Engineers} by Derman and Klein, Oxford University Press, London, 1959.) The number of oil tankers, say $\bm{N}$, arriving at a certain refinery each day has a Poisson distribution with parameter $\bm{\lambda = 2}$. Present port facilities can service three tankers a day. If more than three tankers arrive in a day, the tankers in excess of three must be sent to another port.}
+\end{tcolorbox}
+
+For each problem below,
+
+\[ P(X = N) = \frac{e^{-2} \cdot 2^N}{N!} \]
+
+	\begin{enumerate}
+	%Question 8.3(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{On a given day, what is the probability of having to send tankers away?}
+	\end{tcolorbox}
+	
+	We calculate
+	
+	\begin{align*}
+	P(X > 3) &= 1 - (P(X = 3) + P(X = 2) + P(X = 1) + P(X = 0)) \\
+	&= 1 - \Big( \frac{8e^{-2}}{6} + \frac{4 e^{-2}}{2} + 2e^{-2} + e^{-2} \Big) \\
+	&\approx \boxed{0.1429}
+	\end{align*}
+	
+	%Question 8.3(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{How much must present facilities be increased to permit handling all tankers on approximately 90 percent of the days?}
+	\end{tcolorbox}
+	
+	We want to find the smallest $k$ such that $P(X > k) \geq 0.9$. It turns out this $\boxed{k = 4}$, as $P(X > 4) = 1 - \sum^4_{k = 0} \frac{e^{-2} \cdot 2^k }{k!} \approx 0.0527$.
+	
+	%Question 8.3(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the expected number of tankers arriving per day?}
+	\end{tcolorbox}
+	
+	By Meyer Theorem 8.1, the expectation of a Poisson distribution is its parameter, so the expectation for the number of tankers $N$ is $\boxed{E[N] = 2}$.
+	
+	%Question 8.3(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the most probable number of tankers arriving daily?}
+	\end{tcolorbox}
+	
+	From Problem 8.2, for a natural number parameter, the maxima probabilities are at $X = \lambda$ and $X = \lambda - 1$. Therefore the most probable numbers of tankers arriving daily are $\boxed{N = 1, 2}$.
+	
+	%Question 8.3(e)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the expected number of tankers serviced daily?}
+	\end{tcolorbox}
+	
+	Each of the outcomes that 0, 1, or 2 tankers are serviced has a unique Poisson probability associated with it, namely the probability of that number of tankers arriving that day. However, the event that 3 tankers are serviced is not only associated with the probability that 3 tankers arrive, but also that 4, 5, ... and so-forth arrive. Let $X_1$ be the number of tankers serviced. Then
+	
+	\[ E[X_1] = \sum^2_{k = 0} k \cdot \frac{e^{-2} \cdot 2^k}{k!} + 3 \sum^{\infty}_{k = 3} \frac{e^{-2} \cdot 2^k}{k!} \approx \boxed{1.782} \]
+	
+	%Question 8.3(f)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the expected number of tankers turned away daily?}
+	\end{tcolorbox}
+	
+	Here, the intuition is that the probability of 0 tankers being turned away is equal to the sum of the probabilities that 0, 1, 2, or 3 tankers arrive. Proceeding, the probability of 1 tanker turned away is that of 4 tankers arriving, 2 turned away that of 5 arriving, and so on. Let $X_2$ be the number of tankers turned away. Thus we can express the expectation of the number of turned away tankers as
+	
+	\[ E[X_2] = \sum^{\infty}_{k = 1} k \cdot \frac{e^{-2} \cdot 2^{k+3}}{(k+3)!} \approx \boxed{0.218} \]
+	
+	Observe that if $Y$ is the total number of tankers arriving, then it is easy to see that $Y = X_1 + X_2$, and consequently $E[Y] = E[X_1] + E[X_2]$.
+	\end{enumerate}
+
+%Question 8.4
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the probability that an item produced by a particular machine is defective equals 0.2. If 10 items produced from this machine are selected at random, what is the probability that not more than one defective is found? Use the binomial and Poisson distributions and compare the answers.}
+\end{tcolorbox}
+
+Observe that if $X$ is the number of defects found, then $P(X \leq 1) = P(X = 0) + P(X = 1)$.
+
+\textbf{Poisson}
+
+Here, $\alpha = np = (10)(0.2) = 2$. Then
+
+\begin{align*}
+P(X \leq 1) &= P(X = 0) + P(X = 1) \\
+&= \frac{e^{-2} \cdot 2^0}{0!} + \frac{e^{-2} \cdot 2^1}{1!} \\
+&\approx \boxed{0.406}
+\end{align*}
+
+\textbf{Binomial}
+
+\begin{align*}
+P(X \leq 1) &= P(X = 0) + P(X = 1) \\
+&= \binom{10}{0} 0.2^0 (1-0.2)^{10} + \binom{10}{1} 0.2^1 (1 -0.2)^9 \\
+&\approx \boxed{0.3758}
+\end{align*}
+
+%Question 8.5
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{An insurance company has discovered that only about 0.1 percent of the population is involved in a certain type of accident each year. If its 10,000 policy holders were randomly selected from the population, what is the probability that not more than 5 of its clients are involved in such an accident next year?}
+\end{tcolorbox}
+
+If $X$ is the number of clients in an accident, we wish to determine $P(X \leq 5)$. Here, $\alpha = np = (10000)(0.001) = 10$. Then we have
+
+\[ P(X \leq 5) = \sum^5_{k = 0} \frac{e^{-10} \cdot 10^k}{k!} = \boxed{0.0671} \]
+
+%Question 8.6
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X}$ has a Poisson distribution. If}
+
+\[ \bm{P(X = 2) = \frac{2}{3} P(X = 1),} \]
+
+\textbf{evaluate $\bm{P(X = 0)}$ and $\bm{P(X = 3)}$.}
+\end{tcolorbox}
+
+We have $P(X = 2) = \frac{e^{-\alpha \cdot \alpha^2}}{2}$ and $P(X = 1) = e^{-\alpha}$. By premise, $\frac{e^{-\alpha} \cdot \alpha^2}{2} = \frac{2}{3} e^{-\alpha} \cdot \alpha$. Solving for $\alpha$ gives us $4/3$, allowing us to conclude $P(X = 0) = e^{-4/3} \approx \boxed{0.264}$ and $P(X = 3) = \frac{e^{-4/3} (4/3)^3}{3!} \approx \boxed{0.104}$.
+
+%Question 8.7
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A film supplier produces 10 rolls of a specially sensitized film each year. If the film is not sold within the year, it must be discarded. Past experience indicates that $\bm{D}$, the (small) demand for the film, is a Poisson-distributed random variable with parameter 8. If a profit of \$7 is made on every roll which is sold, while a loss of \$3 is incurred on every roll which must be discarded, compute the expected profit which the supplier may realize on the 10 rolls which he produces.}
+\end{tcolorbox}
+
+The profit equation is $7D - 3(10 - D) = 10D - 30$, so $E[\text{Profit}] = 10 E[D] - 30$. It appears that the path forward is to determine what $E[D]$ is. However, a problem presents itself in that we are not actually averaging across \textit{every} possible value $D$ can take on; only from $0 \leq D \leq 10$. In this light, we must consider the following:
+
+\begin{align*}
+E[aX+b] &= \sum^{10}_i (aX + b) P(x_i) \\
+&= a \sum^{10}_i x_i P(x_i) + b \sum^{10}_i P(x_i)
+\end{align*}
+
+In cases where we do not consider all possible outcomes $x_i$, the constant term $b$ needs a "scaling" factor as above. Thus we can conclude that
+
+\begin{align*}
+E[\text{Profit}] &= 10 \sum^{10}_{D = 0} D \cdot \frac{e^{-8} \cdot 8^D}{D!} - 30 \sum^{10}_{D = 0} \frac{e^{-8} \cdot 8^D}{D!} \\
+&\approx \boxed{\$32.85}
+\end{align*}
+
+\newpage
+%Question 8.8
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Particles are emitted from a radioactive source. Suppose that the number of such particles emitted during a one-hour period has a Poisson distribution with parameter $\bm{\lambda}$. A counting device is used to record the number of such particles emitted. If more than 30 particles arrive during any one-hour period, the recording device is incapable of keeping track of the excess and simply records 30. If $\bm{Y}$ is the random variable defined as the number of particles \textit{recorded} by the counting device, obtain the probability distribution of $\bm{Y}$.}
+\end{tcolorbox}
+
+This is a Poisson process. Let $x$ be the number of particles emitted and $Y$ defined as above. For $t = 1$ hr, we have $P_x (t = 1) = \frac{e^{-\lambda} \cdot \lambda^x}{x!}, x = 0, 1, ...$. It follows that the distribution for $Y$ is given by
+
+\begin{align*}
+P(Y = x) &= P_x (t=1), \quad x = 0, 1, ..., 29 \\
+P(Y = 30) &= \sum^{\infty}_{x = 30} \frac{e^{-\lambda} \cdot \lambda^x}{x!}, \quad x \geq 30
+\end{align*}
+
+%Question 8.9
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that particles are emitted from a radioactive source and that the number of particles emitted during a one-hour period has a Poisson distribution with parameter $\bm{\lambda}$. Assume that the counting device recording these emissions occasionally fails to record an emitted particle. Specifically, suppose that any emitted particle has a probability $\bm{p}$ of being recorded.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 8.9(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{If $\bm{Y}$ is defined as the number of particles recorded, what is an expression for the probability distribution of $\bm{Y}$?}
+	\end{tcolorbox}
+	
+	Let $X = x$ be the number of particles emitted per hour, which has a Poisson distribution by premise. Let $Y = k$ be the number of particles recorded, which must follow a binomial distribution as either the particle is recorded or not. Intuitively, we can see that however many particles the device records will be conditional on how many are emitted to begin with. Therefore, we can model the probability of the device recording the particle as
+	
+	\[ P(Y = k | X = x) = \binom{x}{k} p^k (1-p)^{x-k} \]
+	
+	By the Law of Total Probability, we can derive the distribution for $Y$:
+	
+	\begin{align*}
+	P(Y = k) &= \sum^{\infty}_{x=k} \binom{x}{k} p^k (1-p)^{x-k} \frac{e^{-\lambda} \cdot \lambda^x}{x!} \\
+	&= \Big( \frac{p}{1-p} \Big)^k \frac{e^{-\lambda}}{k!} \sum^{\infty}_{x=k} \frac{x!}{(x-k)!} (1-p)^x \frac{\lambda^x}{x!} \\
+	&= \Big( \frac{p}{1-p} \Big)^k \frac{e^{-\lambda}}{k!} \sum^{\infty}_{x=k} \frac{1}{(x-k)!} (\lambda (1-p))^x
+	\end{align*}
+	
+	Let $i = x - k$. Then
+	
+	\begin{align*}
+	&= \Big( \frac{p}{1-p} \Big)^k \frac{e^{-\lambda}}{k!} \sum^{\infty}_{i=0} \frac{(\lambda (1-p))^{i + k}}{i!} \\
+	&= \Big( \frac{p}{1-p} \Big)^k \frac{e^{-\lambda}}{k!} (\lambda (1-p))^k e^{\lambda (1-p)} \\
+	P(Y = k) &= \boxed{ \frac{(\lambda p)^k}{k!} e^{-\lambda p} }
+	\end{align*}
+	
+	%Question 8.9(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Evaluate $\bm{P(Y = 0)}$ if $\bm{\lambda = 4}$ and $\bm{p = 0.9}$.}
+	\end{tcolorbox}
+	
+	Inputting into the derived expression above gives us $\boxed{P(Y = 0) \approx 0.0273}$.
+	\end{enumerate}
+
+\newpage
+%Question 8.10
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that a container contains 10,000 particles. The probability that such a particle escapes from the container equals 0.0004. What is the probability that more than 5 such escapes occur? (You may assume that the various escapes are independent of one another.)}
+\end{tcolorbox}
+
+Let $X$ be the number of escapes. Since $n$ is high and $p$ is low, we can approximate the probability distribution of the number of escaping particles as Poisson:
+
+\[ P(X = k) = \frac{e^{-(10000)(0.0004)} ((10000)(0.0004))^k}{k!} \]
+
+Then we can calculate $P(X > 5) = 1 - \sum^5_{k=0} \frac{e^{-(10000)(0.0004)} ((10000)(0.0004))^k}{k!} \approx \boxed{0.215} $
+
+%Question 8.11
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that a book of 585 pages contains 43 typographical errors. If these errors are randomly distributed throughout the book, what is the probability that 10 pages, selected at random, will be free of errors? [\textit{Hint:} Suppose that $\bm{X =}$ number of errors per page has a Poisson distribution.]}
+\end{tcolorbox}
+
+Let $X$ be the number of errors per page, $X = 0, 1, ..., 43$. To motivate the distribution of $X$, first consider the binomial distribution with parameters $n = 43, p = 43/585$. Then we have
+
+\[ P(X = k) = \binom{43}{k} \Bigg( \frac{43}{585} \Bigg)^k \Bigg( 1 - \frac{43}{585} \Bigg)^{43-k} \]
+
+The intuition here is to start with any given page, number each typo from 1 to 43. Either that page has typo $i$, $1 \leq i \leq 43$, or it does not. The page can also have multiple typos, numbering $k, k = 1, ..., 43$. The trick is to think of the situation as if we run 43 trials -- one for each of the $i$ typos -- in which ``success" corresponds to there being the $i$-th typo on the given page, and ``failure" to the absence of the $i$-th typo. Therefore, for our given page, $X$ having $k$ typos follows a binomial distribution, and the odds of a typo appearing on a page is $p = 43/585$. We may approximate $X$ as Poisson and write
+
+\[ P(X = k) = \frac{e^{-43p} (43p)^k}{k!} = \frac{e^{-43^2/585} (43^2/585)^k}{k!} \]
+
+Next, we can create another Bernoulli variable $Y$ to express how many pages have no typos, or at least one typo:
+
+\[ P(Y = n) = \binom{585}{585-n} q^{585-n} (1-q)^n \]
+
+Where $n$ is the number of pages with at least one typo, $n = 1, ..., 43$, $q = P(X = 0) = P(\text{no typos}) = e^{-43^2/585}$, and $1 - q = P(X \geq 1) = P(\text{typos}) = 1 - e^{-43^2/585}$. Intuitively, it is as if we run 585 trials, one for each page, and a ``success" is no typo on the page, and ``failure" at least one typo on the page. We may also approximate this as Poisson:
+
+\[ P(Y = n) = \frac{e^{-585q} (585q)^n}{n!} \]
+
+Lastly, create $Z$ with a conditional hypergeometric probability distribution, motivated by the intuition that the point of making $Y$ a Bernoulli variable was to say: we have some pages with typos, and the rest do not. We choose 10 of the 585 pages, and given $n$ the number of pages with typos, what are the odds of choosing 10 pages without typos? Thus this conditional hypergeometric probability is
+
+\[ P(Z = 10 | Y = n) = \frac{ \binom{n}{0} \binom{585-n}{10} }{ \binom{585}{10} } \]
+
+Lastly, an application of the Law of Total Probability gives us:
+
+\begin{align*}
+P(Z = 10) &= \sum^{43}_{n=1} P(Z = 10 | Y = n) P(Y = n) \\
+&= \sum^{43}_{n=1} = \frac{ \binom{n}{0} \binom{585-n}{10} }{ \binom{585}{10} } \frac{e^{-585p} (585p)^n}{n!} \\
+&\approx \boxed{0.648}
+\end{align*}
+
+Summarizing the probabilities we use:
+
+\bgroup
+\def\arraystretch{2.5}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ $P(X = k)$ & Probability of $k$ typos on a given page & Poisson  \\ 
+ \hline
+ $P(Y = n)$ & Probability of $n$ pages having typos & Poisson  \\ 
+ \hline
+ $P(Z = 10 | Y = n)$ & Probability of choosing 10 typo-free pages given $n$ pages have typos & Hypergeometric  \\ 
+ \hline
+\end{tabular}
+\egroup
+
+In short, the strategy to approaching this problem is to consider all of the mutually exclusive events of a) the typos being relatively concentrated (the most being all 43 typos on one page) to relatively spread out (one typo across 43 pages) and each combination of distribution of typos, b) the number of pages on which the typos are on (ranging from 1 to 43) and each combination of the distribution of such typo-ridden pages, and taking each of these events, summing the mutually exclusive probabilities of choosing 10 typo-free pages.
+
+%Question 8.12
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A radioactive source is observed during 7 time intervals each of ten seconds in duration. The number of particles emitted during each period is counted. Suppose that the number of particles emitted, say $\bm{X}$, during each observed period has a Poisson distribution with parameter 5.0. (That is, particles are emitted at the rate of 0.5 particles per second.)}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 8.12(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that in each of the 7 time intervals, 4 or more particles are emitted?}
+	\end{tcolorbox}
+	
+	We have the Poisson process with distribution $P_n (t) = \frac{e^{-\lambda t} (\lambda t)^n}{n!}$ for $t = 10, \lambda = 0.5$. The probability that four or more particles are emitted in any one of the periods is $P(X \geq 4) = 1 - \sum^3_{n = 0} P_n (10) \approx 0.735$. The probability that this happens for \textit{each} of the 7 time intervals is $0.735 \approx \boxed{0.116}$.
+	
+	%Question 8.12(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that in at least 1 of the 7 time intervals, 4 or more particles are emitted?}
+	\end{tcolorbox}
+	
+	The complement of this event is that four or more particles are emitted for \textit{none} of the time intervals; equivalently, three or fewer particles are emitted for \textit{each} of the seven time intervals. Therefore the desired probability must be $1 - \Big( \sum^3_{n=0} P_n (10) \Big)^7 \approx \boxed{0.999}$.
+	\end{enumerate}
+
+%Question 8.13
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{It has been found that the number of transistor failures on an electronic computer in any one-hour period may be considered as a random variable having a Poisson distribution with parameter 0.1. (That is, on the average there is one transistor failure every 10 hours.) A certain computation requiring 20 hours of computing time is initiated.}
+\end{tcolorbox}
+	
+	\begin{enumerate}
+	%Question 8.13(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Find the probability that the above computation can be successfully completed without a breakdown. (Assume that the machine becomes inoperative only if 3 or more transistors fail.)}
+	\end{tcolorbox}
+	
+	Let $X$ be the number of failures. By premise, the machine is inoperable if 3 or more transistors fail. Then the probability that the machine continues to operate over one hour is equivalent to the probability of zero, one, or two transistors failing over one hour, given by (with $\lambda = 0.1$ by premise)
+	
+	\[ P(X \leq 2) = \sum^2_{k = 0} \frac{e^{-0.1} (0.1)^k}{k!} \]
+	
+	Now, assuming the independence of the events of the machine operating properly in each hour, the probability that the machine does not fail for 20 hours straight is given by
+	
+	\[ P(\text{machine does not fail for 20 hours}) = \Bigg( \sum^2_{k=0} \frac{e^{-0.1} (0.1)^k}{k!} \Bigg)^2 \approx \boxed{0.997} \]
+	
+	%Question 8.13(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Same as (a), except that the machine becomes inoperative if 2 or more transistors fail.}
+	\end{tcolorbox}
+	
+	With $X$ defined as before, the probability of the machine operating properly is
+	
+	\[ P(X \leq 1) = \sum^1_{k = 0} \frac{e^{-0.1} (0.1)^k}{k!} \]
+	
+	Allowing us to conclude
+	
+	\[ P(\text{machine does not fail for 20 hours}) = \Bigg( \sum^1_{k=0} \frac{e^{-0.1} (0.1)^k}{k!} \Bigg)^2 \approx \boxed{0.910} \]
+	
+	\end{enumerate}
+
+%Question 8.14
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{In forming binary numbers with $\bm{n}$ digits, the probability that an incorrect digit will appear is, say 0.002. If the errors are independent, what is the probability of finding zero, one, or more than one incorrect digits in a 25-digit binary number? If the computer forms $\bm{10^6}$ such 25-digit numbers per second, what is the probability that an incorrect number is formed during any one-second period?}
+\end{tcolorbox}
+
+Let $p = 0.002$ be the probability of an incorrect digit appearing. Assuming independence of errors, the probability of each quantity of incorrect digits is given by
+
+\begin{align*}
+P(\text{zero wrong}) &= (1-p)^{25} \approx \boxed{0.951} \\
+P(\text{one wrong}) &= \binom{25}{1} (1-p)^{24} p \approx \boxed{0.048} \\
+P(\text{more than one wrong}) &= \sum^{25}_{k=2} \binom{25}{k} (1-p)^{25-k} p^k \approx \boxed{0.001}
+\end{align*}
+
+The probability of forming $10^6$ perfect numbers is given by $(0.951)^{10^6}$. Thus the probability of forming at least one incorrect number is given by $\boxed{1 - (0.951)^{10^6} \approx 1}$, which is effectively a near-certainty that an incorrect number will be formed.
+
+%Question 8.15
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Two independently operating launching procedures are used every week for launching rockets. Assume that each procedure is continued until \textit{it} produces a successful launching. Suppose that using procedure I, $\bm{P(S)}$, the probability of a successful launching, equals $\bm{p_1}$, while for procedure II, $\bm{P(S) = p_2}$. Assume furthermore, that one attempt is made every week with each of the two methods. Let $\bm{X_1}$ and $\bm{X_2}$ represent the number of weeks required to achieve a successful launching by means of I and II, respectively. (Hence $\bm{X_1}$ and $\bm{X_2}$ are independent random variables, each having a geometric distribution.) Let $\bm{W}$ be the minimum $\bm{(X_1, X_2)}$ and $\bm{Z}$ be the maximum $\bm{(X_1, X_2)}$. Thus $\bm{W}$ represents the number of weeks required to obtain $\bm{a}$ successful launching while $\bm{Z}$ represents the number of weeks needed to achieve successful launchings with both procedures. (Thus if procedure I results in $\bm{\bar{S} \bar{S} \bar{S} S}$, while procedure II results in $\bm{\bar{S} \bar{S} S}$, we have $\bm{W = 3, Z = 4}$.)}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 8.15(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Obtain an expression for the probability distribution of $\bm{W}$. [\textit{Hint:} Express, in terms of $\bm{X_1}$ and $\bm{X_2}$, the event $\bm{ \{ W = k \} }$.]}
+	\end{tcolorbox}
+	
+	By premise, $P(X_1 = k) = (1 - p_1)^{k-1} p_1$ and $P(X_2 = k) = (1 - p_2)^{k-1} p_2$. Given $W = k$, it must be the case that $X_1 = k$ AND $X_2 \geq k$ XOR (mutually exclusive or) $X_2 = k$ AND $X_1 > k$, where without loss of generality the strict inequality holds in the second case so as to not double-count the probability ``contribution" of $P(X_1 = k) P(X_2 = k)$. Then by independence of launches for both procedures, we can write
+	
+	\begin{align*}
+	P(W = k) &= P(X_1 = k) P(X_2 \geq k) + P(X_2 = k) P(X_1 > k) \\
+	&= \boxed{ (1-p_1)^{k-1} p_1 \Bigg( \sum^{\infty}_{i=k} (1-p_2)^{i-1} p_2 \Bigg) + (1-p_2)^{k-1} p_2 \Bigg( \sum^{\infty}_{i = k+1} (1-p_1)^{i-1} p_1 \Bigg) }
+	\end{align*}
+	
+	%Question 8.15(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Obtain an expression for the probability distribution of $\bm{Z}$.}
+	\end{tcolorbox}
+	
+	Reasoning analogously as in part (a), either we have $X_1 = k$ AND $X_2 \leq k$ XOR $X_2 = k$ AND $X_1 < k$. Then we have
+	
+	\begin{align*}
+	P(Z = k) &= P(X_1 = k) P(X_2 \leq k) + P(X_2 = k) P(X_1 < k) \\
+	&= \boxed{ (1-p_1)^{k-1} p_1 \Bigg( \sum^k_{i = 1} (1-p_2)^{i-1} p_2 \Bigg) + (1-p_2)^{k-1} p_2 \Bigg( \sum^{k-1}_{i=1} (1-p_1)^{i-1} p_1 \Bigg)}
+	\end{align*}
+	
+	%Question 8.15(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Rewrite the above expressions if $\bm{p_1 = p_2}$.}
+	\end{tcolorbox}
+	
+	Let $p_1 = p_2 = p$. Then we can derive
+	
+	\begin{align*}
+	P(W = k) &= (1-p_1)^{k-1} p_1 \Bigg( \sum^{\infty}_{i=k} (1-p_2)^{i-1} p_2 \Bigg) + (1-p_2)^{k-1} p_2 \Bigg( \sum^{\infty}_{i = k+1} (1-p_1)^{i-1} p_1 \Bigg) \\
+	&= 2(1-p)^{k-1} p \Bigg( \sum^{\infty}_{i=k} (1-p)^{i-1} p \Bigg) - (1-p)^{2(k-1)} p^2 \\
+	&= 2(1-p)^{k-1} p \Bigg( 1 - \sum^{k-1}_{i=1} (1-p)^{i-1} p \Bigg) - (1-p) ^{2(k-1)} p^2 \\
+	&= 2(1-p)^{k-1} p \Bigg( 1 - p \frac{1 - (1-p)^{k-1}}{1 - (1-p)} \Bigg) - (1-p)^{2(k-1)} p^2 \\
+	&= 2(1-p)^{k-1} p (1-p)^{k-1} - (1-p)^{2(k-1)} p^2 \\
+	&= \boxed{(1-p)^{2(k-1)} (2p-p^2)} \\
+	P(Z = k) &= (1-p_1)^{k-1} p_1 \Bigg( \sum^k_{i = 1} (1-p_2)^{i-1} p_2 \Bigg) + (1-p_2)^{k-1} p_2 \Bigg( \sum^{k-1}_{i=1} (1-p_1)^{i-1} p_1 \Bigg) \\
+	&= 2(1-p)^{k-1} p \Bigg( p \frac{1 - (1-p)^k}{1 - (1-p)} \Bigg) - (1-p)^{2(k-1)} p^2 \\
+	&= 2(1-p)^{k-1} p (1 - (1-p)^k) - (1-p)^{2(k-1)} p^2 \\
+	&= 2(1-p)^{k-1} p - 2(1-p)^{2k-1} p - (1-p)^{2(k-1)} p^2 \\
+	&= \boxed{ (1-p)^{k-1} p [2 - 2(1-p)^k - (1-p)^{k-1} p] }
+	\end{align*}
+	
+	\end{enumerate}
+
+%Question 8.16
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Four components are assembled into a single apparatus. The components originate from independent sources and $\bm{p_i = P(i\text{th component is defective}), i = 1, 2, 3, 4}$.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 8.16(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Obtain an expression for the probability that the entire apparatus is functioning.}
+	\end{tcolorbox}
+	
+	Since the origination of source is independent, we have $\boxed{ P(\text{apparatus functioning}) = \Pi^4_{i=1} (1-p_i) }$.
+	
+	%Question 8.16(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Obtain an expression for the probability that at least 3 components are functioning.}
+	\end{tcolorbox}
+	
+	Equivalently, we calculate the probability that three or four components are functioning. Namely, we take the probability that the apparatus is functioning, and the individual probabilities of each of the components being broken while the other three are functioning. Since all constitute mutually exclusive events, we have
+	
+	\begin{align*}
+	P(\text{at least 3 functioning}) &= \Pi^4_{i=1} (1-p_i) + p_1 (1-p_2)(1-p_3)(1-p_4) + (1-p_1) p_2 (1-p_3) (1-p_4)  \\
+	&\quad \quad + (1-p_1)(1-p_2) p_3 (1-p_4) + (1-p_1) (1- p_2) (1-p_3) p_4
+	\end{align*}
+	
+	%Question 8.16(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{If $\bm{p_1 = p_2 = 0.1}$ and $\bm{p_3 = p_4 = 0.2}$, evaluate the probability that exactly 2 components are functioning.}
+	\end{tcolorbox}
+	
+	We can immediately see that there are $\binom{4}{2} = 6$ unique ways we can choose exactly two components of the four to be functioning. Therefore the probability we are trying to calculate will have six terms, namely
+	
+	\begin{align*}
+	P(\text{exactly 2 components are functioning}) &= (1-p_1)(1-p_2) p_3 p_4 + (1-p_1) p_2 (1-p_3) p_4 + (1-p_1) p_2 p_3 (1-p_4) \\
+	&\quad \quad + p_1 (1-p_2) (1-p_3) p_4 + p_1 (1-p_2) p_3 (1-p_4) + p_1 p_2 (1-p_3) (1 - p_4) \\
+	&\approx \boxed{0.0964}
+	\end{align*}
+	
+	
+	\end{enumerate}
+
+%Question 8.17
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A machinist keeps a large number of washers in a drawer. About 50 percent of these washers are $\bm{\frac{1}{4}}$ inch in diameter, about 30 percent are $\bm{\frac{1}{8}}$ inch in diameter, and the remaining 20 percent are $\bm{\frac{3}{8}}$ inch in diameter. Suppose that 10 washers are chosen at random.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 8.17(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that there are exactly five $\bm{\frac{1}{4}}$-inch washers, four $\bm{\frac{1}{8}}$-inch washers, and one $\bm{\frac{3}{8}}$-inch washer?}
+	\end{tcolorbox}
+	
+	Let $X_1 = $ the number of size $1/4$, $X_2 =$ the number of size $1/8$, and $X_3 =$ the number of size $3/8$, where $P(X_1) = 0.5, P(X_2) = 0.3, P(X_3) = 0.2$, respectively. By the multinomial distribution,
+	
+	\[ P(X_1 = 5, X_2 = 4, X_3 = 1) = \frac{10!}{5! 4! 1!} P(X_1)^5 P(X_2)^4 P(X_3) \approx \boxed{0.0638} \]
+	
+	%Question 8.17(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that only two kinds of washers are among the chosen ones?}
+	\end{tcolorbox}
+	
+	Here, we must consider all of the instances where we have only the $1/4$ and $1/8$, $1/4$ and $3/8$, and $1/8$ and $3/8$ washers. Moreover, for each pair, we consider each of the $(10, 10-i)$ amount of each in the pair for $i = 0,..., 10$. Since each of these are mutually exclusive events, the probability of only two kinds of washers appearing among the ten is given by
+	
+	\begin{align*}
+	P(\text{only two kinds of washers}) &= \sum^9_{i=1} \frac{10!}{(10-i)! i!} P(X_1)^{10-i} P(X_2)^i + \sum^9_{i=1} \frac{10!}{(10-i)! i!} P(X_1)^{10-i} P(X_3)^i \\
+	&\quad +  \sum^9_{i=1} \frac{10!}{(10-i)! i!} P(X_2)^{10-i} P(X_3)^i \approx \boxed{0.135}
+	\end{align*}
+	
+	%Question 8.17(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that all three kinds of washers are among the chosen ones?}
+	\end{tcolorbox}
+	
+	An equivalent question we can ask ourselves is, in what way can we express a sum of a triplet of numbers such that they all add to 10? Simply, how many ways can we write $1+1+8, 1+2+7, 2+2+6$, and so-on-and-so-forth, not accounting for the order of numbers in the sum?
+	
+	One general expression for this sum can be
+	
+	\[ i + j + (10 - i - j) \] 
+	
+	And one insight we can gather here is, once $i$ and $j$ have been determined, so has $10 - i - j$. Now, we have an additional constraint that we must have three terms that are non-zero, so we also cannot have any of $i, j$, and $10 - i - j$ equaling 9. Effectively, this means that we can only $i$ or $j$ run from $1, ..., 8$. Say $j = 1,...,8$ without loss of generality. How do we now relate $i$ and $j$? Since $i$ must also run from $1, ..., 8$, we may equivalently express this as $i$ can only run from $1,..., 9-j$. We can now systematically see that when $j = 1$, $9-j = 8$, and thus we may have $i = 1,..., 8$, and $10-i-j = 8, ..., 1$, and so-on-and-so-forth when we run through $j = 2, ...$ and when we reach $j = 8$, we must have $i = 1$, and $10 - i - j = 1$. Expressing these insights in double summation form and in the desired probability, we can finally write
+	
+	\[ P(\text{all 3 kinds among chosen}) = \sum^8_{j=1} \sum^{9-j}_{i=1} \frac{10!}{(10-i-j)! i! j!} P(X_1)^j P(X_2)^i P(X_3)^{10-i-j} \approx \boxed{ 0.864} \] 
+	
+	To further solidify the thoughts undergirding the above expression, I encourage the reader to write out each term of the double summation to see that, indeed, every possible triple sum of integers $1,...,8$ adding to 10 is covered.
+	
+	%Question 8.17(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{What is the probability that there are three of one kind, three of another kind, and four of the third kind in a sample of 10?}
+	\end{tcolorbox}
+	
+	We can have either 4 of the first, second, or third kind of washer and 3 for the remaining two. Thus we have
+	
+	\begin{align*}
+	P(\text{3 one kind, 3 second kind, 4 third kind}) &= \frac{10!}{4! 3! 3!} (P(X_1)^4 P(X_2)^3 P(X_3)^3 + P(X_1)^3 P(X_2)^4 P(X_3)^3 \\
+	&\quad + P(X_1)^3 P(X_2)^3 P(X_3)^4 ) \\
+	&\approx \boxed{0.1134}
+	\end{align*}
+	\end{enumerate}
+
+%Question 8.18
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Prove Theorem 8.4.}
+\end{tcolorbox}
+
+\begin{thm*}
+Suppose that $X$ has a geometric distribution given by
+
+\[ P(X = k) = q^{k-1} p, \quad k = 1, 2, ... \]
+
+Then for any two positive integers $s$ and $t$,
+
+\[ P(X > s + t | X > s) = P(X > t) \]
+\end{thm*}
+
+\textbf{Note.} This result is called the memoryless property. Meyer mistakenly writes the left side of the equality as $P(X \geq s+t | X > s)$. The proof makes clear that the equality cannot hold, so I have corrected it to reflect the strict inequality.
+
+\begin{proof}
+For $s, t \in \mathbb{N}$, we evaluate the right side:
+
+\begin{align*}
+P(X > t) &= \sum^{\infty}_{i = t+1} P(X = i) \\
+&= \sum^{\infty}_{i = t+1} (1-p)^{i-1} p \\
+&= 1 - \sum^t_{i=1} (1-p)^{i-1} p \\
+&= 1 - p \Bigg( \frac{1 - (1-p)^t}{1 - (1-p)} \Bigg) \\
+&= (1-p)^t
+\end{align*}
+
+And similarly for the left:
+
+\begin{align*}
+P(X > s + t | X > s) &= \frac{P(X > s + t, X > s)}{P(X > s)} \\
+&= \frac{P(X > s + t)}{P(X > s)} \\
+&= \frac{\sum^{\infty}_{i = s + t + 1} (1-p)^{i-1} p }{\sum^{\infty}_{i = s + 1} (1-p)^{i-1} p} \\
+&= \frac{ 1 - \sum^{s+t}_{i = 1} (1-p)^{i-1} p}{ 1- \sum^s_{i = 1} (1-p)^{i-1} p } \\
+&= \frac{1 - p \Big( \frac{1 - (1-p)^{s+t}}{1 - (1-p)} \Big) }{ 1 - p \Big( \frac{1-(1-p)^s}{1-(1-p)} \Big)} \\
+&= \frac{(1-p)^{s+t}}{(1-p)^s} = (1-p)^t
+\end{align*}
+
+And so we can conclude that $\boxed{ P(X > s + t | X > s) = P(X > t) }$.
+\end{proof}
+
+%Question 8.19
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Prove Theorem 8.6.}
+\end{tcolorbox}
+
+\begin{thm*}
+Let $X$ have a hypergeometric distribution as given by
+
+\[ P(X = k) = \frac{\binom{r}{k} \binom{N-r}{n-k} }{\binom{N}{n} }, \quad k = 0, 1, 2, .... \]
+
+Let $p = r/N, q = 1 - p$. Then we have
+
+\begin{enumerate}
+\item $E[X] = np$
+\item $V[X] = npq \frac{N-n}{N-1}$
+\item $P(X = k) \approx \binom{n}{k} p^k (1-p)^{n-k}$
+\end{enumerate}
+\end{thm*}
+
+\begin{proof}
+\end{proof}
+
+%Question 8.20
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{The number of particles emitted from a radioactive source during a specified period is a random variable with a Poisson distribution. If the probability of no emissions equals $\bm{\frac{1}{3}}$, what is the probability that 2 or more emissions occur?}
+\end{tcolorbox}
+
+Let $X$ be the number of particles emitted. Since it follows a Poisson distribution by premise, we have $P(X = 0) = 1/3 = e^{-\lambda}$, implying $\lambda = - \ln 1/3$. To find the probability that two or more emissions occur, we write
+
+\[ P(X \geq 2) = 1 - [P(X = 1) + P(X = 0)] = 1 - [-1/3 \ln 1/3 + 1/3] = \boxed{\frac{2 - \ln 3}{3} } \]
+
+%Question 8.21
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{X_t}$, the number of particles emitted in $\bm{t}$ hours from a radioactive source, has a Poisson distribution with parameter $\bm{20t}$. What is the probability that exactly 5 particles are emitted during a 15-minute period?}
+\end{tcolorbox}
+
+Since we consider the number of particles emitted over a 15-minute period, we must have $t = 0.25$, and so our parameter is $20(0.25) = 5$. Then we calculate
+
+\[ P_5 (0.25) = \frac{e^{-5} (5)^5 }{5!} \approx \boxed{0.175} \]
+
+%Question 8.22
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{The probability of a successful rocket launching equals 0.8. Suppose that launching attempts are made until 3 successful launchings have occurred. What is the probability that exactly 6 attempts will be necessary? What is the probability that fewer than 6 attempts will be required?}
+\end{tcolorbox}
+
+Since we concern ourselves with the question of the probability of having exactly three successful launchings, our intuition should tell us the negative binomial distribution describes this situation. Let $Y$ be the number of launch attempts. Then we have
+
+\[ P(Y = 6) = \binom{5}{2} (0.8)^3 (0.2)^3 = \boxed{0.041} \]
+
+For determining the probability that fewer than 6 attempts are necessary -- namely, that we can have $Y = k = 3, 4$, or $5$ attempts to get 3 successful launches, we calculate
+
+\[ P(3 \leq Y \leq 5) = \sum^5_{k=3} \binom{k-1}{2} (0.8)^3 (0.2)^{k-3} \approx \boxed{0.942} \]
+
+%Question 8.23
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{In the situation described in Problem 8.22, suppose that launching attempts are made until three \textit{consecutive} successful launchings occur. Answer the questions raised in the previous problem in this case.}
+\end{tcolorbox}
+
+Adding the constraint that the three successful launchings must be consecutive, we can write the qualifying outcomes: $SSSFFF, FSSSFF, FFSSSF, FFFSSS$. Thus we have only 4 versus 10 combinations in the previous problem. Then for exactly six attempts, we have
+
+\[ P(Y = 6) = 4(0.8)^3 (0.2)^3 \approx \boxed{0.0164} \]
+
+For fewer than six attempts, we can list the following outcomes:
+
+\textbf{$\bm{k = 3:}$} $SSS$ \\
+\textbf{$\bm{k = 4:}$} $SSSF, FSSS$  \\
+\textbf{$\bm{k = 5:}$} $SSSFF, FSSSF, FFSSS$ \\
+
+Therefore, we have exactly one, two, and three outcomes for the cases of $k = 3, 4,$ and $5$, respectively. It is clear to see that the probability of three successful launches in fewer than six attempts must be
+
+\[ P(3 \leq Y \leq 5) = \sum^5_{k=3} (k-2) (0.8)^3 (0.2)^{k-3} \approx \boxed{0.778} \]
+
+%Question 8.24
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Consider again the situation described in Problem 8.22. Suppose that each launching attempt costs \$5000. In addition, a launching failure results in an additional cost of \$500. Evaluate the expected cost for the situation described.}
+\end{tcolorbox}
+
+For $Y = k$ attempts, our cost function can be written as
+
+\[ \text{Cost} = 5000Y + 500(Y - 3) = 5500Y - 1500 \]
+
+Then by the linearity of the expectation function, we have
+
+\[ E[\text{Cost}] = 5500 E[Y] - 1500 \]
+
+Where $E[Y]$ is equal to
+
+\[ E[Y] = \sum^{\infty}_{k=3} k \binom{k-1}{2} (0.8)^3 (0.2)^{k-3} = 3.75 \]
+
+Therefore, $\boxed{E[\text{Cost}] = \$ 19,125}$.
+
+%Question 8.25
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{With $\bm{X}$ and $\bm{Y}$ defined as in Section 8.6, prove or disprove the following:}
+
+\[ \bm{P(Y < n) = P(X > r)} \]
+\end{tcolorbox}
+
+\begin{proof}
+Let $X$ have a binomial distribution with parameters $n$ and $p$ and let $Y$ have a Pascal distribution with parameters $r$ and $p$. Observe that we may express each side of the equality as:
+
+\begin{align*}
+P(Y < n) &= P(Y \leq n) - P(Y = n) \\
+P(X > r) &= P(X \geq r) - P(X = r)
+\end{align*}
+
+Now, Meyer already established that $P(Y \leq n) = P(X \geq r)$. If the aforementioned conjecture is true, then it must imply that $P(Y = n) = P(X = r)$. However, we can see that
+
+\begin{align*}
+P(Y = n) &= \binom{n-1}{r-1} p^r (1-p)^{n-r} \\
+P(X = r) &= \binom{n}{r} p^r (1-p)^{n-r}
+\end{align*}
+
+And for equality to hold, we must have $\binom{n-1}{r-1} = \binom{n}{r}$. But this fails to be true generally. Therefore we $\boxed{\text{disprove}}$ the conjecture.
+
+Also consider the following numerical counterexample to equality: $r = 5, p = 0.4, n = 10$.
+\end{proof}
+
+\end{enumerate}
+
+\end{document}

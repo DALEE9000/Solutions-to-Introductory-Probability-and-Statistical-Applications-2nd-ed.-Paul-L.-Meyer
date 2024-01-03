@@ -1,0 +1,1425 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{setspace}
+\setstretch{0.5}
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\newcommand*{\simsym}{\mathord\sim}\usepackage{amsthm}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{wrapfig, lipsum, amsthm, thmtools}
+\usepackage{framed}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=15mm,
+ right = 15mm,
+ top=15mm,
+ bottom = 20mm
+ }
+
+\usepackage{url}
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+\usepackage[framemethod=tikz]{mdframed}
+
+\theoremstyle{definition}
+\newtheorem*{exmp*}{Example}
+
+\newtheorem*{defn}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn}
+
+\newtheorem{cor}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor}
+
+\newtheorem{prop}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop}
+
+\newtheorem*{thm}{Theorem}
+\surroundwithmdframed[backgroundcolor=white]{thm}
+
+
+% tikz for probability tree
+
+%\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{trees,calc,angles,positioning,intersections}
+
+% Inkscape compatibility (svg2tikz on github)
+\usepackage[utf8]{inputenc}
+
+% pgfplot
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% pgfplotslibrary
+\usepgfplotslibrary{fillbetween}
+
+% quotations dirty talk
+\usepackage{dirtytalk}
+
+% floor ceiling
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% diag table
+\usepackage{diagbox}
+
+
+\title{Introductory Probability and Statistical Applications, Second Edition \\
+\large{Paul L. Meyer}}
+\author{Notes and Solutions by David A. Lee }
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section*{Solutions to Chapter 1: Introduction to Probability}
+
+\begin{enumerate}[label=1.\arabic*]
+\itemsep0em 
+%Question 1.1
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the universal set consists of the positive integers from 1 through 10. Let $\bm{A = \{ 2, 3, 4 \}, B = \{ 3, 4, 5 \}}$, and $\bm{C = \{ 5, 6, 7 \}}$. List the members of the following sets.}
+\end{tcolorbox}
+
+	\begin{enumerate} 
+	%Question 1.1(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A} \cap B}$}
+	\end{tcolorbox}
+	
+	$\overline{A} = \{1, 5, 6, ..., 10 \} \implies \boxed{\overline{A} \cap B = \{ 5 \}}$
+	
+	%Question 1.1(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A} \cup B}$}
+	\end{tcolorbox}
+	
+	$\boxed{\overline{A} \cup B = \{ 1, 3, 4, ..., 10 \}}$
+	
+	%Question 1.1(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{\overline{A} \cap \overline{B}}}$}
+	\end{tcolorbox}
+	
+	\begin{align*}
+	\overline{B} = \{ 1, 2, 6, 7, ..., 10 \} &\implies \overline{A} \cap \overline{B} = \{ 1, 6, 7, ..., 10\} \\
+	&\implies \boxed{ \overline{\overline{A} \cap \overline{B}} = \{2, 3, 4, 5 \} }
+	\end{align*}
+	
+	%Question 1.1(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A \cap (\overline{B \cap C})}}$}
+	\end{tcolorbox}
+	
+	\begin{align*}
+	B \cap C = \{ 5 \} &\implies \overline{B \cap C} = \{ 1, ..., 4, 6, ..., 10 \} \\
+	&\implies A \cap (\overline{B \cap C}) = \{ 2, 3, 4 \} \\
+	&\implies \boxed{ \overline{A \cap (\overline{B \cap C})} = \{ 1, 5, ..., 10 \} }
+	\end{align*}
+	
+	%Question 1.1(e)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A \cap (B \cup C)}}$}
+	\end{tcolorbox}
+	
+	\begin{align*}
+	B \cup C = \{ 3, 4, 5, 6, 7 \} &\implies A \cap (B \cup C) = \{ 3, 4 \} \\
+	&\implies \boxed{ \overline{A \cap (B \cup C)} = \{ 1, 2, 5, ..., 10 \} }
+	\end{align*}
+	
+	\end{enumerate}
+
+%Question 1.2
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the universal set $\bm{U}$ is given by $\bm{U = \{ x \ | \ 0 \leq x \leq 2 \}}$. Let the sets $\bm{A}$ and $\bm{B}$ be defined as follows: $\bm{A = \{ x \ | \ \frac{1}{2} < x \leq 1 \}}$ and $\bm{B = \{ x \ | \ \frac{1}{4} \leq x < \frac{3}{2} \}}$. Describe the following sets.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.2(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A \cup B}}$}
+	\end{tcolorbox}
+	
+	$A \cup B = \{ x \ | \ 1/4 \leq x < 3/2 \} \implies \boxed{\overline{A \cup B} = \{ x \ | \ 0 \leq x < 1/4, 3/2 \leq x \leq 2 \} }$
+	
+	%Question 1.2(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A \cup \overline{B}}$}
+	\end{tcolorbox}
+	
+	$\overline{B} = \{ x \ | \ 0 \leq x < 1/4, 3/2 \leq x \leq 2 \} \implies \boxed{A \cup \overline{B} = \{ x \ | \ 0 \leq x < 1/4, 1/2 < x \leq 1, 3/2 \leq x \leq 2 \} }$
+	
+	%Question 1.2(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A \cap B}}$}
+	\end{tcolorbox}
+	
+	$A \cap B = \{ x \ | \ 1/2 < x \leq 1 \} \implies \boxed{ \overline{A \cap B} = \{ x \ | \ 0 \leq x \leq 1/2, 1 < x \leq 2 \} }$
+	
+	%Question 1.2(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A} \cap B}$}
+	\end{tcolorbox}
+	
+	$\overline{A} = \{ x \ | \ 0 \leq x \leq 1/2, 1 < x \leq 2 \} \implies \boxed{\overline{A} \cap B = \{ x \ | \ 1/4 \leq x \leq 1/2, 1 < x < 3/2 \}}$
+	
+	\end{enumerate}
+
+%Question 1.3
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Which of the following relationships are true?}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.3(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{(A \cup B) \cap (A \cup C) = A \cup (B \cap C)}$}
+	\end{tcolorbox}
+	
+	$\boxed{\text{True}}$.
+	
+	\begin{proof}
+	\textbf{LH}. Let $a \in (A \cup B) \cap (A \cup C)$. Then $a \in A \cup B$ and $a \in A \cup C$. Then $a$ is either in $A, B, C$ or some combination of the three such that this holds. If $a \in A$, then $a$ has inclusion in the RH. If $a \notin A$, then it must be that $a \in B, C$, so $a \in B \cap C$, so $a \in A \cup (B \cap C)$. \\
+	
+	\textbf{RH}. Let $a' \in A \cup (B \cap C)$. Then $a' \in A$ or $a' \in B \cap C$ or both. If $a' \in A$, then $a' \in A \cup B, A \cup C$, so $a' \in (A \cup B) \cap (A \cup C)$. If $a' \in B \cap C$, then $a' \in B, C$, so $a' \in A \cup B, A \cup C$, so $a' \in (A \cup B) \cap (A \cup C)$.
+	\end{proof}
+
+	%Question 1.3(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{(A \cup B) = (A \cap \overline{B}) \cup B}$}
+	\end{tcolorbox}
+	
+	$\boxed{\text{True}}$.
+	
+	\begin{proof}
+	\textbf{LH} Let $a \in A \cup B$. Then either $a \in A$ or $B$, or both. Suppose $a \notin B$, then we must have $a \in A, \overline{B}$, and consequently inclusion in the RH. Otherwise, $a \notin A$ implies $a \in B$, establishing RH inclusion.
+	
+	\textbf{RH} Let $a' \in (A \cap \overline{B}) \cup B = (A \cup B) \cap (B \cup \overline{B}) = A \cup B$.
+	\end{proof}
+	
+	%Question 1.3(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\overline{A} \cap B = A \cup B}$}
+	\end{tcolorbox}
+	
+	$\boxed{\text{False}}$.
+	
+	\begin{proof}
+	Suppose $a' \in A \cup B$. Then either $a' \in A$ or $a' \in B$. If $a' \in A$, then $a' \notin \overline{A}$, and $a' \notin \overline{A} \cap B$.
+	\end{proof}
+	
+	%Question 1.3(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{(\overline{A \cup B}) \cap C = \overline{A} \cap \overline{B} \cap \overline{C}}$}
+	\end{tcolorbox}
+	
+	$\boxed{\text{False}}$.
+	
+	\begin{proof}
+	By an application of De Morgan's laws, we can rewrite the LH as $\overline{A} \cap \overline{B} \cap C$, which clearly cannot be equal to $\overline{A} \cap \overline{B} \cap \overline{C}$ since $C \neq \overline{C}$.
+	\end{proof}
+	
+	%Question 1.3(e)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{(A \cap B) \cap (\overline{B} \cap C) = \O}$}
+	\end{tcolorbox}
+	
+	$\boxed{\text{True}}$.
+	
+	\begin{proof}
+	Suppose that $a \in (A \cap B) \cap (\overline{B} \cap C)$. Then $a \in A \cap B$ and $a \in \overline{B} \cap C$, implying $a \in B, \overline{B}$, a contradiction.
+	\end{proof}
+	
+\end{enumerate}
+	
+%Question 1.4
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that the universal set consists of all points $\bm{(x,y)}$ both of whose coordinates are integers and which lie inside or on the boundary of the square bounded by the lines $\bm{x=0, y=0, x=6}$, and $\bm{y=6}$. List the members of the following sets.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.4(a)
+	\item  \begin{tcolorbox}[
+	colback=Cerulean!5!white,
+    colframe=Cerulean!75!black]
+	\textbf{$\bm{A = \{(x,y) \ | \ x^2 + y^2 \leq 6 \}}$}
+	\end{tcolorbox}
+	
+	\boxed{A = \{ (0,0), (0,1), (0,2), (1,0), (1,1), (1,2), (2,0), (2,1) \}}
+	
+	%Question 1.4(b)
+	\item  \begin{tcolorbox}[
+	colback=Cerulean!5!white,
+    colframe=Cerulean!75!black]
+	\textbf{$\bm{B = \{(x,y) \ | \ y \leq x^2 \}}$}
+	\end{tcolorbox}
+	
+	\begin{framed}
+	\begin{align*}
+	B &= \{ (0,0), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0), (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (2,2), \\
+	&(3,2), (4,2), (5,2), (6,2), (2,3), (3,3), (4,3), (5,3), (6,3), (2,4), (3,4), (4,4), (5,4), (6,4), (3,5), \\
+	&(4,5), (5,5), (6,5), (3,6), (4,6), (5,6), (6,6) \} 
+	\end{align*}
+	\end{framed}
+	
+	%Question 1.4(c)
+	\item  \begin{tcolorbox}[
+	colback=Cerulean!5!white,
+    colframe=Cerulean!75!black]
+	\textbf{$\bm{C = \{ (x,y) \ | \ x \leq y^2 \} }$}
+	\end{tcolorbox}
+	
+	\begin{framed}
+	\begin{align*}
+	C &= \{ (0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (2,2), \\
+	&(2,3), (2,4), (2,5), (2,6), (3,2), (3,3), (3,4), (3,5), (3,6), (4,2), (4,3), (4,4), (4,5), (4,6), (5,3), \\
+	&(5,4), (5,5), (5,6), (6,3), (6,4), (6,5), (6,6) \} 
+	\end{align*}
+	\end{framed}
+	
+	%Question 1.4(d)
+	\item  \begin{tcolorbox}[
+	colback=Cerulean!5!white,
+    colframe=Cerulean!75!black]
+	\textbf{$\bm{B \cap C}$}
+	\end{tcolorbox}
+	
+	\begin{framed}
+	\begin{align*}
+	B \cap C &= \{ (0,0), (1,1), (2,2), (2,3), (2,4), (3,2), (3,3), (3,4), (3,5), (3,6), (4,2), (4,3), (4,4), \\
+	&(4,5), (4,6), (5,3), (5,4), (5,5), (5,6), (6,3), (6,4), (6,5), (6,6) \}
+	\end{align*}
+	\end{framed}
+	
+	%Question 1.4(e)
+	\item  \begin{tcolorbox}[
+	colback=Cerulean!5!white,
+    colframe=Cerulean!75!black]
+	\textbf{$\bm{(B \cup A) \cap \overline{C}}$}
+	\end{tcolorbox}
+	
+	First we calculate
+	
+	\[ \overline{C} = \{ (1,0), (2,0), (2,1), (3,0), (3,1), (4,0), (4,1), (5,0), (5,1), (5,2), (6,0), (6,1), (6,2) \} \]
+	
+	Next,
+	
+	\begin{align*}
+	B \cup A &= \{ (0,0), (0,1), (0,2), (1,0), (1,1), (1,2), (2,0), (2,1), (3,0), (4,0), (5,0), (6,0), (1,1), (2,1), (3,1), \\
+	&(4,1), (5,1), (6,1), (2,2), (3,2), (4,2), (5,2), (6,2), (2,3), (3,3), (4,3), (5,3), (6,3), (2,4), (3,4), (4,4), (5,4), \\
+	&(6,4), (3,5), (4,5), (5,5), (6,5), (3,6), (4,6), (5,6), (6,6) \} 
+	\end{align*}
+	
+	Thus we have
+	
+	\[ \boxed{ (B \cup A) \cap \overline{C} = \{ (1,0), (2,0), (2,1), (3,0), (3,1), (4,0), (4,1), (5,0), (5,1), (5,2), (6,0), (6,1), (6,2) \} } \]
+
+	\end{enumerate}
+
+\newpage
+%Question 1.5
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Use Venn diagrams to establish the following relationships.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.5(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A \subset B}$ and $\bm{B \subset C}$ imply that $\bm{A \subset C}$}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{170bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.5(a).eps}}%
+  \end{picture}%
+\endgroup%
+
+	
+	%Question 1.5(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A \subset B}$ implies that $\bm{A = A \cap B}$}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{170bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.5(b).eps}}%
+  \end{picture}%
+\endgroup%
+
+	
+	%Question 1.5(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A \subset B}$ implies that $\bm{\overline{B} \subset \overline{A}}$}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{360bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.6)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.5(c).eps}}%
+  \end{picture}%
+\endgroup%
+	
+	%Question 1.5(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A \subset B}$ implies that $\bm{A \cup C \subset B \cup C}$}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{360bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.6)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.5(d).eps}}%
+  \end{picture}%
+\endgroup%
+	
+	%Question 1.5(e)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{A \cap B = \O}$ and $\bm{C \subset A}$ imply that $\bm{B \cap C = \O}$}
+	\end{tcolorbox}
+	
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{360bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.6)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.5(e).eps}}%
+  \end{picture}%
+\endgroup%
+
+	
+	\end{enumerate}
+
+%Question 1.6
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Items coming off a production line are marked defective $\bm{(D)}$ or nondefective $\bm{(N)}$. Items are observed and their condition listed. This is continued until two consecutive defectives are produced or four items have been checked, whichever occurs first. Describe a sample space for this experiment.}
+\end{tcolorbox}
+
+\boxed{$\{ DD, NDD, NNDD, NNNN, DNNN, NDNN, NNDN, NNND, DNDN, DNND, NDND, DNDD \}$}
+
+%Question 1.7
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{[Intentionally blank]}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.7(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{A box of $\bm{N}$ light bulbs has $\bm{r \ (r < N)}$ bulbs with broken filaments. These bulbs are tested, one by one, until a defective bulb is found. Describe a sample space for this experiment.}
+	\end{tcolorbox}
+	
+	Let $F$ denote the event of testing a non-defective bulb and $T$ for defective. The sample space is
+	
+	\[ \boxed{ \{ T, FT, FFT, ..., \underbrace{F\cdots F}_{N-r \text{ non-defectives}}T \} } \]
+	
+	%Question 1.7(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Suppose that the above bulbs are tested, one by one, until all defectives have been tested. Describe the sample space for this experiment.}
+	\end{tcolorbox}
+	
+	The sample space consists of sequences of every combination of $1, 2, ..., N-r$ non-defectives with the $r$ defectives such that the $r$-th defective is the last of the sequence. For instance, given $i, 1 \leq i \leq N-r$ non-defectives are cycled through to examine all $r$ defectives, there would be $\binom{r-1+i}{i}$ such sequences corresponding to $i$ non-defectives.
+	
+	\end{enumerate}
+
+%Question 1.8
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Consider four objects, say $\bm{a, b, c,}$ and $\bm{d}$. Suppose that the \textit{order} in which these objects are listed represents the outcome of an experiment. Let the events $\bm{A}$ and $\bm{B}$ be defined as follows: $\bm{A = \{ a \text{ is in the first position}\}}$; $\bm{B = \{b \text{ is in the second position}\}}$.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.8(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{List all elements of the sample space.}
+	\end{tcolorbox}
+	
+	\begin{framed}
+	\begin{align*}
+	B &= \{ abcd, abdc, acbd, acdb, adbc, adcb, bacd, badc, bcad, bcda, bdac, bdca, \\
+	&cabd, cadb, cbad, cbda, cdab, cdba, dabc, dacb, dbac, dbca, dcab, dcba \} 
+	\end{align*}
+	\end{framed}
+	
+	%Question 1.8(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{List all elements of the events $\bm{A \cap B}$ and $\bm{A \cup B}$.}
+	\end{tcolorbox}
+	
+	\begin{framed}
+	\begin{align*}
+	A \cap B &= \{ abcd, abdc \} \\
+	A \cup B &= \{ abcd, abdc, acbd, acdb, adbc, adcb, cbad, cbda, dbac, dbca \}
+	\end{align*}
+	\end{framed}
+	
+	\end{enumerate}
+
+%Question 1.9
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A lot contains items weighing 5, 10, 15, ..., 50 pounds. Assume that at least two items of each weight are found in the lot. Two items are chosen from the lot. Let $\bm{X}$ denote the weight of the first item chosen and $\bm{Y}$ the weight of the second item. Thus the pair of numbers $\bm{(X,Y)}$ represents a single outcome of the experiment. Using the $\bm{XY}$-plane, indicate the sample space and the following events.}
+\end{tcolorbox}
+
+The sample space is graphically given by
+
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.9.eps}}%
+  \end{picture}%
+  \end{center}
+\endgroup%
+
+\par
+The described events below are indicated in \textcolor{red}{\textbf{red}}.
+
+	\begin{enumerate}
+	%Question 1.9(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\{ X = Y \}}$}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.9(a).eps}}%
+  \end{picture}%
+\endgroup%
+
+	
+	%Question 1.9(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{\{ Y > X \}}$}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.9(b).eps}}%
+  \end{picture}%
+\endgroup%
+
+	\newpage
+	%Question 1.9(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{The second item is twice as heavy as the first item.}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.9(c).eps}}%
+  \end{picture}%
+\endgroup%
+
+	
+	%Question 1.9(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{The first item weighs 10 pounds less than the second item.}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.9(d).eps}}%
+  \end{picture}%
+\endgroup%
+
+	\newpage
+	%Question 1.9(e)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{The average weight of the two items is less than 30 pounds.}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.9(e).eps}}%
+  \end{picture}%
+\endgroup%
+
+	\end{enumerate}
+
+%Question 1.10
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{During a 24-hour period, at some time $\bm{X}$, a switch is put into ``ON" position. Subsequently, at some future time $\bm{Y}$ (still during that same 24-hour period) the switch is put into the ``OFF" position. Assume that $\bm{X}$ and $\bm{Y}$ are measured in hours on the time axis with the beginning of the time period as the origin. The outcome of the experiment consists of the pair of numbers $\bm{(X,Y)}$.}
+\end{tcolorbox}
+
+The sample space and specific events are described below in the shaded \textcolor{gray}{\textbf{gray}} area.
+
+	\begin{enumerate}
+	%Question 1.10(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Describe the sample space.}
+	\end{tcolorbox}
+	
+	\centering
+	\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.10(a).eps}}%
+  \end{picture}%
+\endgroup%
+
+	
+	%Question 1.10(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Describe and sketch in the $\bm{XY}$-plane the following events.}
+	\end{tcolorbox}
+	
+		\begin{enumerate}
+		%Question 1.10(b)(i)
+		\item  \begin{tcolorbox}[
+		  colback=Cerulean!5!white,
+		  colframe=Cerulean!75!black]
+		\textbf{The circuit is on for one hour or less.}
+		\end{tcolorbox}
+		
+		If the circuit is turned on at some time $X$, we must have $X < Y \leq X + 1$.
+		
+		\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.10(b)(i).eps}}%
+  \end{picture}%
+  \end{center}
+\endgroup%
+
+		
+		%Question 1.10(b)(ii)
+		\item  \begin{tcolorbox}[
+		  colback=Cerulean!5!white,
+		  colframe=Cerulean!75!black]
+		\textbf{The circuit is on at time $\bm{z}$ where $\bm{z}$ is some instant during the given 24-hour period.}
+		\end{tcolorbox}
+		
+		If the circuit is turned on at time $X$, and near-instantaneously turned off at time $Y = X + \Delta X$, we may approximate this as the $45^\circ$ line going through the origin.
+		
+		\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.10(b)(ii).eps}}%
+  \end{picture}%
+  \end{center}
+\endgroup%
+
+		\newpage
+		%Question 1.10(b)(iii)
+		\item  \begin{tcolorbox}[
+		  colback=Cerulean!5!white,
+		  colframe=Cerulean!75!black]
+		\textbf{The circuit is turned on before time $\bm{t_1}$ and turned off after time $\bm{t_2}$ (where again $\bm{t_1 < t_2}$ are two time instants during the specified period).}
+		\end{tcolorbox}
+		
+		Here, we describe the outcomes $0 \leq X < t_1$ and $X \leq Y < t_2$.
+		
+		\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.10(b)(iii).eps}}%
+  \end{picture}%
+  \end{center}
+\endgroup%
+
+		
+			%Question 1.10(b)(iv)
+		\item  \begin{tcolorbox}[
+		  colback=Cerulean!5!white,
+		  colframe=Cerulean!75!black]
+		\textbf{The circuit is on twice as long as it is off.}
+		\end{tcolorbox}
+		
+		The only way to ensure the constraint is met is that the circuit is on for sixteen hours and off for eight. The event is thus described as a straight line between $(0, 16)$ and $(8, 24)$, or all points satisfying the condition $(X, X+16)$.
+		
+		\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{216bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{center}
+  \begin{picture}(1,1)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength]{1.10(b)(iv).eps}}%
+  \end{picture}%
+  \end{center}
+\endgroup%
+
+		
+		\end{enumerate}
+	\end{enumerate}
+
+%Question 1.11
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Let $\bm{A, B,}$ and $\bm{C}$ be three events associated with an experiment. Express the following verbal statements in set notation.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.11(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{At least one of the events occurs.}
+	\end{tcolorbox}
+	
+	\boxed{A \cup B \cup C}
+	
+	%Question 1.11(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Exactly one of the events occurs.}
+	\end{tcolorbox}
+	
+	\boxed{[\overline{A} \cap \overline{B} \cap C] \cup [A \cap \overline{B} \cap \overline{C}] \cup [\overline{A} \cap B \cap C]}
+	
+	%Question 1.11(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Exactly two of the events occur.}
+	\end{tcolorbox}
+	
+	\boxed{[\overline{A} \cap B \cap C] \cup [A \cap \overline{B} \cap C] \cup [A \cap B \cap \overline{C}]}
+	
+	%Question 1.11(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Not more than two of the events occur simultaneously.}
+	\end{tcolorbox}
+	
+	\boxed{\overline{A \cap B \cap C}}
+	\end{enumerate}
+
+%Question 1.12
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Prove Theorem 1.4.}
+\end{tcolorbox}
+
+\begin{thm}
+If $A, B,$ and $C$ are any three events, then
+
+\[ P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C) \]
+\end{thm}
+
+\begin{proof}
+We know that for any events $X,Y$,
+
+\[ P(X \cup Y) = P(X) + P(Y) - P(X \cap Y) \]
+
+Let $X = A \cup B, Y = C$. Then
+
+\begin{align*}
+P(A \cup B \cup C) &= P(A \cup B) + P(c) - P((A \cup B) \cap C) \\
+&= P(A) + P(B) + P(C) - P(A \cap B) - P((A \cap C) \cup (B \cap C)) \\
+&= P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)
+\end{align*}
+\end{proof}
+
+%Question 1.13
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{[Intentionally blank]}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.13(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Show that for any two events, $\bm{A_1}$ and $\bm{A_2}$, we have $\bm{P(A_1 \cup A_2) \leq P(A_1) + P(A_2)}$.}
+	\end{tcolorbox}
+	
+	\begin{proof} We know that $P(A_1 \cup A_2) = P(A_1) + P(A_2) - P(A_1 \cap A_2)$. It immediately follows that $P(A_1 \cup A_2) \leq P(A_1 \cup A_2) + P(A_1 \cap A_2) = P(A_1) + P(A_2)$. 
+	\end{proof}
+	
+	%Question 1.13(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{Show that for any $\bm{n}$ events $\bm{A_1, ..., A_n}$, we have}
+	
+	\[ \bm{P(A_1 \cup \cdots \cup A_n) \leq P(A_1) + \cdots + P(A_n)} \]
+	
+	\textbf{[\textit{Hint:} Use mathematical induction. The result stated in (b) is called Boole's inequality.]}
+	\end{tcolorbox}
+	
+	By part (a), $P(A_1 \cup A_2) \leq P(A_1) + P(A_2)$. Now suppose that the result holds for $n$ events. Then by our induction hypothesis,
+	
+	\[
+	P \bigg( \bigg( \bigcup^n_{i=1} A_i \bigg) \cup A_{n+1} \bigg) = P \bigg( \bigcup^n_{i=1} A_i \bigg) + P (A_{n+1}) - P \bigg( \bigg( \bigcup^n_{i=1} A_i \bigg) \cap A_{n+1} \bigg) \leq \sum^{n+1}_{i=1} P(A_i) - P \bigg( \bigg( \bigcup^n_{i=1} A_i \bigg) \cap A_{n+1} \bigg)
+	\]
+	
+	Since $0 \leq P \big( \big( \bigcup^n_{i=1} A_i \big) \cap A_{n+1} \big) \leq 1$, it follows that
+	
+	\[ P \bigg( \bigg( \bigcup^n_{i=1} A_i \bigg) \cup A_{n+1} \bigg) = \boxed{P \bigg( \bigcup^n_{i=1} A_i \bigg) \leq \sum^{n+1}_{i=1} P(A_i)} \]
+	\end{enumerate}
+
+\newpage
+%Question 1.14
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Theorem 1.3 deals with the probability that \textit{at least one} of the two events $\bm{A}$ or $\bm{B}$ occurs. The following statement deals with the probability that \textit{exactly one} of the events $\bm{A}$ or $\bm{B}$ occurs. Show that}
+
+\[ \bm{[P(A \cap \overline{B}) \cup (B \cap \overline{A})] = P(A) + P(B) - 2P(A \cap B)} \]
+\end{tcolorbox}
+
+\begin{proof}
+
+Meyer Theorem 1.3 states
+
+\begin{thm}
+If $A$ and $B$ are \textit{any} two events, then
+
+\[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]
+\end{thm}
+
+The intuition to appeal to here is to observe that $A \cap \overline{B}$ and $B \cap \overline{A}$ are mutually exclusive events. We formally prove this as follows:
+
+\begin{proof}
+Let $a \in A \cap \overline{B}$. Then $a \in A, \overline{B}$, so $a \notin B$ and $a \notin B \cap \overline{A}$. Conversely, let $a' \in B \cap \overline{A}$, then $a' \in B, \overline{A}$, so $a' \notin A$, then $a' \notin A \cap \overline{B}$. Thus $(A \cap \overline{B}) \cap (B \cap \overline{A}) = \O$, establishing the mutual exclusivity of these events.
+\end{proof}
+
+Using the mutual exclusive property, we know that $P[(A \cap \overline{B}) \cup (B \cap \overline{A})] = P(A \cap \overline{B}) + P(B \cap \overline{A})$. We can also see that
+
+\[ (A \cap \overline{B}) \cup (A \cap B) \quad \text{and} \quad (B \cap \overline{A}) \cup (A \cap B) = B \]
+
+and moreover, that $A \cap \overline{B}, B \cap \overline{A}$, and $A \cap B$ are all disjoint. Thus we have
+
+\begin{align*}
+P(A) &= P[(A \cap \overline{B}) \cup (A \cap B)] = P(A \cap \overline{B}) + P(A \cap B) \\
+P(B) &= P[(B \cap \overline{A}) \cup (A \cap B)] = P(B \cap \overline{A}) + P(A \cap B)
+\end{align*}
+
+Substituting $P(A \cap \overline{B}) = P(A) - P(A \cap B)$ and $P(B \cap \overline{A}) = P(B) - P(A \cap B)$ yields our desired result.
+
+\end{proof}
+
+%Question 1.15
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A certain type of electric motor fails either by seizure of the bearings, or by burning out of the electric windings, or by wearing out of the brushes. Suppose that seizure is twice as likely as burning out, which is four times as likely as brush wearout. What is the probability that failure will be by each of these three mechanisms?}
+\end{tcolorbox}
+
+Let $P(\text{brush wearout}) = p$. Then $P(\text{burning out}) = 4p$ and $P(\text{seizure}) = 8p$. Assuming mutual exclusivity of each event, we must have $13p = 1$ or $p = 1/13$. \\
+Then $\boxed{P(\text{brush wearout}) = 1/13, P(\text{burning out}) = 4/13, P(\text{seizure}) = 8/13}$.
+
+%Question 1.16
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{A}$ and $\bm{B}$ are events for which $\bm{P(A) = x, P(B) = y,}$ and $\bm{P(A \cap B) = z}$. Express each of the following probabilities in terms of $\bm{x, y,}$ and $\bm{z}$.}
+\end{tcolorbox}
+
+	\begin{enumerate}
+	%Question 1.16(a)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{P(\overline{A} \cup \overline{B})}$}
+	\end{tcolorbox}
+	
+	\begin{align*}
+	P(\overline{A} \cup \overline{B}) &= P(\overline{A}) + P(\overline{B}) - P(\overline{A} \cap \overline{B}) \\
+	&= (1 - P(A)) + (1 - P(B)) - (1 - P(A \cup B)) \\
+	&= 2 - (P(A) + P(B)) - (1 - (P(A) + P(B) - P(A \cap B))) \\
+	&= 2 - (x+y) + x + y - z = \boxed{1 - z}
+	\end{align*}
+	
+	For the following problems, we recall the identities from Problem 1.14:
+
+	\begin{align*}
+	P(A) &= P(A \cap \overline{B}) + P(A \cap B) \\
+	P(B) &= P(B \cap \overline{A}) + P(A \cap B) 
+	\end{align*}
+	
+	%Question 1.16(b)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{P(\overline{A} \cap B)}$}
+	\end{tcolorbox}
+	
+	\[ P(\overline{A} \cap B) = P(B) - P(A \cap B) = \boxed{y-z} \]
+	
+	%Question 1.16(c)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{P(\overline{A} \cup B)}$}
+	\end{tcolorbox}
+	
+	\begin{align*}
+	P(\overline{A} \cup B) &= P(\overline{A}) + P(B) - P(\overline{A} \cap B) \\
+	&= (1 - P(A)) + P(B) - P(\overline{A} \cap B) \\
+	&= 1 - x + y - y + z = \boxed{1 - x + z}
+	\end{align*}
+	
+	%Question 1.16(d)
+	\item  \begin{tcolorbox}[
+	  colback=Cerulean!5!white,
+	  colframe=Cerulean!75!black]
+	\textbf{$\bm{P(\overline{A} \cap \overline{B})}$}
+	\end{tcolorbox}
+	
+	\[ P(\overline{A} \cap \overline{B}) = 1 - P(A \cup B) = 1 - (P(A) + P(B) - P(A \cap B)) = \boxed{1 - x - y + z} \]
+	\end{enumerate}
+
+%Question 1.17
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{Suppose that $\bm{A, B,}$ and $\bm{C}$ are events such that $\bm{P(A) = P(B) = P(C) = \frac{1}{4}}$, $\bm{P(A \cap B) = P(C \cap B) = 0}$, and $\bm{P(A \cap C) = \frac{1}{8}}$. Evaluate the probability that at least one of events $\bm{A, B,}$ or $\bm{C}$ occurs.}
+\end{tcolorbox}
+
+Since $P(A \cap B) = P(C \cap B) = 0$ implies $A \cap B = C \cap B = \O$, we must also have $A \cap B \cap C = \O$ which implies $P(A \cap B \cap C) = 0$. By Theorem 1.4,
+
+\begin{align*}
+P(A \cup B \cup C) &= P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C) \\
+&= 1/4 + 1/4 + 1/4 - 1/8 \\
+&= \boxed{5/8}
+\end{align*}
+
+%Question 1.18
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{An installation consists of two boilers and one engine. Let the event $\bm{A}$ be ethat the engine is in good condition, while the events $\bm{B_k (k = 1, 2)}$ are the events that the $\bm{k}$th boiler is in good condition. The event $\bm{C}$ is that the installation can operate. If the installation is operative whenever the engine and at least one boiler function, express $\bm{C}$ and $\bm{\overline{C}}$ in terms of $\bm{A}$ and the $\bm{B_i's}$.}
+\end{tcolorbox}
+
+$\boxed{C = (A \cap B_1) \cup (A \cap B_2)}$ and $\overline{C} = (\overline{A \cap B_1}) \cap (\overline{A \cap B_2}) = \boxed{(\overline{A} \cup \overline{B_1}) \cap (\overline{A} \cup \overline{B_2})}$
+
+%Question 1.19
+\item  \begin{tcolorbox}[
+  colback=Cerulean!5!white,
+  colframe=Cerulean!75!black]
+\textbf{A mechanism has two types of parts, say I and II. Suppose that there are two of type I and three of type II. Define the events $\bm{A_k, k = 1, 2,}$ and $\bm{B_j, j = 1, 2, 3}$ as follows: $\bm{A_k}$: the $\bm{k}$th unit of type I is functioning properly; $\bm{B_j}$: the $\bm{j}$th unit of type II is functioning properly. Finally, let $\bm{C}$ represent the event: the mechanism functions. Given that the mechanism functions if at least one unit of type I and at least two units of type II function, express the event $\bm{C}$ in terms of the $\bm{A_K}$'s and $\bm{B_j}$'s.}
+\end{tcolorbox}
+
+$\boxed{C = (A_1 \cup A_2) \cap ((B_1 \cap B_2) \cup (B_1 \cap B_3) \cup (B_2 \cap B_3))}$
+
+\end{enumerate}
+
+\end{document}
