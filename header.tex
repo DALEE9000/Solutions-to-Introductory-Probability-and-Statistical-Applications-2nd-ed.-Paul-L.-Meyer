@@ -1,0 +1,166 @@
+% ============================================================================
+%  header.tex — shared preamble for the Meyer solutions manual
+%
+%  Included by master.tex and by each of the ten per-chapter documents via:
+%      \IfFileExists{header.tex}{\input{header}}{\input{../header}}
+%  (the fallback lets a chapter compile whether the working directory is the
+%   repository root or the chapter's own folder).
+%
+%  This file is the *union* of the ten original per-chapter preambles, so every
+%  chapter keeps the packages, macros and theorem environments it relied on.
+%  Two divergences in the originals are reconciled here:
+%    * inputenc: chapter 1 declared utf8, the others latin1. Every source file
+%      is in fact UTF-8, and the only non-ASCII byte in any of them is a "§"
+%      inside a comment, so utf8 is used throughout and renders identically.
+%    * theorem environments: chapters 7 and 8 used the starred names defn*,
+%      cor*, prop*, thm*; the other chapters used defn, cor, prop, thm. Both
+%      families are defined below, with their original numbering preserved.
+% ============================================================================
+
+\PassOptionsToPackage{dvipsnames}{xcolor}
+
+\usepackage{geometry}
+\geometry{letterpaper}
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=15mm,
+ right = 15mm,
+ top=15mm,
+ bottom = 20mm
+ }
+
+\usepackage{graphicx}
+% Figures live alongside the chapter that uses them. Listing "./" first plus
+% every chapter folder lets a document find its figures whether it is compiled
+% from inside its own folder or from the repository root (which is how the
+% master builds), so the chapters no longer depend on the working directory.
+\graphicspath{%
+  {./}%
+  {Chapter 1 - Introduction to Probability/}%
+  {Chapter 2 - Finite Sample Spaces/}%
+  {Chapter 3 - Conditional Probability and Independence/}%
+  {Chapter 4 - One-Dimensional Random Variables/}%
+  {Chapter 5 - Functions of Random Variables/}%
+  {Chapter 6 - Two- and Higher-Dimensional Random Variables/}%
+  {Chapter 7 - Further Characteristics of Random Variables/}%
+  {Chapter 8 - The Poisson and Other Discrete Random Variables/}%
+  {Chapter 9 - Some Important Continuous Random Variables/}%
+  {Chapter 10 - The Moment-Generating Function/}%
+}
+\usepackage{setspace}
+\setstretch{0.5}
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage{mathrsfs}
+\usepackage{wrapfig, lipsum, amsthm, thmtools}
+\usepackage{framed}
+\usepackage{gensymb}
+\usepackage{url}
+
+\newcommand*{\simsym}{\mathord\sim}
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+\usepackage[framemethod=tikz]{mdframed}
+
+% ---------------------------------------------------------------------------
+% Theorem environments
+% ---------------------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem*{exmp*}{Example}
+
+% Family used by chapters 1-6, 9, 10
+\newtheorem*{defn}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn}
+
+\newtheorem{cor}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor}
+
+\newtheorem{prop}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop}
+
+\newtheorem*{thm}{Theorem}
+\surroundwithmdframed[backgroundcolor=white]{thm}
+
+% Family used by chapters 7 and 8
+\newtheorem*{defn*}{Definition}
+\surroundwithmdframed[backgroundcolor=white]{defn*}
+
+\newtheorem{cor*}{Corollary}
+\surroundwithmdframed[backgroundcolor=white]{cor*}
+
+\newtheorem*{prop*}{Proposition}
+\surroundwithmdframed[backgroundcolor=white]{prop*}
+
+\newtheorem*{thm*}{Theorem}
+\surroundwithmdframed[backgroundcolor=white]{thm*}
+
+% ---------------------------------------------------------------------------
+% Encoding
+% ---------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+
+% ---------------------------------------------------------------------------
+% tikz (probability trees) and pgfplots
+% ---------------------------------------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{trees,calc,angles,positioning,intersections}
+
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{fillbetween}
+
+% quotations dirty talk
+\usepackage{dirtytalk}
+
+% floor ceiling
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% diag table
+\usepackage{diagbox}
+
+% math circle
+\makeatletter
+\newcommand\mathcircled[1]{%
+  \mathpalette\@mathcircled{#1}%
+}
+\newcommand\@mathcircled[2]{%
+  \tikz[baseline=(math.base)] \node[draw,circle,inner sep=1pt] (math) {$\m@th#1#2$};%
+}
+\makeatother
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+% Follows the convention used in the deqla and apde manuals: the document
+% defines \nbook (and \nbookshort) before inputting this header, and the title
+% block is assembled here from those macros -- \title is left empty and the
+% book, its author and the solutions author are stacked in \author, with a
+% closing disclaimer appended to \maketitle.
+%
+% Guarded on \nbook so only the merged document picks this up; the ten chapter
+% documents declare their own \title/\author after inputting this file and are
+% left exactly as they were. Defining \nisofficial suppresses the disclaimer.
+\ifx \nbook \undefined
+\else
+  \ifx \nauthor \undefined
+    \def\nauthor{David A. Lee}
+  \fi
+  \author{\nbook \\ \small Paul L. Meyer \\ \small Solutions by \nauthor}
+  \date{}
+  \title{}
+  \ifx \nisofficial \undefined
+    \makeatletter
+    \let\@real@maketitle\maketitle
+    \renewcommand{\maketitle}{\@real@maketitle\begin{center}\begin{minipage}[c]{0.9\textwidth}\centering\footnotesize All errors, typographical and substantive, and other offenses, are entirely my own.\end{minipage}\end{center}}
+    \makeatother
+  \fi
+\fi

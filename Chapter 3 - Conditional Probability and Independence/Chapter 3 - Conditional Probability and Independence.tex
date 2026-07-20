@@ -1,70 +1,11 @@
-\PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass[10pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
-\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
-\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
-%\geometry{landscape}                		% Activate for rotated page geometry
-%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
-\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
-								% TeX will automatically convert eps --> pdf in pdflatex		
-\usepackage{setspace}
-\setstretch{0.5}
+\documentclass[10pt, oneside]{article}
 
-\usepackage{lmodern}
-\usepackage{amsmath,amssymb,amsthm,enumitem,mathtools,xpatch}
-\usepackage{bm}
-\usepackage[most]{tcolorbox}
-\usepackage[dvipsnames]{xcolor}
-\newcommand*{\simsym}{\mathord\sim}\usepackage{amsthm}
-\usepackage{float}
-\usepackage{mathrsfs}
-\usepackage{wrapfig, lipsum, amsthm, thmtools}
-\usepackage{geometry}
- \geometry{
- a4paper,
- total={170mm,257mm},
- left=15mm,
- right = 15mm,
- top=15mm,
- bottom = 20mm
- }
-
-
-\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
-\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
-
-\usepackage[framemethod=tikz]{mdframed}
-
-\theoremstyle{definition}
-\newtheorem*{exmp*}{Example}
-
-\newtheorem*{defn}{Definition}
-\surroundwithmdframed[backgroundcolor=white]{defn}
-
-\newtheorem{cor}{Corollary}
-\surroundwithmdframed[backgroundcolor=white]{cor}
-
-\newtheorem{prop}{Proposition}
-\surroundwithmdframed[backgroundcolor=white]{prop}
-
-\newtheorem*{thm}{Theorem}
-\surroundwithmdframed[backgroundcolor=white]{thm}
-
-
-% tikz for probability tree
-
-\usepackage[latin1]{inputenc}
-\usepackage{tikz}
-\usetikzlibrary{trees}
-
-% quotations dirty talk
-\usepackage{dirtytalk}
-
+\IfFileExists{header.tex}{\input{header}}{\input{../header}}
 
 \title{Introductory Probability and Statistical Applications, Second Edition \\
 \large{Paul L. Meyer}}
 \author{Notes and Solutions by David A. Lee}
 \date{}							% Activate to display a given date or no date
-
 \begin{document}
 \maketitle
 \section*{Solutions to Chapter 3: Conditional Probability and Independence}
@@ -1527,4 +1468,4 @@ P(\alpha_1 \alpha_1 \text{ meant} \ | \ \alpha_1 \alpha_1 \text{ printed}) &= \f
 
 \end{enumerate}
 
-\end{document}  
+\end{document}

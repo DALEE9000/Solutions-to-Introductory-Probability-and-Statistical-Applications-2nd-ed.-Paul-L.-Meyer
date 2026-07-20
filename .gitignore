@@ -1,0 +1,13 @@
+build/
+*-eps-converted-to.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+.DS_Store
+
+# Local working instructions, not part of the manual
+CLAUDE.md
