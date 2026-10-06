@@ -123,6 +123,10 @@
 % floor ceiling
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+% plain \abs{x} autosizes like \left| x \right|; \abs*{x} keeps fixed-size bars
+\DeclarePairedDelimiter\absfixed{\lvert}{\rvert}%
+\RenewDocumentCommand{\abs}{s}{\IfBooleanTF{#1}{\absfixed}{\absfixed*}}%
 
 % diag table
 \usepackage{diagbox}
