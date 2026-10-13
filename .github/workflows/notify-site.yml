@@ -1,0 +1,30 @@
+# Lives in each solutions repo as .github/workflows/notify-site.yml.
+# On every push to main it asks the website repo to re-render, so a fixed
+# problem is live in a few minutes instead of waiting for the hourly cron.
+#
+# Needs the repo secret DALEE_DISPATCH_TOKEN: a fine-grained personal access
+# token for the DALEE9000/dalee repository with "Contents: read and write".
+# Without the secret the job exits quietly and the hourly fallback applies.
+
+name: Notify website
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger render in DALEE9000/dalee
+        env:
+          TOKEN: ${{ secrets.DALEE_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "DALEE_DISPATCH_TOKEN not set; the hourly render will pick this up"
+            exit 0
+          fi
+          curl -fsS -X POST https://api.github.com/repos/DALEE9000/dalee/dispatches \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -d "{\"event_type\":\"solutions-updated\",\"client_payload\":{\"repo\":\"${{ github.repository }}\",\"sha\":\"${{ github.sha }}\"}}"
